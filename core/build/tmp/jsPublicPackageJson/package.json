@@ -1,0 +1,11 @@
+{
+  "name": "captain-core",
+  "version": "0.2.38",
+  "main": "captain-core.js",
+  "types": "captain-core.d.ts",
+  "devDependencies": {},
+  "dependencies": {},
+  "peerDependencies": {},
+  "optionalDependencies": {},
+  "bundledDependencies": []
+}

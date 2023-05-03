@@ -1,0 +1,10 @@
+abi_version=1.7.0
+builtins_platform=JS
+compiler_version=1.8.20
+depends=com.picortex\:cinematic-live-core com.picortex\:koncurrent-executors-core com.picortex\:functions-core kotlin
+ir_version=1.0.0
+jsOutputName=captain-core
+metadata_version=1.4.1
+serializedIrFileFingerprints=SerializedIrFileFingerprint(fileFingerprint\=2r94taqx3tpsg.3s2dzoxvkvpwu) SerializedIrFileFingerprint(fileFingerprint\=2n7vahkb7alei.22iiirf7y2zfp)
+serializedKlibFingerprint=2e969g4tel5ev.1wv7pvbzoakcd
+unique_name=com.picortex\:captain-core
