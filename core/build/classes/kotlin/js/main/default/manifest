@@ -5,6 +5,6 @@ depends=com.picortex\:cinematic-live-core com.picortex\:koncurrent-executors-cor
 ir_version=1.0.0
 jsOutputName=captain-core
 metadata_version=1.4.1
-serializedIrFileFingerprints=SerializedIrFileFingerprint(fileFingerprint\=2r94taqx3tpsg.3s2dzoxvkvpwu) SerializedIrFileFingerprint(fileFingerprint\=2n7vahkb7alei.22iiirf7y2zfp)
-serializedKlibFingerprint=2e969g4tel5ev.1wv7pvbzoakcd
+serializedIrFileFingerprints=SerializedIrFileFingerprint(fileFingerprint\=2z76czcozl3dc.25qljzqsexs50) SerializedIrFileFingerprint(fileFingerprint\=2r94taqx3tpsg.3s2dzoxvkvpwu) SerializedIrFileFingerprint(fileFingerprint\=4v4oagru7d11.zkp8lq98wxxp) SerializedIrFileFingerprint(fileFingerprint\=2jc6e2gzezh3e.kli5e40w0983)
+serializedKlibFingerprint=1tyuj55b3xogd.1ef6ztt6008eg
 unique_name=com.picortex\:captain-core
