@@ -18,13 +18,8 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api(projects.cinematicLiveCore)
-            }
-        }
-
-        val commonTest by getting {
-            dependencies {
-                implementation(projects.kommanderCore)
+                api(projects.captainNavigatorApi)
+                api(projects.kommanderCore)
             }
         }
     }

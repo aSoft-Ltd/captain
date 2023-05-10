@@ -7,6 +7,7 @@ import cinematic.Live
 import kotlin.js.JsExport
 
 interface Navigator {
-    val destination: Live<String>
+    val route: Live<Url>
+    fun current(): Url
     fun navigate(path: String)
 }
