@@ -6,6 +6,9 @@ import kotlinx.browser.window
 import kotlin.test.Test
 
 class BrowserNavigatorTest : AbstractNavigatorTest() {
+
+    // During testing this looks like this
+    // https://localhost:9065/content.html
     override val initial: String get() = window.location.href
 
     override val navigator: Navigator = BrowserNavigator()
