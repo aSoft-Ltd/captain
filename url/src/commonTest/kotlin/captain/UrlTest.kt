@@ -192,6 +192,7 @@ class UrlTest {
         fun perimeter() = 2 * (h + w)
     }
 
+    @Test
     fun should_calculate_an_area_for_a_unit_react() {
         val rect = Rect(1, 1)
         expect(rect.area()).toBe(1)
