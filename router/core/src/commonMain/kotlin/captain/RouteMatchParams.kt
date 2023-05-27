@@ -7,7 +7,7 @@ import kase.Optional
 import kase.optionalOf
 import kotlin.js.JsExport
 
-class RouteMatchParams(
+data class RouteMatchParams(
     val params: Map<String, String>,
     val isExact: Boolean
 ) {
