@@ -11,6 +11,11 @@ fun Url.matches(url: Url): RouteMatchParams? {
                 map[param] = paths[i]
                 continue
             }
+            if (url.paths[i].startsWith("{")) {
+                val param = url.paths[i].removePrefix("{").removeSuffix("}")
+                map[param] = paths[i]
+                continue
+            }
             if (url.paths[i] != paths[i]) return null
         }
         return RouteMatchParams(map, isExact = false)

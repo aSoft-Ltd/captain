@@ -97,7 +97,7 @@ external interface PeopleProps : Props {
 }
 
 val People = FC<PeopleProps> { props ->
-    val name = useOptionalParam("name").getOr("Unknown")
+    val name = useParams("name")
     section {
         h3 {
             +props.heading
