@@ -3,7 +3,6 @@ package captain
 import captain.internal.AbstractNavigator
 import cinematic.MutableLive
 import cinematic.singleWatchableLiveOf
-import kotlinx.browser.document
 import kotlinx.browser.window
 
 open class BrowserFollowingNavigator : AbstractNavigator() {

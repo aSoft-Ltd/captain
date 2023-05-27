@@ -2,7 +2,6 @@ package captain
 
 import kotlinx.browser.document
 import kotlinx.browser.window
-import org.w3c.dom.Window
 
 class BrowserNavigator : BrowserFollowingNavigator() {
 
@@ -10,14 +9,18 @@ class BrowserNavigator : BrowserFollowingNavigator() {
 
     init {
         window.onpopstate = {
-            navigate(current().trail())
+            navigate(current().trail(), false)
         }
     }
 
-    override fun navigate(path: String) {
+    private fun navigate(path: String, pushing: Boolean) {
         super.navigate(path)
-        history.pushState(null, document.title, route.value.trail())
+        if (pushing) {
+            history.pushState(null, document.title, route.value.trail())
+        }
     }
+
+    override fun navigate(path: String) = navigate(path, true)
 
     override fun toString(): String = "BrowserNavigator"
 }
