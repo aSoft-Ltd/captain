@@ -8,6 +8,10 @@ internal class UrlImpl(
     override val paths: List<String>
 ) : Url {
     companion object {
+
+        private val String.isDomainLike: Boolean
+            get() = contains(".") || (contains(":") && !startsWith(":"))
+
         operator fun invoke(value: String): Url {
             var protocol = value.split("://").getOrNull(0) ?: ""
             val lessProtocol = if (protocol == value) {
@@ -19,7 +23,7 @@ internal class UrlImpl(
             val segments = lessProtocol.replace("//", "/").split("/").filter {
                 it.isNotBlank()
             }
-            val domain = segments.firstOrNull { it.contains(".") || it.contains(":") } ?: ""
+            val domain = segments.firstOrNull { it.isDomainLike } ?: ""
             val paths = segments - domain
             return UrlImpl(
                 protocol = protocol,

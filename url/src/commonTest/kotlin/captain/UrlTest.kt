@@ -125,6 +125,18 @@ class UrlTest {
     }
 
     @Test
+    fun should_keep_dynamic_definitions_intact_with_domains() {
+        val url = Url("https://test.com/customer/:uid")
+        expect(url.trail()).toBe("/customer/:uid")
+    }
+
+    @Test
+    fun should_keep_dynamic_definitions_intact_without_domains() {
+        val url = Url("/customer/:uid")
+        expect(url.trail()).toBe("/customer/:uid")
+    }
+
+    @Test
     fun should_recover_from_trailing_slash_url_mistakes() {
         val url = Url("//users")
         expect(url).toBe(Url("/users"))
@@ -168,5 +180,12 @@ class UrlTest {
     fun should_be_able_to_get_the_root_of_the_url() {
         val url = Url("http://github.com/andylamax")
         expect(url.root()).toBe("http://github.com")
+    }
+
+    @Test
+    fun should_add() {
+        val sum = 4 + 3
+        val ans = 7
+        expect(sum).toBe(ans)
     }
 }

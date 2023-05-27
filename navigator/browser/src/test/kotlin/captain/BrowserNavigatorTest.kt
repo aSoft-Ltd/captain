@@ -11,7 +11,7 @@ class BrowserNavigatorTest : AbstractNavigatorTest() {
     // https://localhost:9065/content.html
     override val initial: String get() = window.location.href
 
-    override val navigator: Navigator = BrowserNavigator()
+    override val navigator: Navigator = BrowserNavigator(syncWithAddressBar = false)
 
     @Test
     fun should_be_able_to_navigate_to_relative_destinations() {
