@@ -21,5 +21,12 @@ kotlin {
                 api(projects.captainNavigatorApi)
             }
         }
+
+        val commonTest by getting {
+            dependencies {
+                implementation(projects.kommanderCore)
+                implementation(projects.captainNavigatorBasic)
+            }
+        }
     }
 }

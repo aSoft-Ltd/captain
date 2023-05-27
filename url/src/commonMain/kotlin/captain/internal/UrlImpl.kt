@@ -50,9 +50,7 @@ internal class UrlImpl(
 
     override fun at(path: String): Url = UrlImpl(protocol, domain, path.toPaths())
 
-    override fun child(url: String): Url {
-        TODO("Not yet implemented")
-    }
+    override fun child(url: String): Url = UrlImpl(protocol, domain, paths + url.split("/").filterNot { it.isEmpty() })
 
     override fun trail(): String = buildString {
         if (paths.isNotEmpty()) {
