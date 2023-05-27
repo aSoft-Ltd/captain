@@ -10,8 +10,8 @@ class RouteParams {
     fun get(key: String): Optional<String> = none()
 }
 
-fun useRouteParams(): RouteParams {
-    return RouteParams()
+fun useRouteParams(): RouteMatchParams {
+    return RouteMatchParams(false)
 }
 
 fun useOptionalParam(key: String): Optional<String> {

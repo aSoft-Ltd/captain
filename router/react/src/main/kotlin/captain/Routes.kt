@@ -23,7 +23,8 @@ val Routes = FC<RoutesProps>("Routes") { props ->
     val route = navigator.route.watchAsState()
 
     child(props.children)
-    val el = routeMap.entries.firstOrNull { it.key.trail() == route.trail() }?.value
+    val matches = routeMap.entries.filter { route.matches(it.key) != null }
+    val el = matches.firstOrNull()?.value
 
     if (mounted) {
         console.clear()

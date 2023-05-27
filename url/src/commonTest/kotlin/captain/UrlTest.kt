@@ -182,10 +182,19 @@ class UrlTest {
         expect(url.root()).toBe("http://github.com")
     }
 
-    @Test
-    fun should_add() {
-        val sum = 4 + 3
-        val ans = 7
-        expect(sum).toBe(ans)
+    interface Shape2D<out N> {
+        fun area(): N
+    }
+
+    data class Rect(val h: Int, val w: Int) : Shape2D<Int>{
+        override fun area() = h * w
+
+        fun perimeter() = 2 * (h + w)
+    }
+
+    fun should_calculate_an_area_for_a_unit_react() {
+        val rect = Rect(1, 1)
+        expect(rect.area()).toBe(1)
+        expect(rect.perimeter()).toBe(4)
     }
 }
