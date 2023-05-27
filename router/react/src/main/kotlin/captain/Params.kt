@@ -4,15 +4,8 @@
 package captain
 
 import kase.Optional
-import kase.none
 
-class RouteParams {
-    fun get(key: String): Optional<String> = none()
-}
-
-fun useRouteParams(): RouteMatchParams {
-    return RouteMatchParams(false)
-}
+fun useRouteParams(): RouteMatchParams = useRouteInfo().params
 
 fun useOptionalParam(key: String): Optional<String> {
     val params = useRouteParams()

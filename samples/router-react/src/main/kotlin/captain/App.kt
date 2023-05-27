@@ -104,8 +104,8 @@ val People = FC<PeopleProps> { props ->
         }
 
         div {
-            +"id  : ${people.indexOf(name)}"
-            +"name: $name"
+            div { +"id  : ${people.indexOf(name)}" }
+            div { +"name: $name" }
         }
     }
 }

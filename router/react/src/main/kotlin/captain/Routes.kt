@@ -23,8 +23,13 @@ val Routes = FC<RoutesProps>("Routes") { props ->
     val route = navigator.route.watchAsState()
 
     child(props.children)
-    val matches = routeMap.entries.filter { route.matches(it.key) != null }
-    val el = matches.firstOrNull()?.value
+    val matches = routeMap.entries.mapNotNull {
+        val params = route.matches(it.key) ?: return@mapNotNull null
+        RouteInfo(params, it.key, route, it.value)
+    }
+
+    val match = matches.firstOrNull() ?: return@FC
+    val el = match.children
 
     if (mounted) {
         console.clear()
@@ -33,5 +38,7 @@ val Routes = FC<RoutesProps>("Routes") { props ->
         console.log("element:", el)
     }
 
-    child(el)
+    RouteInfoContext.Provider(match) {
+        child(el)
+    }
 }
