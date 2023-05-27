@@ -53,9 +53,8 @@ internal class UrlImpl(
     override fun child(url: String): Url = UrlImpl(protocol, domain, paths + url.split("/").filterNot { it.isEmpty() })
 
     override fun trail(): String = buildString {
-        if (paths.isNotEmpty()) {
-            append(paths.joinToString(prefix = "/", separator = "/"))
-        }
+        append("/")
+        append(paths.joinToString(separator = "/"))
     }
 
     override fun root() = buildString {

@@ -1,15 +1,23 @@
 package captain
 
-import captain.internal.AbstractNavigator
-import cinematic.MutableLive
-import cinematic.singleWatchableLiveOf
+import kotlinx.browser.document
 import kotlinx.browser.window
+import org.w3c.dom.Window
 
-class BrowserNavigator : AbstractNavigator() {
+class BrowserNavigator : BrowserFollowingNavigator() {
 
-    override val route: MutableLive<Url> = singleWatchableLiveOf(current())
+    private val history = window.history
 
-    override fun current() = Url(window.location.href)
+    init {
+        window.onpopstate = {
+            navigate(current().trail())
+        }
+    }
+
+    override fun navigate(path: String) {
+        super.navigate(path)
+        history.pushState(null, document.title, route.value.trail())
+    }
 
     override fun toString(): String = "BrowserNavigator"
 }

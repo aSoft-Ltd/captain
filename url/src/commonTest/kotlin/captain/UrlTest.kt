@@ -99,6 +99,24 @@ class UrlTest {
     }
 
     @Test
+    fun a_trail_of_a_root_path_should_be_itself() {
+        val url = Url("/")
+        expect(url.trail()).toBe("/")
+    }
+
+    @Test
+    fun a_trail_of_a_url_with_no_path_should_just_be_slash() {
+        val url = Url("https://github.com")
+        expect(url.trail()).toBe("/")
+    }
+
+    @Test
+    fun a_trail_of_a_url_with_no_path_and_a_trailing_slash_should_just_be_slash() {
+        val url = Url("https://github.com/")
+        expect(url.trail()).toBe("/")
+    }
+
+    @Test
     fun should_have_a_relative_path_on_a_root_like_url() {
         val url = Url("/")
         val next = url.at("/users")

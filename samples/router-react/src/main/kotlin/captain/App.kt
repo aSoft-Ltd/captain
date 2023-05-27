@@ -5,6 +5,7 @@ import react.Props
 import react.dom.html.ReactHTML.button
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.li
+import react.dom.html.ReactHTML.section
 import react.dom.html.ReactHTML.ul
 
 val App = FC<Props> {
@@ -14,20 +15,34 @@ val App = FC<Props> {
         Routes {
             Route {
                 path = "/"
-                div { +"This is home" }
-                NavigationMenu {}
+                section {
+                    div { +"Home page" }
+                    NavigationMenu {}
+                }
             }
 
             Route {
                 path = "/about"
-                div { +"This is about" }
-                NavigationMenu {}
+                section {
+                    div { +"This is about" }
+                    NavigationMenu {}
+                }
             }
 
             Route {
                 path = "/settings"
-                div { +"Settings" }
-                NavigationMenu {}
+                section {
+                    div { +"Settings Page" }
+                    NavigationMenu {}
+                }
+            }
+
+            Route {
+                path = "/test"
+                section {
+                    div { +"Test Page" }
+                    NavigationMenu {}
+                }
             }
         }
     }
@@ -42,7 +57,7 @@ val NavigationMenu = FC<Props>("NavigationMenu") {
                 +"/home"
             }
         }
-        listOf("about", "settings").forEach { path ->
+        listOf("about", "settings", "test").forEach { path ->
             li {
                 button {
                     onClick = { nav.navigate("/$path") }
