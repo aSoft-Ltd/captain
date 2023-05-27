@@ -6,7 +6,7 @@ package captain
 import kotlin.js.JsExport
 
 class RouteInfo<out C>(
-    val params: RouteMatchParams,
+    val match: RouteMatchParams,
     val config: Url,
     val route: Url,
     val children: C

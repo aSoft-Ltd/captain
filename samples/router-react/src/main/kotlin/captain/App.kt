@@ -1,5 +1,6 @@
 package captain
 
+import js.core.jso
 import react.FC
 import react.Props
 import react.dom.html.ReactHTML.button
@@ -61,6 +62,7 @@ val App = FC<Props> {
 
 val NavigationMenu = FC<Props>("NavigationMenu") {
     val nav = useNavigator()
+    Screens(jso {  })
     ul {
         li {
             button {
@@ -96,7 +98,7 @@ external interface PeopleProps : Props {
     var heading: String
 }
 
-val People = FC<PeopleProps> { props ->
+val People = FC<PeopleProps>("People") { props ->
     val name = useParams("name")
     section {
         h3 {

@@ -8,12 +8,11 @@ import react.FC
 import react.PropsWithChildren
 import react.useEffectOnce
 import react.useState
-import web.console.console
 
 external interface RoutesProps : PropsWithChildren
 
 val Routes = FC<RoutesProps>("Routes") { props ->
-    val (mounted, setMounted) = useState(false)
+    val (_, setMounted) = useState(false)
     useEffectOnce {
         setMounted(true)
         cleanup { setMounted(false) }
@@ -30,13 +29,6 @@ val Routes = FC<RoutesProps>("Routes") { props ->
 
     val match = matches.firstOrNull() ?: return@FC
     val el = match.children
-
-    if (mounted) {
-        console.clear()
-        console.log("route  :", "'${route.trail()}'")
-        console.log("routes :", routeMap.debugArray())
-        console.log("element:", el)
-    }
 
     RouteInfoContext.Provider(match) {
         child(el)
