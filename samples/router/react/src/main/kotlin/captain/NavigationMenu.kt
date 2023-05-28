@@ -5,14 +5,14 @@ import react.Props
 import react.dom.html.ReactHTML.button
 
 val NavigationMenu = FC<Props>("NavigationMenu") {
-    val nav = useNavigator()
+    val navigate = useNavigate()
     button {
-        onClick = { nav.navigate("/") }
+        onClick = { navigate("/") }
         +"/home"
     }
     listOf("about", "settings").forEach { path ->
         button {
-            onClick = { nav.navigate("/$path") }
+            onClick = { navigate("/$path") }
             +"/$path"
         }
     }
@@ -20,7 +20,7 @@ val NavigationMenu = FC<Props>("NavigationMenu") {
     for (entity in listOf("customer", "champion")) {
         people.forEach { path ->
             button {
-                onClick = { nav.navigate("/$entity/$path") }
+                onClick = { navigate("/$entity/$path") }
                 +"/$entity/$path"
             }
         }

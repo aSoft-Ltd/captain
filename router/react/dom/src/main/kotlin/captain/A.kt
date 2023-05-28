@@ -11,12 +11,12 @@ external interface AProps : PropsWithChildren {
 }
 
 val A = FC<AProps>("A") { props ->
-    val nav = useNavigator()
+    val navigate = useNavigate()
     a {
         href = props.to
         onClick = { event ->
             event.preventDefault()
-            nav.navigate(props.to)
+            navigate(props.to)
         }
         child(props.children)
     }

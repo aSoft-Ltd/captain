@@ -5,9 +5,9 @@ import org.jetbrains.compose.web.dom.A as Anchor
 
 @Composable
 fun A(to: String, content: @Composable () -> Unit) = Anchor(href = to, attrs = {
-    val navigator = rememberNavigator()
+    val navigate = rememberNavigate()
     onClick { event ->
         event.preventDefault()
-        navigator.navigate(to)
+        navigate(to)
     }
 }) { content() }

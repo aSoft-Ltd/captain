@@ -5,24 +5,24 @@ import react.Props
 import react.dom.html.ReactHTML.button
 
 val JsonPlaceHolderNavigationMenu = FC<Props>("NavigationMenu") {
-    val nav = useNavigator()
+    val navigate = useNavigate()
     button {
-        onClick = { nav.navigate("/") }
+        onClick = { navigate("/") }
         +"/home"
     }
 
     button {
-        onClick = { nav.navigate("/posts") }
+        onClick = { navigate("/posts") }
         +"/posts"
     }
 
     button {
-        onClick = { nav.navigate("/users") }
+        onClick = { navigate("/users") }
         +"/users"
     }
 
     button {
-        onClick = { nav.navigate("/photos") }
+        onClick = { navigate("/photos") }
         +"photos"
     }
 }
