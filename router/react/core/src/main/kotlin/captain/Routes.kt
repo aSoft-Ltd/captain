@@ -26,10 +26,5 @@ val Routes = FC<PropsWithChildren>("Routes") {
     val matches = routes.matches(currentRoute)
     val match = matches.bestMatch(currentRoute)
 
-//    val element = routes.bestMatch(currentRoute)?.content
-    console.log("routes", routes.map { r -> r.route.toString() }.toTypedArray())
-    console.log("matches", matches.map { m -> m.config.trail() }.toTypedArray())
-    console.log("match", match?.config?.trail())
-
     RouteInfoContext.Provider(match) { child(match?.content) }
 }

@@ -25,7 +25,7 @@ fun Routes(builder: @Composable RoutesBuilder.() -> Unit) {
         RouteConfig(route, rc.content)
     }
 
-    val match: RouteInfo<ComposeNode> = routes.bestMatch(currentRoute) ?: return
+    val match = routes.bestMatch(currentRoute) ?: return
 
     CompositionLocalProvider(RouteInfoCompositionLocal provides match) {
         match.content(match.match.params.values.toList())

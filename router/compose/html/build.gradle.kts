@@ -1,7 +1,4 @@
-import org.jetbrains.compose.compose
 import org.jetbrains.kotlin.gradle.dsl.KotlinCompile
-import org.jetbrains.kotlin.gradle.dsl.KotlinJsCompile
-
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
 plugins {
@@ -14,13 +11,14 @@ description = "A compose-html router that follows any type of navigator"
 kotlin {
     js(IR) { library() }
     sourceSets {
-        val commonMain by getting {
+        val jsMain by getting {
             dependencies {
+                api(projects.captainNavigatorBrowser)
                 api(projects.captainRouterComposeCore)
-//                api(compose.dependencies.html)
+                api(compose.html.core)
             }
         }
-        val commonTest by getting {
+        val jsTest by getting {
             dependencies {
                 implementation(projects.kommanderCore)
             }
@@ -43,7 +41,7 @@ compose {
     }
 }
 
-tasks.withType(org.jetbrains.kotlin.gradle.dsl.KotlinCompile::class).configureEach {
+tasks.withType(KotlinCompile::class).configureEach {
     kotlinOptions {
         val v = kotlinz.versions.kotlin.get()
         freeCompilerArgs += listOf(

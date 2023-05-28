@@ -8,10 +8,9 @@ import react.dom.html.ReactHTML.a
 
 external interface AProps : PropsWithChildren {
     var to: String
-    var text: String?
 }
 
-val A = FC<AProps>("Link") { props ->
+val A = FC<AProps>("A") { props ->
     val nav = useNavigator()
     a {
         href = props.to
@@ -19,9 +18,6 @@ val A = FC<AProps>("Link") { props ->
             event.preventDefault()
             nav.navigate(props.to)
         }
-        when (val txt = props.text) {
-            null -> child(props.children)
-            else -> +txt
-        }
+        child(props.children)
     }
 }
