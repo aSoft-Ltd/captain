@@ -25,4 +25,9 @@ val JsonPlaceHolderNavigationMenu = FC<Props>("NavigationMenu") {
         onClick = { navigate("/photos") }
         +"photos"
     }
+
+    button {
+        onClick = { navigate(-1) }
+        +"< Go Back"
+    }
 }

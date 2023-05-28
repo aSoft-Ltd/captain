@@ -9,7 +9,7 @@ import kotlinx.browser.window
 
 class BrowserNavigator(private val syncWithAddressBar: Boolean) : AbstractNavigator() {
 
-    override val route: MutableLive<Url> = if (syncWithAddressBar) mutableLiveOf(current()) else singleWatchableLiveOf(current())
+    override val route: MutableLive<Url> = if (syncWithAddressBar) mutableLiveOf(current(), HISTORY_CAPACITY) else singleWatchableLiveOf(current())
 
     init {
         if (syncWithAddressBar) window.onpopstate = {
@@ -21,9 +21,16 @@ class BrowserNavigator(private val syncWithAddressBar: Boolean) : AbstractNaviga
 
     private fun navigate(path: String, pushing: Boolean) {
         super.navigate(path)
-        if (pushing && syncWithAddressBar) {
-            window.history.pushState(null, document.title, route.value.trail())
-        }
+        if (pushing && syncWithAddressBar) pushState()
+    }
+
+    private fun pushState() {
+        window.history.pushState(null, document.title, route.value.trail())
+    }
+
+    override fun go(steps: Int) {
+        super.go(steps)
+        if (syncWithAddressBar) pushState()
     }
 
     override fun navigate(path: String) = navigate(path, true)
