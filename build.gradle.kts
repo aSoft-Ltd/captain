@@ -14,6 +14,7 @@ import com.vanniktech.maven.publish.SonatypeHost
 
 repositories {
     publicRepos()
+    maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
 }
 
 val v = asoft.versions.root.get()
@@ -66,5 +67,17 @@ subprojects {
                 developerConnection.set("scm:git:ssh://git@github.com/aSoft-Ltd/captain.git")
             }
         }
+    }
+}
+
+allprojects {
+    beforeEvaluate {
+        repositories {
+            publicRepos()
+            mavenLocal()
+            maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
+        }
+        group = "tz.co.asoft"
+        version = "0.0.0"
     }
 }

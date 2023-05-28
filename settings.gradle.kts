@@ -42,14 +42,15 @@ includeSubs("koncurrent-executors", "../koncurrent/executors", "core", "coroutin
 includeSubs("koncurrent-later", "../koncurrent/later", "core", "coroutines", "test")
 includeSubs("kevlar", "../kevlar", "core")
 includeSubs("kase", "../kase", "core")
-includeSubs("cinematic-live", "../cinematic/live", "core", "react")
+includeSubs("cinematic-live", "../cinematic/live", "core", "react", "compose")
 includeSubs("cinematic-scene", "../cinematic/scene", "core")
 
 // submodules
 includeSubs("captain", ".", "url")
 includeSubs("captain-navigator", "navigator", "api", "basic", "browser", "test")
 includeSubs("captain-router", "router", "core")
-includeSubs("captain-router-react", "router/react", "core","dom")
+includeSubs("captain-router-react", "router/react", "core", "dom")
+includeSubs("captain-router-compose", "router/compose", "core", "html")
 
 // samples
-includeSubs("samples", "samples", "router-react")
+includeSubs("samples-router", "samples/router", "react", "compose")

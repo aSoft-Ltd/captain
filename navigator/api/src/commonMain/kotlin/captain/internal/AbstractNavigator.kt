@@ -12,7 +12,8 @@ abstract class AbstractNavigator : Navigator {
         val current = current()
         route.value = when {
             path.startsWith("/") -> current.at(path)
-            current.paths.isEmpty() -> current.at(path)
+            path.startsWith("./") -> current.child(path.replace("./",""))
+                current.paths.isEmpty() -> current.at(path)
             else -> current.sibling(path)
         }
     }

@@ -6,12 +6,12 @@ import react.FC
 import react.PropsWithChildren
 import react.dom.html.ReactHTML.a
 
-external interface LinkProps : PropsWithChildren {
+external interface AProps : PropsWithChildren {
     var to: String
     var text: String?
 }
 
-val Link = FC<LinkProps>("Link") { props ->
+val A = FC<AProps>("Link") { props ->
     val nav = useNavigator()
     a {
         href = props.to

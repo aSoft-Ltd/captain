@@ -1,10 +1,9 @@
 package captain.routes.posts
 
-import captain.Link
+import captain.A
 import captain.Route
 import captain.Routes
 import captain.useOptionalParam
-import captain.useParams
 import react.FC
 import react.Props
 import react.create
@@ -59,7 +58,7 @@ external interface PostViewProps : Props {
 
 val PostSummaryView = FC<PostViewProps> { props ->
     val post = props.post
-    Link {
+    A {
         to = "/posts/${post.id}"
         div {
             +post.title
@@ -79,7 +78,7 @@ val PostCompleteView = FC<PostViewProps> { props ->
         h2 { +post.title }
         hr {}
         div { +post.body }
-        Link {
+        A {
             to = "/posts/${uid}/comments"
             text = "View Comments"
         }

@@ -2,10 +2,10 @@ package captain
 
 import captain.internal.AbstractNavigator
 import cinematic.MutableLive
-import cinematic.singleWatchableLiveOf
+import cinematic.mutableLiveOf
 
 class BasicNavigator(private val root: String) : AbstractNavigator() {
-    override val route: MutableLive<Url> = singleWatchableLiveOf(Url(root))
+    override val route: MutableLive<Url> = mutableLiveOf(Url(root))
     override fun current(): Url = route.value
     override fun toString() = "BasicNavigator(root=$root)"
 }

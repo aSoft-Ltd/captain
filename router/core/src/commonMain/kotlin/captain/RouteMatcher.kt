@@ -1,5 +1,7 @@
 package captain
 
+import kotlin.jvm.JvmName
+
 fun Url.matches(url: Url): RouteMatchParams? {
     if (this == url) return RouteMatchParams(mapOf(), isExact = true)
     val p = when {
@@ -32,6 +34,7 @@ private fun String.matches(
     return configPath == this
 }
 
+@JvmName("routeConfigBestMatch")
 fun <C> Collection<RouteConfig<C>>.bestMatch(url: Url) = matches(url).bestMatch(url)
 
 fun <C> Collection<RouteConfig<C>>.matches(url: Url) = mapNotNull { rc ->
@@ -40,6 +43,7 @@ fun <C> Collection<RouteConfig<C>>.matches(url: Url) = mapNotNull { rc ->
     RouteInfo(params, route, url, rc.content)
 }
 
+@JvmName("routeInfoBestMatch")
 fun <C> Collection<RouteInfo<C>>.bestMatch(url: Url): RouteInfo<C>? {
     if (isEmpty()) return null
     val exact = firstOrNull { it.config.trail() == url.trail() }
