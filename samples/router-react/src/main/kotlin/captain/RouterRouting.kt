@@ -7,7 +7,7 @@ import react.create
 val AppRoutes = FC<Props> {
     Routes {
         Route {
-//            path = "/"
+            path = "/"
             element = Home.create()
         }
 

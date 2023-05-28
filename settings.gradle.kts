@@ -48,7 +48,8 @@ includeSubs("cinematic-scene", "../cinematic/scene", "core")
 // submodules
 includeSubs("captain", ".", "url")
 includeSubs("captain-navigator", "navigator", "api", "basic", "browser", "test")
-includeSubs("captain-router", "router", "core", "react")
+includeSubs("captain-router", "router", "core")
+includeSubs("captain-router-react", "router/react", "core","dom")
 
 // samples
 includeSubs("samples", "samples", "router-react")

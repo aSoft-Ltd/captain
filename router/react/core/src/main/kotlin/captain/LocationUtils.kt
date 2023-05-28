@@ -3,4 +3,4 @@
 
 package captain
 
-fun useLocation(): Url = useRouteInfo().route
+fun useLocation(): Url = useNavigator().current()

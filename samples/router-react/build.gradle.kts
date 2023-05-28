@@ -22,9 +22,7 @@ kotlin {
     sourceSets {
         val main by getting {
             dependencies {
-                implementation(projects.captainNavigatorBrowser)
-                implementation(projects.captainRouterReact)
-                implementation(kotlinw.react.dom.new)
+                implementation(projects.captainRouterReactDom)
             }
         }
     }

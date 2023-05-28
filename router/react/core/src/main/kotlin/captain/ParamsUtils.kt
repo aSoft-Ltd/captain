@@ -5,7 +5,7 @@ package captain
 
 import kase.Optional
 
-fun useRouteParams(): RouteMatchParams = useRouteInfo().match
+fun useRouteParams(): RouteMatchParams = useRouteInfo()?.match ?: error("useRouteParams can only be used inside a <Route> component")
 
 fun useOptionalParam(key: String): Optional<String> {
     val params = useRouteParams()

@@ -7,7 +7,7 @@ val App = FC<Props> {
     val nav = BrowserNavigator(syncWithAddressBar = true)
     Router {
         navigator = nav
-        NavigationMenu {}
-        AppRoutes {}
+        JsonPlaceHolderNavigationMenu {}
+        JsonPlaceHolderAppRouting {}
     }
 }
