@@ -16,5 +16,9 @@ val JsonPlaceHolderAppRouting = FC<Props> {
             path = "/posts/*"
             element = Posts.create()
         }
+        Route {
+            path = "*"
+            element = h1.create { +"I think you are lost" }
+        }
     }
 }

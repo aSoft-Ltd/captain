@@ -3,6 +3,7 @@ package captain.routes.posts
 import captain.Link
 import captain.Route
 import captain.Routes
+import captain.useOptionalParam
 import captain.useParams
 import react.FC
 import react.Props
@@ -33,9 +34,12 @@ val Posts = FC<Props> {
         +"Posts"
     }
 
-    Routes {
+    if (posts.isEmpty()) {
+        progress {}
+        div { +"Loading" }
+    } else Routes {
         Route {
-            path = "{uid}"
+            path = "{uid}/*"
             element = PostCompleteView.create()
         }
         Route {
@@ -65,7 +69,7 @@ val PostSummaryView = FC<PostViewProps> { props ->
 
 val PostCompleteView = FC<PostViewProps> { props ->
     val (post, setPost) = useState<Post?>(null)
-    val uid = useParams("uid")
+    val uid = useOptionalParam("uid").getOr("1")
     useEffectOnce {
         fetchAsync("https://jsonplaceholder.typicode.com/posts/$uid").then {
             it.json().unsafeCast<Post>()
@@ -75,8 +79,49 @@ val PostCompleteView = FC<PostViewProps> { props ->
         h2 { +post.title }
         hr {}
         div { +post.body }
+        Link {
+            to = "/posts/${uid}/comments"
+            text = "View Comments"
+        }
     } else {
         progress {}
         div { +"Loading" }
+    }
+    Routes {
+        Route {
+            path = "/comments"
+            element = PostCommentView.create()
+        }
+    }
+}
+
+external interface PostComment {
+    val postId: Int
+    val id: Int
+    val name: String
+    val email: String
+    val body: String
+}
+
+val PostCommentView = FC<PostViewProps> { props ->
+    val (comments, setComments) = useState<Array<PostComment>>(arrayOf())
+    val uid = useOptionalParam("uid").getOr("12")
+    useEffectOnce {
+        fetchAsync("https://jsonplaceholder.typicode.com/posts/$uid/comments").then {
+            it.json().unsafeCast<Array<PostComment>>()
+        }.then { setComments(it) }
+    }
+    if (comments.isNotEmpty()) {
+        comments.forEach { comment ->
+            div {
+                div { +"Name: ${comment.name}" }
+                div { +"Email: ${comment.email}" }
+                div { +"Comment: ${comment.body}" }
+            }
+            hr {}
+        }
+    } else {
+        progress {}
+        div { +"Loading comments" }
     }
 }

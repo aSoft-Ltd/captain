@@ -19,21 +19,17 @@ val Routes = FC<PropsWithChildren>("Routes") {
         if (element.type !== Route) return@mapNotNull null
         val props = element.props.unsafeCast<RouteProps>()
         val path = props.path ?: return@mapNotNull null // Do not delete this, someone can choose not to set it from Javascript
-        val route = parent?.config?.child(path) ?: Url(path)
+        val route = parent?.config?.sibling(path) ?: Url(path)
         RouteConfig(route, props.element)
     }
 
-    val matches = routes.mapNotNull { rc ->
-        val route = rc.route
-        val params = currentRoute.matches(route) ?: return@mapNotNull null
-        RouteInfo(params, route, currentRoute, rc.content)
-    }
+    val matches = routes.matches(currentRoute)
+    val match = matches.bestMatch(currentRoute)
 
-    console.log("routes", routes.map { it.route.toString() }.toTypedArray())
-    console.log("matches", matches.map { it.route.toString() }.toTypedArray())
+//    val element = routes.bestMatch(currentRoute)?.content
+    console.log("routes", routes.map { r -> r.route.toString() }.toTypedArray())
+    console.log("matches", matches.map { m -> m.config.trail() }.toTypedArray())
+    console.log("match", match?.config?.trail())
 
-    val match = matches.firstOrNull() ?: return@FC
-    val element = match.content
-
-    RouteInfoContext.Provider(match) { child(element) }
+    RouteInfoContext.Provider(match) { child(match?.content) }
 }

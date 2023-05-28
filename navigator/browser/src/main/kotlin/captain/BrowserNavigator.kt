@@ -2,13 +2,14 @@ package captain
 
 import captain.internal.AbstractNavigator
 import cinematic.MutableLive
+import cinematic.mutableLiveOf
 import cinematic.singleWatchableLiveOf
 import kotlinx.browser.document
 import kotlinx.browser.window
 
 class BrowserNavigator(private val syncWithAddressBar: Boolean) : AbstractNavigator() {
 
-    override val route: MutableLive<Url> = singleWatchableLiveOf(current())
+    override val route: MutableLive<Url> = if (syncWithAddressBar) mutableLiveOf(current()) else singleWatchableLiveOf(current())
 
     init {
         if (syncWithAddressBar) window.onpopstate = {

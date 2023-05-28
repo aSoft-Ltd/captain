@@ -31,3 +31,18 @@ private fun String.matches(
 
     return configPath == this
 }
+
+fun <C> Collection<RouteConfig<C>>.bestMatch(url: Url) = matches(url).bestMatch(url)
+
+fun <C> Collection<RouteConfig<C>>.matches(url: Url) = mapNotNull { rc ->
+    val route = rc.route
+    val params = url.matches(route) ?: return@mapNotNull null
+    RouteInfo(params, route, url, rc.content)
+}
+
+fun <C> Collection<RouteInfo<C>>.bestMatch(url: Url): RouteInfo<C>? {
+    if (isEmpty()) return null
+    val exact = firstOrNull { it.config.trail() == url.trail() }
+    if (exact != null) return exact
+    return maxBy { it.config.trail().length }
+}

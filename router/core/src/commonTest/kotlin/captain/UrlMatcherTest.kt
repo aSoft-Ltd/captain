@@ -73,4 +73,10 @@ class UrlMatcherTest {
         val params = Url("/test/").matches(Url("/test/*"))
         expect(params).toBeNonNull()
     }
+
+    @Test
+    fun should_match_the_beginning_of_a_nested_route_with_longer_lenght_than_configured() {
+        val params = Url("/test/people/me").matches(Url("/test/*"))
+        expect(params).toBeNonNull()
+    }
 }
