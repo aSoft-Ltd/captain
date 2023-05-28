@@ -16,6 +16,7 @@ kotlin {
                 outputFileName = "main.bundle.js"
             }
         }
+        generateTypeScriptDefinitions()
         binaries.executable()
     }
 

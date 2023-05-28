@@ -5,6 +5,7 @@ import captain.Route
 import captain.Routes
 import captain.useOptionalParam
 import react.FC
+import react.Fragment
 import react.Props
 import react.create
 import react.dom.html.ReactHTML.div
@@ -80,13 +81,17 @@ val PostCompleteView = FC<PostViewProps> { props ->
         div { +post.body }
         A {
             to = "/posts/${uid}/comments"
-            text = "View Comments"
+            +"View Comments"
         }
     } else {
         progress {}
         div { +"Loading" }
     }
     Routes {
+        Route {
+            path = "/"
+            element = Fragment.create()
+        }
         Route {
             path = "/comments"
             element = PostCommentView.create()
