@@ -2,14 +2,15 @@ package captain
 
 fun Url.matches(url: Url): RouteMatchParams? {
     if (this == url) return RouteMatchParams(mapOf(), isExact = true)
-    if (url.paths.size == paths.size) {
-        val params = mutableMapOf<String, String>()
-        for (i in paths.indices) {
-            if (!paths[i].matches(params, url.paths[i])) return null
-        }
-        return RouteMatchParams(params, isExact = false)
+    val p = when {
+        url.paths.size >= paths.size -> paths
+        else -> url.paths
     }
-    return null
+    val params = mutableMapOf<String, String>()
+    for (i in p.indices) {
+        if (!paths[i].matches(params, url.paths[i])) return null
+    }
+    return RouteMatchParams(params, isExact = false)
 }
 
 private fun String.matches(

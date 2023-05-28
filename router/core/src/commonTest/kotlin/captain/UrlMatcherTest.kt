@@ -67,4 +67,10 @@ class UrlMatcherTest {
         val uid = params?.get("uid")?.getOrNull()
         expect(uid).toBe("123")
     }
+
+    @Test
+    fun should_match_the_beginning_of_a_nested_route() {
+        val params = Url("/test/").matches(Url("/test/*"))
+        expect(params).toBeNonNull()
+    }
 }
