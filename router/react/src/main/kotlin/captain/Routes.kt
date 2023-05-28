@@ -4,33 +4,27 @@
 package captain
 
 import cinematic.watchAsState
+import react.Children
 import react.FC
 import react.PropsWithChildren
-import react.useEffectOnce
-import react.useState
+import react.asElementOrNull
 
-external interface RoutesProps : PropsWithChildren
-
-val Routes = FC<RoutesProps>("Routes") { props ->
-    val (_, setMounted) = useState(false)
-    useEffectOnce {
-        setMounted(true)
-        cleanup { setMounted(false) }
-    }
-
+val Routes = FC<PropsWithChildren>("Routes") {
     val navigator = useNavigator()
-    val route = navigator.route.watchAsState()
+    val currentRoute = navigator.route.watchAsState()
 
-    child(props.children)
-    val matches = routeMap.entries.mapNotNull {
-        val params = route.matches(it.key) ?: return@mapNotNull null
-        RouteInfo(params, it.key, route, it.value)
+    val routes = Children.toArray(it.children).mapNotNull { node ->
+        val element = node.asElementOrNull() ?: return@mapNotNull null
+        if (element.type !== Route) return@mapNotNull null
+        val props = element.props.unsafeCast<RouteProps>()
+        val path = props.path ?: return@mapNotNull null // Do not delete this, someone can choose not to set it from Javascript
+        val route = Url(path)
+        val params = currentRoute.matches(route) ?: return@mapNotNull null
+        RouteInfo(params, route, currentRoute, props.element)
     }
 
-    val match = matches.firstOrNull() ?: return@FC
-    val el = match.children
+    val match = routes.firstOrNull() ?: return@FC
+    val element = match.content
 
-    RouteInfoContext.Provider(match) {
-        child(el)
-    }
+    RouteInfoContext.Provider(match) { child(element) }
 }

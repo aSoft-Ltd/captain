@@ -4,24 +4,12 @@
 package captain
 
 import react.FC
-import react.PropsWithChildren
+import react.Props
 import react.ReactNode
-import react.useEffectOnce
-import web.console.console
 
-external interface RouteProps : PropsWithChildren {
+external interface RouteProps : Props {
     var path: String
+    var element: ReactNode
 }
 
-internal val routeMap = mutableMapOf<Url, ReactNode?>()
-
-fun Map<Url, *>.debugArray() = keys.map { it.toString() }.toTypedArray()
-fun Map<Url, *>.debug() = console.log(debugArray())
-
-val Route = FC<RouteProps>("Route") { props ->
-    useEffectOnce {
-        val key = Url(props.path)
-        routeMap[key] = props.children
-        cleanup { routeMap.remove(key) }
-    }
-}
+val Route = FC<RouteProps>("Route") {}

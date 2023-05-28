@@ -44,6 +44,8 @@ internal class UrlImpl(
         else -> false
     }
 
+    override fun hashCode() = toString().hashCode()
+
     private fun String.toPaths() = split("/").filter { it.isNotBlank() }
 
     override fun sibling(url: String): Url {

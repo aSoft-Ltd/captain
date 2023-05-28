@@ -9,5 +9,5 @@ class RouteInfo<out C>(
     val match: RouteMatchParams,
     val config: Url,
     val route: Url,
-    val children: C
+    val content: C
 )
