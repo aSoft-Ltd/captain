@@ -14,6 +14,8 @@ interface Url {
     fun child(url: String): Url
     fun sibling(url: String): Url
 
+    fun resolve(path: String): Url
+
     fun root(): String
     fun trail(): String
 }

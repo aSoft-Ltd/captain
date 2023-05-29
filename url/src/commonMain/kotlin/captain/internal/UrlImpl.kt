@@ -63,6 +63,13 @@ internal class UrlImpl(
         append(paths.joinToString(separator = "/"))
     }
 
+    override fun resolve(path: String): Url = when {
+        path.startsWith("/") -> at(path)
+        path.startsWith("./") -> child(path.replace("./", ""))
+        paths.isEmpty() -> at(path)
+        else -> sibling(path)
+    }
+
     override fun root() = buildString {
         if (protocol.isNotBlank()) {
             append(protocol)

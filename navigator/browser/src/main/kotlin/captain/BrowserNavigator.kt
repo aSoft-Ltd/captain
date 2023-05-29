@@ -1,13 +1,12 @@
 package captain
 
-import captain.internal.AbstractNavigator
 import cinematic.MutableLive
 import cinematic.mutableLiveOf
 import cinematic.singleWatchableLiveOf
 import kotlinx.browser.document
 import kotlinx.browser.window
 
-class BrowserNavigator(private val syncWithAddressBar: Boolean) : AbstractNavigator() {
+class BrowserNavigator(private val syncWithAddressBar: Boolean) : Navigator {
 
     override val route: MutableLive<Url> = if (syncWithAddressBar) mutableLiveOf(current(), 0) else singleWatchableLiveOf(current())
 
@@ -18,7 +17,7 @@ class BrowserNavigator(private val syncWithAddressBar: Boolean) : AbstractNaviga
     override fun current() = Url(window.location.href)
 
     private fun navigate(path: String, pushing: Boolean) {
-        route.value = resolve(path)
+        route.value = current().resolve(path)
         if (pushing && syncWithAddressBar) pushState()
     }
 
