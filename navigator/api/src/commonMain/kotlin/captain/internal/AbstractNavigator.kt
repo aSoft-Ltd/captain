@@ -2,27 +2,16 @@ package captain.internal
 
 import captain.Navigator
 import captain.Url
-import cinematic.MutableLive
 
 abstract class AbstractNavigator : Navigator {
 
-    protected val HISTORY_CAPACITY = 100
-
-    abstract override val route: MutableLive<Url>
-
-    override fun navigate(path: String) {
+    protected fun resolve(path: String): Url {
         val current = current()
-        route.value = when {
+        return when {
             path.startsWith("/") -> current.at(path)
             path.startsWith("./") -> current.child(path.replace("./", ""))
             current.paths.isEmpty() -> current.at(path)
             else -> current.sibling(path)
         }
-    }
-
-    override fun go(steps: Int): Unit = when {
-        steps < 0 -> repeat(minOf(-steps, route.history.size)) { route.undo() }
-        steps > 0 -> repeat(minOf(steps, route.history.size)) { route.redo() }
-        else -> Unit
     }
 }

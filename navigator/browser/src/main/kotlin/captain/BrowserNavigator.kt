@@ -9,18 +9,16 @@ import kotlinx.browser.window
 
 class BrowserNavigator(private val syncWithAddressBar: Boolean) : AbstractNavigator() {
 
-    override val route: MutableLive<Url> = if (syncWithAddressBar) mutableLiveOf(current(), HISTORY_CAPACITY) else singleWatchableLiveOf(current())
+    override val route: MutableLive<Url> = if (syncWithAddressBar) mutableLiveOf(current(), 0) else singleWatchableLiveOf(current())
 
     init {
-        if (syncWithAddressBar) window.onpopstate = {
-            navigate(current().trail(), false)
-        }
+        if (syncWithAddressBar) window.onpopstate = { navigate(current().trail(), pushing = false) }
     }
 
     override fun current() = Url(window.location.href)
 
     private fun navigate(path: String, pushing: Boolean) {
-        super.navigate(path)
+        route.value = resolve(path)
         if (pushing && syncWithAddressBar) pushState()
     }
 
@@ -28,12 +26,9 @@ class BrowserNavigator(private val syncWithAddressBar: Boolean) : AbstractNaviga
         window.history.pushState(null, document.title, route.value.trail())
     }
 
-    override fun go(steps: Int) {
-        super.go(steps)
-        if (syncWithAddressBar) pushState()
-    }
+    override fun go(steps: Int) = window.history.go(steps)
 
-    override fun navigate(path: String) = navigate(path, true)
+    override fun navigate(path: String) = navigate(path, pushing = true)
 
     override fun toString(): String = "BrowserNavigator"
 }

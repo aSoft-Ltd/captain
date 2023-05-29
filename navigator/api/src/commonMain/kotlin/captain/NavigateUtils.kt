@@ -1,6 +1,7 @@
 package captain
 
-typealias NavigateFunction = (arg: Any) -> Unit
+typealias StringOrInt = Any
+typealias NavigateFunction = (arg: StringOrInt) -> Unit
 
 fun NavigateFunction(navigator: Navigator): NavigateFunction = { arg: Any ->
     when (arg) {

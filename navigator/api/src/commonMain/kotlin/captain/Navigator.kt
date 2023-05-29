@@ -4,6 +4,7 @@
 package captain
 
 import cinematic.Live
+import kollections.LinearlyTraversable
 import kotlin.js.JsExport
 
 interface Navigator {
