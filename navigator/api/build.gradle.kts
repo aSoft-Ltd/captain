@@ -19,7 +19,6 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 api(projects.captainUrl)
-                api(projects.kollectionsInteroperable)
                 api(projects.cinematicLiveCore)
             }
         }

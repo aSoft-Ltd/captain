@@ -11,7 +11,6 @@ import com.vanniktech.maven.publish.SonatypeHost
     alias(kotlinz.plugins.dokka)
 }
 
-
 repositories {
     publicRepos()
     maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")

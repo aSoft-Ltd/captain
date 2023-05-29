@@ -6,13 +6,11 @@ import androidx.compose.runtime.LaunchedEffect
 
 @Composable
 fun Router(
-    home: String = "/",
-    navigator: Navigator = BasicNavigator(home),
+    start: String = "/",
+    navigator: Navigator = BasicNavigator(start),
     content: @Composable () -> Unit
 ) {
-    LaunchedEffect(Unit) {
-        if (home != navigator.current().trail()) navigator.navigate(home)
-    }
+    if (start != navigator.current().trail()) navigator.navigate(start)
     CompositionLocalProvider(LocalNavigator provides navigator) {
         content()
     }

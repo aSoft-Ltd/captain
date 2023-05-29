@@ -27,5 +27,7 @@ class BasicNavigator(private val root: String) : Navigator {
         route.value = url
     }
 
+    fun canGo(steps: Int) = history.canGo(steps)
+
     override fun toString() = "BasicNavigator(root=$root)"
 }
