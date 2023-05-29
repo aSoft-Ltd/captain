@@ -2,7 +2,7 @@
 
 A kotlin multiplatform library pack that you can use to navigate though different destinations of your application.
 
-With captain, you can do all your navigation from your business logic (which should be in common code) 
+With captain, you can do all your client side navigation from your business logic (which should be in common code) 
 and do your routing in the ui layer (which depending on your tech stack, may or may not be in common code)
 
 ![Maven](https://img.shields.io/maven-central/v/tz.co.asoft/captain/2.0.16?style=for-the-badge)
@@ -116,14 +116,14 @@ fun goTo(destination: String = "/") {
     nav.navigate(destination)
 }
 
-fun goBack() {
+fun goBack(steps: Int = 1) {
     val nav: Navigator = getNavigator()
-    nav.navigate(-1)
+    nav.navigate(-steps)
 }
 
-fun goForward() {
+fun goForward(steps: Int = 1) {
     val nav: Navigator = getNavigator()
-    nav.navigate(-1)
+    nav.navigate(steps)
 }
 ```
 
