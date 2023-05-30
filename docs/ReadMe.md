@@ -34,7 +34,7 @@ Router {
         <Route path="/" element={<Home/>} />
         <Route path="/settings" element={<Settings/>} />
         <Route path="/profile/{uid}" element={<Profile/>} />
-    <Routes>
+    </Routes>
 </Router>
 ```
 

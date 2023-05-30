@@ -5,7 +5,7 @@ A platform & framework agnostic kotlin multiplatform library pack that you can u
 With captain, you can do all your navigation from your business logic (which should be in common code) 
 and do your routing in the ui layer (which depending on your tech stack, may or may not be in common code)
 
-![Maven](https://img.shields.io/maven-central/v/tz.co.asoft/captain-navigator-api/2.0.16?style=for-the-badge)
+![Maven](https://img.shields.io/maven-central/v/tz.co.asoft/captain-navigator-api/2.0.17?style=for-the-badge)
 ![Kotlin](https://img.shields.io/badge/kotlin-multiplatform-blue?style=for-the-badge&logo=kotlin&logoColor=white)
 ![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)
 ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=&logoColor=white)
@@ -40,7 +40,7 @@ Router {
         <Route path="/" element={<Home/>} />
         <Route path="/settings" element={<Settings/>} />
         <Route path="/profile/{uid}" element={<Profile/>} />
-    <Routes>
+    </Routes>
 </Router>
 ```
 
@@ -77,9 +77,9 @@ repositories {
 
 dependencies {
     // for compose-multiplatform 
-    implementation("tz.co.asoft:captain-router-compose-core:2.0.16")
+    implementation("tz.co.asoft:captain-router-compose-core:2.0.17")
     // for compose-html use
-    implementation("tz.co.asoft:captain-router-compose-html:2.0.16")
+    implementation("tz.co.asoft:captain-router-compose-html:2.0.17")
 }
 ```
 
@@ -92,9 +92,9 @@ repositories {
 
 dependencies {
     // for react-core (can be used even in react-native applications)
-    implementation("tz.co.asoft:captain-router-react-core:2.0.16")
+    implementation("tz.co.asoft:captain-router-react-core:2.0.17")
     // for react-dom (can be used even in react-dom applications)
-    implementation("tz.co.asoft:captain-router-react-dom:2.0.16")
+    implementation("tz.co.asoft:captain-router-react-dom:2.0.17")
 }
 ```
 
@@ -131,7 +131,7 @@ fun goForward() {
 
 ```kotlin
 dependencies {
-    implementation("tz.co.asoft:captain-navigator-api:2.0.16")
+    implementation("tz.co.asoft:captain-navigator-api:2.0.17")
 }
 ```
 
@@ -152,7 +152,7 @@ actual fun getNavigator(): Navigator = navigator
 
 ```kotlin
 dependencies {
-    implementation("tz.co.asoft:captain-navigator-browser:2.0.16")
+    implementation("tz.co.asoft:captain-navigator-browser:2.0.17")
 }
 ```
 
@@ -170,7 +170,7 @@ actual fun getNavigator(): Navigator = navigator
 
 ```kotlin
 dependencies {
-    implementation("tz.co.asoft:captain-navigator-basic:2.0.16")
+    implementation("tz.co.asoft:captain-navigator-basic:2.0.17")
 }
 ```
 ## Documentation
