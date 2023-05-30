@@ -112,12 +112,12 @@ fun goTo(destination: String = "/") {
 
 fun goBack() {
     val nav: Navigator = getNavigator()
-    nav.navigate(-1)
+    nav.go(-1)
 }
 
 fun goForward() {
     val nav: Navigator = getNavigator()
-    nav.navigate(-1)
+    nav.go(1)
 }
 ```
 
