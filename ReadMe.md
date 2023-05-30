@@ -5,7 +5,7 @@ A platform & framework agnostic kotlin multiplatform library pack that you can u
 With captain, you can do all your navigation from your business logic (which should be in common code) 
 and do your routing in the ui layer (which depending on your tech stack, may or may not be in common code)
 
-![Maven](https://img.shields.io/maven-central/v/tz.co.asoft/captain/2.0.16?style=for-the-badge)
+![Maven](https://img.shields.io/maven-central/v/tz.co.asoft/captain-navigator-api/2.0.16?style=for-the-badge)
 ![Kotlin](https://img.shields.io/badge/kotlin-multiplatform-blue?style=for-the-badge&logo=kotlin&logoColor=white)
 ![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)
 ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=&logoColor=white)
