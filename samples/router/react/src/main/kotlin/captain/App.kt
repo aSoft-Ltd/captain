@@ -5,7 +5,6 @@ import react.Props
 
 val App = FC<Props> {
     Router {
-        navigator = BrowserNavigator(syncWithAddressBar = true)
         JsonPlaceHolderNavigationMenu {}
         JsonPlaceHolderAppRouting {}
     }

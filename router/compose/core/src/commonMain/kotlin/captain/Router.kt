@@ -2,7 +2,6 @@ package captain
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.LaunchedEffect
 
 @Composable
 fun Router(
