@@ -1,6 +1,6 @@
 # captain
 
-A kotlin multiplatform library pack that you can use to navigate though different destinations of your application.
+A platform & framework agnostic kotlin multiplatform library pack that you can use to navigate though different destinations of your application.
 
 With captain, you can do all your navigation from your business logic (which should be in common code) 
 and do your routing in the ui layer (which depending on your tech stack, may or may not be in common code)
@@ -175,6 +175,11 @@ dependencies {
 ```
 ## Documentation
 Full documentation will be published soon
+
+## Api Reference
+
+The full api reference of the kollections can be found
+at [https://asoft-ltd.github.io/captain](https://asoft-ltd.github.io/captain)
 
 ## Support
 
