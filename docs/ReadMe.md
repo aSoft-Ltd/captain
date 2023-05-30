@@ -27,12 +27,12 @@ Router {
 ### react
 
 ```jsx
-<Router> {
+<Router>
     <AppNavigation />
     <Routes>
         <Route path="/" element={<Home/>} />
         <Route path="/settings" element={<Settings/>} />
-        <Route path="/user/{uid}" element={<Profile/>} />
+        <Route path="/profile/{uid}" element={<Profile/>} />
     <Routes>
 </Router>
 ```
@@ -52,7 +52,7 @@ Router {
             element = Settings.create()
         }
         Route {
-            path = "/user/{uid}"
+            path = "/profile/{uid}"
             element = Profile.create()
         }
     }
