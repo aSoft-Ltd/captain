@@ -9,7 +9,7 @@ fun Router(
     navigator: Navigator = BasicNavigator(start),
     content: @Composable () -> Unit
 ) {
-    if (start != navigator.current().path()) navigator.navigate(start)
+    if (start != navigator.current().path) navigator.navigate(start)
     CompositionLocalProvider(LocalNavigator provides navigator) {
         content()
     }

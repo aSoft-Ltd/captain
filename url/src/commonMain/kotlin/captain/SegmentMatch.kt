@@ -2,13 +2,14 @@
 
 package captain
 
-import kollections.JsExport
+import kotlin.js.JsExport
 
 sealed interface SegmentMatch {
     val path: String
 }
 
 data class WildCardMatch(override val path: String) : SegmentMatch
+
 data class DynamicParamMatch(
     override val path: String,
     val key: String,

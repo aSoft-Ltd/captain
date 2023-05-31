@@ -4,7 +4,6 @@
 package captain
 
 import cinematic.watchAsState
-import kollections.toIList
 import kollections.toIMap
 import react.Children
 import react.FC
@@ -23,7 +22,7 @@ val Routes = FC<PropsWithChildren>("Routes") {
             if (element.type !== Route) return@mapNotNull null
             val props = element.props.unsafeCast<RawRouteProps>()
             val path = props.path ?: return@mapNotNull null
-            val route = parent?.match?.url?.sibling(path) ?: Url(path)
+            val route = parent?.match?.config?.sibling(path) ?: Url(path)
             RouteConfig(route, props.element)
         }
     }

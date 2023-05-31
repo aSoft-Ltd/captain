@@ -3,12 +3,13 @@
 
 package captain
 
+import captain.internal.indent
 import kollections.List
 import kollections.Map
 import kotlin.js.JsExport
 
 data class RouteInfo<out C>(
-    val match: RouteMatch,
+    val match: UrlMatch,
     val options: List<Url>,
     val matches: Map<Url,Int>,
     val route: Url,

@@ -4,6 +4,7 @@
 package captain
 
 import kotlin.js.JsExport
+import kotlin.js.JsName
 
 interface Url {
     val protocol: String
@@ -20,4 +21,9 @@ interface Url {
     fun resolve(path: String): Url
 
     fun trail(): Url
+
+    fun matches(path: String): UrlMatch?
+
+    @JsName("matchesUrl")
+    fun matches(url: Url): UrlMatch?
 }

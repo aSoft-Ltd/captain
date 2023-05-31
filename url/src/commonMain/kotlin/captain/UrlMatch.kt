@@ -3,12 +3,15 @@
 
 package captain
 
+import captain.internal.indent
+import captain.internal.pretty
 import kase.Optional
 import kase.optionalOf
 import kotlin.js.JsExport
 
-data class RouteMatch(
-    val url: Url,
+data class UrlMatch(
+    val route: Url,
+    val config: Url,
     val segments: List<SegmentMatch>
 ) {
     val params: Map<String, String> = segments.filterIsInstance<DynamicParamMatch>().associate { it.key to it.value }
@@ -18,8 +21,9 @@ data class RouteMatch(
     fun debugString(spaces: Int = 0) = buildString {
         val gap = indent(spaces)
         appendLine("RouteMatch(")
-        appendLine("$gap${gap}url = $url")
-        appendLine("$gap${gap}params = $params")
+        appendLine("$gap${gap}route = $route")
+        appendLine("$gap${gap}config = $config")
+        appendLine("$gap${gap}params = ${params.pretty()}")
         appendLine("$gap${gap}score = ${score()}")
         append("${gap})")
     }

@@ -17,6 +17,12 @@ kotlin {
 
     sourceSets {
 
+        val commonMain by getting {
+            dependencies {
+                api(projects.kaseCore)
+            }
+        }
+
         val commonTest by getting {
             dependencies {
                 implementation(projects.kommanderCore)

@@ -1,6 +1,11 @@
 package captain.internal
 
+import captain.DynamicParamMatch
+import captain.ExactMatch
+import captain.SegmentMatch
 import captain.Url
+import captain.UrlMatch
+import captain.WildCardMatch
 
 internal class UrlImpl(
     override val protocol: String,
@@ -73,5 +78,33 @@ internal class UrlImpl(
         if (domain.isNotBlank()) {
             append(domain)
         }
+    }
+
+    override fun matches(path: String): UrlMatch? = matches(Url(path))
+    override fun matches(url: Url): UrlMatch? {
+        val p = when {
+            url.segments.size >= segments.size -> segments
+            else -> url.segments
+        }
+        val pathMatches = mutableListOf<SegmentMatch>()
+        for (i in p.indices) {
+            val match = segments[i].matches(url.segments[i]) ?: return null
+            pathMatches.add(match)
+        }
+        return UrlMatch(trail(), url.trail(), pathMatches)
+    }
+
+    private fun String.matches(configPath: String): SegmentMatch? {
+        if (configPath == "*") return WildCardMatch(this)
+        if (configPath.startsWith(":")) {
+            val param = configPath.substringAfter(":")
+            return DynamicParamMatch(this, param, this)
+        }
+        if (configPath.startsWith("{")) {
+            val param = configPath.removePrefix("{").removeSuffix("}")
+            return DynamicParamMatch(this, param, this)
+        }
+        if (configPath == this) return ExactMatch(this)
+        return null
     }
 }

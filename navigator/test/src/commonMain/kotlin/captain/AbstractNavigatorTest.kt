@@ -17,7 +17,7 @@ abstract class AbstractNavigatorTest {
     @Test
     fun should_be_able_to_watch_navigate_freely() {
         navigator.navigate("/customers")
-        val root = Url(initial).root()
+        val root = Url(initial).root
         expect(navigator.route.value).toBe(Url("$root/customers"))
     }
 }
