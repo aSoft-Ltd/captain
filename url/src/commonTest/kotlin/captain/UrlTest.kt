@@ -7,19 +7,19 @@ class UrlTest {
     @Test
     fun should_detect_the_url() {
         val url = Url("https://test.com")
-        expect(url.protocol).toBe("https")
+        expect(url.scheme).toBe("https")
     }
 
     @Test
     fun should_return_a_blank_protocol_if_url_has_no_protocol() {
         val url = Url("test.com")
-        expect(url.protocol).toBe("")
+        expect(url.scheme).toBe("")
     }
 
     @Test
     fun should_return_a_blank_protocol_if_a_trailing_slash_url_has_no_protocol() {
         val url = Url("test.com/")
-        expect(url.protocol).toBe("")
+        expect(url.scheme).toBe("")
     }
 
     @Test
@@ -85,7 +85,7 @@ class UrlTest {
     @Test
     fun should_return_a_blank_url_with_blank_fields() {
         val url = Url("")
-        expect(url.protocol).toBe("")
+        expect(url.scheme).toBe("")
         expect(url.domain).toBe("")
         expect(url.segments).toBeEmpty()
     }
@@ -93,7 +93,7 @@ class UrlTest {
     @Test
     fun should_detect_a_slash_only_url_with_blank_fields() {
         val url = Url("/")
-        expect(url.protocol).toBe("")
+        expect(url.scheme).toBe("")
         expect(url.domain).toBe("")
         expect(url.segments).toBeEmpty()
     }
@@ -141,7 +141,7 @@ class UrlTest {
         val url = Url("//users")
         expect(url).toBe(Url("/users"))
         expect(url.domain).toBe("")
-        expect(url.protocol).toBe("")
+        expect(url.scheme).toBe("")
         expect(url.segments).toBe(listOf("users"))
     }
 

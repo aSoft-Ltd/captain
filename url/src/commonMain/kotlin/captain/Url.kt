@@ -7,7 +7,7 @@ import kotlin.js.JsExport
 import kotlin.js.JsName
 
 interface Url {
-    val protocol: String
+    val scheme: String
     val domain: String
     val segments: List<String>
 

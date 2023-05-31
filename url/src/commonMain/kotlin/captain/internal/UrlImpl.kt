@@ -8,7 +8,7 @@ import captain.UrlMatch
 import captain.WildCardMatch
 
 internal class UrlImpl(
-    override val protocol: String,
+    override val scheme: String,
     override val domain: String,
     override val segments: List<String>
 ) : Url {
@@ -31,7 +31,7 @@ internal class UrlImpl(
             val domain = segments.firstOrNull { it.isDomainLike } ?: ""
             val paths = segments - domain
             return UrlImpl(
-                protocol = protocol,
+                scheme = protocol,
                 domain = domain,
                 segments = paths
             )
@@ -53,12 +53,12 @@ internal class UrlImpl(
     override fun sibling(url: String): Url {
         if (segments.isEmpty()) return this
         val p = (segments - segments.last()) + url.toPaths()
-        return UrlImpl(protocol, domain, p)
+        return UrlImpl(scheme, domain, p)
     }
 
-    override fun at(path: String): Url = UrlImpl(protocol, domain, path.toPaths())
+    override fun at(path: String): Url = UrlImpl(scheme, domain, path.toPaths())
 
-    override fun child(url: String): Url = UrlImpl(protocol, domain, segments + url.split("/").filterNot { it.isEmpty() })
+    override fun child(url: String): Url = UrlImpl(scheme, domain, segments + url.split("/").filterNot { it.isEmpty() })
 
     override val path = "/${segments.joinToString(separator = "/")}"
     override fun trail(): Url = Url(path)
@@ -71,8 +71,8 @@ internal class UrlImpl(
     }
 
     override val root = buildString {
-        if (protocol.isNotBlank()) {
-            append(protocol)
+        if (scheme.isNotBlank()) {
+            append(scheme)
             append("://")
         }
         if (domain.isNotBlank()) {
