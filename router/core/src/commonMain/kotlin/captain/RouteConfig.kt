@@ -11,5 +11,5 @@ class RouteConfig<out C>(
 ) {
     override fun hashCode() = route.hashCode()
     override fun equals(other: Any?) = other is RouteConfig<*> && other.route == route
-    override fun toString() = route.trail()
+    override fun toString() = route.path
 }

@@ -3,11 +3,29 @@
 
 package captain
 
+import kollections.List
+import kollections.Map
 import kotlin.js.JsExport
 
-class RouteInfo<out C>(
-    val match: RouteMatchParams,
-    val config: Url,
+data class RouteInfo<out C>(
+    val match: RouteMatch,
+    val options: List<Url>,
+    val matches: Map<Url,Int>,
     val route: Url,
     val content: C
-)
+) {
+
+    fun debugString() = buildString {
+        val spaces = 2
+        val gap = indent(spaces)
+        appendLine("RouteInfo(")
+        appendLine("${gap}options = $options")
+        appendLine("${gap}matches = $matches")
+        appendLine("${gap}match = ${match.debugString(spaces)}")
+        appendLine(")")
+    }
+
+    fun printDebugString() = println(debugString())
+
+    override fun toString() = debugString()
+}

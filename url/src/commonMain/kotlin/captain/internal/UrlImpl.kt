@@ -5,7 +5,7 @@ import captain.Url
 internal class UrlImpl(
     override val protocol: String,
     override val domain: String,
-    override val paths: List<String>
+    override val segments: List<String>
 ) : Url {
     companion object {
 
@@ -28,15 +28,12 @@ internal class UrlImpl(
             return UrlImpl(
                 protocol = protocol,
                 domain = domain,
-                paths = paths
+                segments = paths
             )
         }
     }
 
-    override fun toString() = buildString {
-        append(root())
-        append(trail())
-    }
+    override fun toString() = "$root$path"
 
     override fun equals(other: Any?): Boolean = when (other) {
         is String -> toString() == other
@@ -49,28 +46,26 @@ internal class UrlImpl(
     private fun String.toPaths() = split("/").filter { it.isNotBlank() }
 
     override fun sibling(url: String): Url {
-        if (paths.isEmpty()) return this
-        val p = (paths - paths.last()) + url.toPaths()
+        if (segments.isEmpty()) return this
+        val p = (segments - segments.last()) + url.toPaths()
         return UrlImpl(protocol, domain, p)
     }
 
     override fun at(path: String): Url = UrlImpl(protocol, domain, path.toPaths())
 
-    override fun child(url: String): Url = UrlImpl(protocol, domain, paths + url.split("/").filterNot { it.isEmpty() })
+    override fun child(url: String): Url = UrlImpl(protocol, domain, segments + url.split("/").filterNot { it.isEmpty() })
 
-    override fun trail(): String = buildString {
-        append("/")
-        append(paths.joinToString(separator = "/"))
-    }
+    override val path = "/${segments.joinToString(separator = "/")}"
+    override fun trail(): Url = Url(path)
 
     override fun resolve(path: String): Url = when {
         path.startsWith("/") -> at(path)
         path.startsWith("./") -> child(path.replace("./", ""))
-        paths.isEmpty() -> at(path)
+        segments.isEmpty() -> at(path)
         else -> sibling(path)
     }
 
-    override fun root() = buildString {
+    override val root = buildString {
         if (protocol.isNotBlank()) {
             append(protocol)
             append("://")
