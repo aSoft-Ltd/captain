@@ -16,6 +16,7 @@ kotlin {
                 api(projects.captainNavigatorBrowser)
                 api(projects.cinematicLiveReact)
                 api(kotlinw.react)
+                api(devNpm("@types/react", kotlinw.versions.react.types.get()))
             }
         }
     }

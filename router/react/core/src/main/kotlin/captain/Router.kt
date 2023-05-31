@@ -1,3 +1,4 @@
+@file:JsExport
 package captain
 
 import react.FC

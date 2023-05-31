@@ -23,7 +23,7 @@ val Routes = FC<PropsWithChildren>("Routes") {
         RouteConfig(route, props.element)
     }
 
-    val match = routes.bestMatch(currentRoute)
+    val match = routes.bestMatch(currentRoute) ?: return@FC 
 
-    RouteInfoContext.Provider(match) { child(match?.content) }
+    RouteInfoContext.Provider(match) { child(match.content) }
 }
