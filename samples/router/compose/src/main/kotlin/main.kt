@@ -49,7 +49,7 @@ fun Customers() = Routes {
         LazyColumn {
             items(people) {
                 Text(it.name, modifier = Modifier.clickable {
-                    navigate("./${it.name}")
+                    navigate(it.name)
                 })
             }
         }

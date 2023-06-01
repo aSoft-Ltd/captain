@@ -19,9 +19,9 @@ fun Routes(builder: RoutesBuilder.() -> Unit) {
     }
 
     val matches = options.matches(currentRoute)
-    val match = options.bestMatch(currentRoute)?.copy(matches = matches.associate { it.route to it.match.score() }.toIMap()) ?: return
+    val selected = options.bestMatch(currentRoute)?.copy(matches = matches.associate { it.route to it.match.score() }.toIMap()) ?: return
 
-    CompositionLocalProvider(LocalRouteInfo provides match) {
-        match.content(match.match.params.values.toList())
+    CompositionLocalProvider(LocalRouteInfo provides selected) {
+        selected.content(selected.match.params.values.toList())
     }
 }
