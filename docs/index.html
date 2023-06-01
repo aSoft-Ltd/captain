@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>All modules</title>
+    <link href="images/logo-icon.svg" rel="icon" type="image/svg">
+    <script>var pathToRoot = "";</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="scripts/sourceset_dependencies.js" async="async"></script>
+<link href="styles/style.css" rel="Stylesheet">
+<link href="styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="styles/main.css" rel="Stylesheet">
+<link href="styles/prism.css" rel="Stylesheet">
+<link href="styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="scripts/clipboard.js" async="async"></script>
+<script type="text/javascript" src="scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="scripts/symbol-parameters-wrapper_deferred.js" defer="defer"></script>
+</head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+            <a href="index.html">
+                    <span>Captain</span>
+            </a>
+    </div>
+    <div>
+2.0.18    </div>
+    <div class="pull-right d-flex">
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
+        <div id="sideMenu"></div>
+    </div>
+    <div id="main">
+<div class="main-content" id="content" pageIds="Captain::.ext/allModules///PointingToDeclaration//0">
+  <div class="breadcrumbs"></div>
+  <div class="cover ">
+    <div class="cover ">
+      <h1 class="">captain</h1>
+      <p class="paragraph">A platform & framework agnostic kotlin multiplatform library pack that you can use to navigate though different destinations of your application.</p>
+      <p class="paragraph">With captain, you can do all your navigation from your business logic (which should be in common code)  and do your routing in the ui layer (which depending on your tech stack, may or may not be in common code)</p>
+      <p class="paragraph">       </p>
+      <h2 class=""> Router Samples</h2>
+      <h3 class=""> compose</h3>
+      <div class="sample-container">
+        <pre><code class="block lang-kotlin" theme="idea">Router {<br>    AppNavigation()<br>    Routes {<br>        Route(&quot;/&quot;) { Home() }<br>        Route(&quot;/settings&quot;) { Settings() }<br>        Route(&quot;/profile/{uid}&quot;) { (uid) -&gt;<br>            Profile(uid)<br>        }<br>    }<br>}</code></pre>
+<span class="top-right-position"><span class="copy-icon"></span>
+          <div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div>
+        </span></div>
+      <h3 class=""> react</h3>
+      <div class="sample-container">
+        <pre><code class="block lang-jsx" theme="idea">&lt;Router&gt;<br>    &lt;AppNavigation /&gt;<br>    &lt;Routes&gt;<br>        &lt;Route path=&quot;/&quot; element={&lt;Home/&gt;} /&gt;<br>        &lt;Route path=&quot;/settings&quot; element={&lt;Settings/&gt;} /&gt;<br>        &lt;Route path=&quot;/profile/{uid}&quot; element={&lt;Profile/&gt;} /&gt;<br>    &lt;/Routes&gt;<br>&lt;/Router&gt;</code></pre>
+<span class="top-right-position"><span class="copy-icon"></span>
+          <div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div>
+        </span></div>
+      <h3 class=""> kotlin-react</h3>
+      <div class="sample-container">
+        <pre><code class="block lang-kotlin" theme="idea">Router {<br>    AppNavigation()<br>    Routes {<br>        Route {<br>            path = &quot;/&quot;<br>            element = Home.create()<br>        }<br>        Route {<br>            path = &quot;/settings&quot;<br>            element = Settings.create()<br>        }<br>        Route {<br>            path = &quot;/profile/{uid}&quot;<br>            element = Profile.create()<br>        }<br>    }<br>}</code></pre>
+<span class="top-right-position"><span class="copy-icon"></span>
+          <div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div>
+        </span></div>
+      <h2 class=""> Router Setup</h2>
+      <h3 class=""> compose</h3>
+      <div class="sample-container">
+        <pre><code class="block lang-kotlin" theme="idea">repositories {<br>    mavenCentral()<br>}<br><br>dependencies {<br>    // for compose-multiplatform <br>    implementation(&quot;tz.co.asoft:captain-router-compose-core:2.0.18&quot;)<br>    // for compose-html use<br>    implementation(&quot;tz.co.asoft:captain-router-compose-html:2.0.18&quot;)<br>}</code></pre>
+<span class="top-right-position"><span class="copy-icon"></span>
+          <div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div>
+        </span></div>
+      <h3 class=""> kotlin-react</h3>
+      <div class="sample-container">
+        <pre><code class="block lang-kotlin" theme="idea">repositories {<br>    mavenCentral()<br>}<br><br>dependencies {<br>    // for react-core (can be used even in react-native applications)<br>    implementation(&quot;tz.co.asoft:captain-router-react-core:2.0.18&quot;)<br>    // for react-dom (can be used even in react-dom applications)<br>    implementation(&quot;tz.co.asoft:captain-router-react-dom:2.0.18&quot;)<br>}</code></pre>
+<span class="top-right-position"><span class="copy-icon"></span>
+          <div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div>
+        </span></div>
+      <h2 class=""> Navigator Samples</h2>
+      <h3 class=""> common-main</h3>
+      <h4 class=""> src</h4>
+      <p class="paragraph"><code class="lang-kotlin">Navigator.kt</code></p>
+      <div class="sample-container">
+        <pre><code class="block lang-kotlin" theme="idea">expect fun getNavigator(): Navigator</code></pre>
+<span class="top-right-position"><span class="copy-icon"></span>
+          <div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div>
+        </span></div>
+      <p class="paragraph"><code class="lang-kotlin">NavigatorUtils.kt</code></p>
+      <div class="sample-container">
+        <pre><code class="block lang-kotlin" theme="idea">fun goTo(destination: String = &quot;/&quot;) {<br>    val nav: Navigator = getNavigator()<br>    nav.navigate(destination)<br>}<br><br>fun goBack() {<br>    val nav: Navigator = getNavigator()<br>    nav.go(-1)<br>}<br><br>fun goForward() {<br>    val nav: Navigator = getNavigator()<br>    nav.go(1)<br>}</code></pre>
+<span class="top-right-position"><span class="copy-icon"></span>
+          <div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div>
+        </span></div>
+      <h4 class=""> dependencies</h4>
+      <div class="sample-container">
+        <pre><code class="block lang-kotlin" theme="idea">dependencies {<br>    implementation(&quot;tz.co.asoft:captain-navigator-api:2.0.18&quot;)<br>}</code></pre>
+<span class="top-right-position"><span class="copy-icon"></span>
+          <div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div>
+        </span></div>
+      <h3 class=""> js-main (Browser specific)</h3>
+      <p class="paragraph">To use the browser's history api and follow the address bar and back/forward presses</p>
+      <h4 class=""> src</h4>
+      <div class="sample-container">
+        <pre><code class="block lang-kotlin" theme="idea">private val navigator = BrowserNavigator()<br>// to avoid creating a new navigator everytime we call getNavigator<br><br>actual fun getNavigator(): Navigator = navigator</code></pre>
+<span class="top-right-position"><span class="copy-icon"></span>
+          <div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div>
+        </span></div>
+      <h4 class=""> dependencies</h4>
+      <div class="sample-container">
+        <pre><code class="block lang-kotlin" theme="idea">dependencies {<br>    implementation(&quot;tz.co.asoft:captain-navigator-browser:2.0.18&quot;)<br>}</code></pre>
+<span class="top-right-position"><span class="copy-icon"></span>
+          <div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div>
+        </span></div>
+      <h3 class=""> other-main</h3>
+      <h4 class=""> src</h4>
+      <div class="sample-container">
+        <pre><code class="block lang-kotlin" theme="idea">private val navigator = BasicNavigator()<br>// to avoid creating a new navigator everytime we call getNavigator<br><br>actual fun getNavigator(): Navigator = navigator</code></pre>
+<span class="top-right-position"><span class="copy-icon"></span>
+          <div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div>
+        </span></div>
+      <h4 class=""> dependencies</h4>
+      <div class="sample-container">
+        <pre><code class="block lang-kotlin" theme="idea">dependencies {<br>    implementation(&quot;tz.co.asoft:captain-navigator-basic:2.0.18&quot;)<br>}</code></pre>
+<span class="top-right-position"><span class="copy-icon"></span>
+          <div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div>
+        </span></div>
+      <h2 class=""> Documentation</h2>
+      <p class="paragraph">Full documentation will be published soon</p>
+      <h2 class=""> Api Reference</h2>
+      <p class="paragraph">The full api reference of the kollections can be found at <a href="https://asoft-ltd.github.io/captain">https://asoft-ltd.github.io/captain</a></p>
+      <h2 class=""> Support</h2>
+      <p class="paragraph">There are multiple ways you can support this project</p>
+      <h3 class=""> Star It</h3>
+      <p class="paragraph">If you found it useful, just give it a star</p>
+      <h3 class=""> Contribute</h3>
+      <p class="paragraph">You can help by submitting pull request to available open tickets on the issues section</p>
+      <h3 class=""> Report Issues</h3>
+      <p class="paragraph">This makes it easier to catch bugs and offer enhancements required</p>
+      <h2 class=""> Credits</h2>
+      <ul>
+        <li>
+          <p class="paragraph"><a href="https://github.com/andylamax">andylamax</a> - The author</p>
+        </li>
+      </ul>
+    </div>
+    <h2 class="">All modules:</h2>
+    <div class="table"><a data-name="-1458237902%2FMain%2F0" anchor-label="captain-navigator-api" id="-1458237902%2FMain%2F0" data-filterable-set=""></a>
+      <div class="table-row">
+        <div class="main-subrow ">
+          <div class="w-100"><span class="inline-flex">
+              <div><a href="captain-navigator-api/index.html">captain-navigator-api</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1458237902%2FMain%2F0"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div><span class="brief-comment"></span></div>
+        </div>
+      </div>
+<a data-name="-1078286370%2FMain%2F0" anchor-label="captain-navigator-basic" id="-1078286370%2FMain%2F0" data-filterable-set=""></a>
+      <div class="table-row">
+        <div class="main-subrow ">
+          <div class="w-100"><span class="inline-flex">
+              <div><a href="captain-navigator-basic/index.html">captain-navigator-basic</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1078286370%2FMain%2F0"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div><span class="brief-comment"></span></div>
+        </div>
+      </div>
+<a data-name="-1394531484%2FMain%2F0" anchor-label="captain-navigator-browser" id="-1394531484%2FMain%2F0" data-filterable-set=""></a>
+      <div class="table-row">
+        <div class="main-subrow ">
+          <div class="w-100"><span class="inline-flex">
+              <div><a href="captain-navigator-browser/index.html">captain-navigator-browser</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1394531484%2FMain%2F0"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div><span class="brief-comment"></span></div>
+        </div>
+      </div>
+<a data-name="1806537828%2FMain%2F0" anchor-label="captain-navigator-test" id="1806537828%2FMain%2F0" data-filterable-set=""></a>
+      <div class="table-row">
+        <div class="main-subrow ">
+          <div class="w-100"><span class="inline-flex">
+              <div><a href="captain-navigator-test/index.html">captain-navigator-test</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1806537828%2FMain%2F0"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div><span class="brief-comment"></span></div>
+        </div>
+      </div>
+<a data-name="-255175080%2FMain%2F0" anchor-label="captain-router-compose-core" id="-255175080%2FMain%2F0" data-filterable-set=""></a>
+      <div class="table-row">
+        <div class="main-subrow ">
+          <div class="w-100"><span class="inline-flex">
+              <div><a href="captain-router-compose-core/index.html">captain-router-compose-core</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-255175080%2FMain%2F0"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div><span class="brief-comment"></span></div>
+        </div>
+      </div>
+<a data-name="1640686540%2FMain%2F0" anchor-label="captain-router-compose-html" id="1640686540%2FMain%2F0" data-filterable-set=""></a>
+      <div class="table-row">
+        <div class="main-subrow ">
+          <div class="w-100"><span class="inline-flex">
+              <div><a href="captain-router-compose-html/index.html">captain-router-compose-html</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1640686540%2FMain%2F0"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div><span class="brief-comment"></span></div>
+        </div>
+      </div>
+<a data-name="1982510675%2FMain%2F0" anchor-label="captain-router-core" id="1982510675%2FMain%2F0" data-filterable-set=""></a>
+      <div class="table-row">
+        <div class="main-subrow ">
+          <div class="w-100"><span class="inline-flex">
+              <div><a href="captain-router-core/index.html">captain-router-core</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1982510675%2FMain%2F0"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div><span class="brief-comment"></span></div>
+        </div>
+      </div>
+<a data-name="401335749%2FMain%2F0" anchor-label="captain-router-react-core" id="401335749%2FMain%2F0" data-filterable-set=""></a>
+      <div class="table-row">
+        <div class="main-subrow ">
+          <div class="w-100"><span class="inline-flex">
+              <div><a href="captain-router-react-core/index.html">captain-router-react-core</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="401335749%2FMain%2F0"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div><span class="brief-comment"></span></div>
+        </div>
+      </div>
+<a data-name="1559399036%2FMain%2F0" anchor-label="captain-router-react-dom" id="1559399036%2FMain%2F0" data-filterable-set=""></a>
+      <div class="table-row">
+        <div class="main-subrow ">
+          <div class="w-100"><span class="inline-flex">
+              <div><a href="captain-router-react-dom/index.html">captain-router-react-dom</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1559399036%2FMain%2F0"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div><span class="brief-comment"></span></div>
+        </div>
+      </div>
+<a data-name="-1950391545%2FMain%2F0" anchor-label="captain-url" id="-1950391545%2FMain%2F0" data-filterable-set=""></a>
+      <div class="table-row">
+        <div class="main-subrow ">
+          <div class="w-100"><span class="inline-flex">
+              <div><a href="captain-url/index.html">captain-url</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1950391545%2FMain%2F0"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div><span class="brief-comment"></span></div>
+        </div>
+      </div>
+<a data-name="-363582220%2FMain%2F0" anchor-label="cinematic-live-compose" id="-363582220%2FMain%2F0" data-filterable-set=""></a>
+      <div class="table-row">
+        <div class="main-subrow ">
+          <div class="w-100"><span class="inline-flex">
+              <div><a href="cinematic-live-compose/index.html">cinematic-live-compose</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-363582220%2FMain%2F0"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div><span class="brief-comment"></span></div>
+        </div>
+      </div>
+<a data-name="504850301%2FMain%2F0" anchor-label="cinematic-live-core" id="504850301%2FMain%2F0" data-filterable-set=""></a>
+      <div class="table-row">
+        <div class="main-subrow ">
+          <div class="w-100"><span class="inline-flex">
+              <div><a href="cinematic-live-core/index.html">cinematic-live-core</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="504850301%2FMain%2F0"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div><span class="brief-comment"></span></div>
+        </div>
+      </div>
+<a data-name="-1638622489%2FMain%2F0" anchor-label="cinematic-live-react" id="-1638622489%2FMain%2F0" data-filterable-set=""></a>
+      <div class="table-row">
+        <div class="main-subrow ">
+          <div class="w-100"><span class="inline-flex">
+              <div><a href="cinematic-live-react/index.html">cinematic-live-react</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1638622489%2FMain%2F0"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div><span class="brief-comment"></span></div>
+        </div>
+      </div>
+<a data-name="-350860731%2FMain%2F0" anchor-label="cinematic-scene-core" id="-350860731%2FMain%2F0" data-filterable-set=""></a>
+      <div class="table-row">
+        <div class="main-subrow ">
+          <div class="w-100"><span class="inline-flex">
+              <div><a href="cinematic-scene-core/index.html">cinematic-scene-core</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-350860731%2FMain%2F0"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div><span class="brief-comment"></span></div>
+        </div>
+      </div>
+<a data-name="-1153657372%2FMain%2F0" anchor-label="functions-core" id="-1153657372%2FMain%2F0" data-filterable-set=""></a>
+      <div class="table-row">
+        <div class="main-subrow ">
+          <div class="w-100"><span class="inline-flex">
+              <div><a href="functions-core/index.html">functions-core</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1153657372%2FMain%2F0"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div><span class="brief-comment"></span></div>
+        </div>
+      </div>
+<a data-name="-418621719%2FMain%2F0" anchor-label="kase-core" id="-418621719%2FMain%2F0" data-filterable-set=""></a>
+      <div class="table-row">
+        <div class="main-subrow ">
+          <div class="w-100"><span class="inline-flex">
+              <div><a href="kase-core/index.html">kase-core</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-418621719%2FMain%2F0"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div><span class="brief-comment"></span></div>
+        </div>
+      </div>
+<a data-name="-562620990%2FMain%2F0" anchor-label="kevlar-core" id="-562620990%2FMain%2F0" data-filterable-set=""></a>
+      <div class="table-row">
+        <div class="main-subrow ">
+          <div class="w-100"><span class="inline-flex">
+              <div><a href="kevlar-core/index.html">kevlar-core</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-562620990%2FMain%2F0"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div><span class="brief-comment"></span></div>
+        </div>
+      </div>
+<a data-name="-1812823206%2FMain%2F0" anchor-label="kollections-atomic" id="-1812823206%2FMain%2F0" data-filterable-set=""></a>
+      <div class="table-row">
+        <div class="main-subrow ">
+          <div class="w-100"><span class="inline-flex">
+              <div><a href="kollections-atomic/index.html">kollections-atomic</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1812823206%2FMain%2F0"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div><span class="brief-comment"></span></div>
+        </div>
+      </div>
+<a data-name="-1069605447%2FMain%2F0" anchor-label="kollections-interoperable" id="-1069605447%2FMain%2F0" data-filterable-set=""></a>
+      <div class="table-row">
+        <div class="main-subrow ">
+          <div class="w-100"><span class="inline-flex">
+              <div><a href="kollections-interoperable/index.html">kollections-interoperable</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1069605447%2FMain%2F0"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div><span class="brief-comment"></span></div>
+        </div>
+      </div>
+<a data-name="533372105%2FMain%2F0" anchor-label="kommander-core" id="533372105%2FMain%2F0" data-filterable-set=""></a>
+      <div class="table-row">
+        <div class="main-subrow ">
+          <div class="w-100"><span class="inline-flex">
+              <div><a href="kommander-core/index.html">kommander-core</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="533372105%2FMain%2F0"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div><span class="brief-comment"></span></div>
+        </div>
+      </div>
+<a data-name="-1603868147%2FMain%2F0" anchor-label="kommander-coroutines" id="-1603868147%2FMain%2F0" data-filterable-set=""></a>
+      <div class="table-row">
+        <div class="main-subrow ">
+          <div class="w-100"><span class="inline-flex">
+              <div><a href="kommander-coroutines/index.html">kommander-coroutines</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1603868147%2FMain%2F0"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div><span class="brief-comment"></span></div>
+        </div>
+      </div>
+<a data-name="657392547%2FMain%2F0" anchor-label="koncurrent-executors-core" id="657392547%2FMain%2F0" data-filterable-set=""></a>
+      <div class="table-row">
+        <div class="main-subrow ">
+          <div class="w-100"><span class="inline-flex">
+              <div><a href="koncurrent-executors-core/index.html">koncurrent-executors-core</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="657392547%2FMain%2F0"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div><span class="brief-comment"></span></div>
+        </div>
+      </div>
+<a data-name="1416971623%2FMain%2F0" anchor-label="koncurrent-executors-coroutines" id="1416971623%2FMain%2F0" data-filterable-set=""></a>
+      <div class="table-row">
+        <div class="main-subrow ">
+          <div class="w-100"><span class="inline-flex">
+              <div><a href="koncurrent-executors-coroutines/index.html">koncurrent-executors-coroutines</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1416971623%2FMain%2F0"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div><span class="brief-comment"></span></div>
+        </div>
+      </div>
+<a data-name="1940252696%2FMain%2F0" anchor-label="koncurrent-executors-mock" id="1940252696%2FMain%2F0" data-filterable-set=""></a>
+      <div class="table-row">
+        <div class="main-subrow ">
+          <div class="w-100"><span class="inline-flex">
+              <div><a href="koncurrent-executors-mock/index.html">koncurrent-executors-mock</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1940252696%2FMain%2F0"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div><span class="brief-comment"></span></div>
+        </div>
+      </div>
+<a data-name="-742361553%2FMain%2F0" anchor-label="koncurrent-later-core" id="-742361553%2FMain%2F0" data-filterable-set=""></a>
+      <div class="table-row">
+        <div class="main-subrow ">
+          <div class="w-100"><span class="inline-flex">
+              <div><a href="koncurrent-later-core/index.html">koncurrent-later-core</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-742361553%2FMain%2F0"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div><span class="brief-comment"></span></div>
+        </div>
+      </div>
+<a data-name="76652275%2FMain%2F0" anchor-label="koncurrent-later-coroutines" id="76652275%2FMain%2F0" data-filterable-set=""></a>
+      <div class="table-row">
+        <div class="main-subrow ">
+          <div class="w-100"><span class="inline-flex">
+              <div><a href="koncurrent-later-coroutines/index.html">koncurrent-later-coroutines</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="76652275%2FMain%2F0"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div><span class="brief-comment"></span></div>
+        </div>
+      </div>
+<a data-name="2129741980%2FMain%2F0" anchor-label="koncurrent-later-test" id="2129741980%2FMain%2F0" data-filterable-set=""></a>
+      <div class="table-row">
+        <div class="main-subrow ">
+          <div class="w-100"><span class="inline-flex">
+              <div><a href="koncurrent-later-test/index.html">koncurrent-later-test</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2129741980%2FMain%2F0"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div><span class="brief-comment"></span></div>
+        </div>
+      </div>
+<a data-name="1352770115%2FMain%2F0" anchor-label="samples-router-compose" id="1352770115%2FMain%2F0" data-filterable-set=""></a>
+      <div class="table-row">
+        <div class="main-subrow ">
+          <div class="w-100"><span class="inline-flex">
+              <div><a href="samples-router-compose/index.html">samples-router-compose</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1352770115%2FMain%2F0"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div><span class="brief-comment"></span></div>
+        </div>
+      </div>
+<a data-name="-1060300810%2FMain%2F0" anchor-label="samples-router-react" id="-1060300810%2FMain%2F0" data-filterable-set=""></a>
+      <div class="table-row">
+        <div class="main-subrow ">
+          <div class="w-100"><span class="inline-flex">
+              <div><a href="samples-router-react/index.html">samples-router-react</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1060300810%2FMain%2F0"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div><span class="brief-comment"></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span
+                class="pull-right"><span>Generated by </span><a
+                href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+    </div>
+</div>
+</body>
+</html>

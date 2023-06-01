@@ -7,6 +7,7 @@ import react.ReactNode
 import react.createContext
 import react.useContext
 
+@PublishedApi
 internal val RouteInfoContext = createContext<RouteInfo<ReactNode?>>()
 
 fun useRouteInfo(): RouteInfo<ReactNode?>? = useContext(RouteInfoContext)

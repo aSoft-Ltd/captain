@@ -1,29 +1,31 @@
 @file:JsExport
-@file:Suppress("NON_EXPORTABLE_TYPE")
+@file:Suppress("NOTHING_TO_INLINE")
 
 package captain
 
+import captain.internal.Config
+import captain.internal.Routes
 import cinematic.watchAsState
 import react.Children
 import react.FC
 import react.PropsWithChildren
 import react.asElementOrNull
+import react.useMemo
 
-val Routes = FC<PropsWithChildren>("Routes") {
-    val navigator = useNavigator()
-    val currentRoute = navigator.route.watchAsState()
+private const val NAME = "Routes"
+
+@JsName(NAME)
+val InternalRoutes = FC<PropsWithChildren>(NAME) {
     val parent = useRouteInfo()
-
-    val routes = Children.toArray(it.children).mapNotNull { node ->
-        val element = node.asElementOrNull() ?: return@mapNotNull null
-        if (element.type !== Route) return@mapNotNull null
-        val props = element.props.unsafeCast<RouteProps>()
-        val path = props.path ?: return@mapNotNull null // Do not delete this, someone can choose not to set it from Javascript
-        val route = parent?.config?.sibling(path) ?: Url(path)
-        RouteConfig(route, props.element)
+    val navigator = useNavigator()
+    val options = useMemo(parent) {
+        Children.toArray(it.children).mapNotNull { node ->
+            val element = node.asElementOrNull() ?: return@mapNotNull null
+            if (element.type !== InternalRoute) return@mapNotNull null
+            val props = element.props.unsafeCast<RawRouteProps>()
+            val path = props.path ?: return@mapNotNull null
+            Config(parent, path, element)
+        }
     }
-
-    val match = routes.bestMatch(currentRoute) ?: return@FC 
-
-    RouteInfoContext.Provider(match) { child(match.content) }
+    Routes(navigator.route.watchAsState(), options)
 }

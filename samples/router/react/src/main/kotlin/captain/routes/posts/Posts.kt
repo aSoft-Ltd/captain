@@ -4,6 +4,7 @@ import captain.A
 import captain.Route
 import captain.Routes
 import captain.useOptionalParam
+import captain.useRouteInfo
 import react.FC
 import react.Fragment
 import react.Props
@@ -70,6 +71,8 @@ val PostSummaryView = FC<PostViewProps> { props ->
 val PostCompleteView = FC<PostViewProps> { props ->
     val (post, setPost) = useState<Post?>(null)
     val uid = useOptionalParam("uid").getOr("1")
+    val ri = useRouteInfo()
+    ri?.printDebugString()
     useEffectOnce {
         fetchAsync("https://jsonplaceholder.typicode.com/posts/$uid").then {
             it.json().unsafeCast<Post>()

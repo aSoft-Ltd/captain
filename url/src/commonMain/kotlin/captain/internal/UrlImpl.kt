@@ -1,11 +1,16 @@
 package captain.internal
 
+import captain.DynamicParamMatch
+import captain.ExactMatch
+import captain.SegmentMatch
 import captain.Url
+import captain.UrlMatch
+import captain.WildCardMatch
 
 internal class UrlImpl(
-    override val protocol: String,
+    override val scheme: String,
     override val domain: String,
-    override val paths: List<String>
+    override val segments: List<String>
 ) : Url {
     companion object {
 
@@ -26,17 +31,14 @@ internal class UrlImpl(
             val domain = segments.firstOrNull { it.isDomainLike } ?: ""
             val paths = segments - domain
             return UrlImpl(
-                protocol = protocol,
+                scheme = protocol,
                 domain = domain,
-                paths = paths
+                segments = paths
             )
         }
     }
 
-    override fun toString() = buildString {
-        append(root())
-        append(trail())
-    }
+    override fun toString() = "$root$path"
 
     override fun equals(other: Any?): Boolean = when (other) {
         is String -> toString() == other
@@ -49,34 +51,61 @@ internal class UrlImpl(
     private fun String.toPaths() = split("/").filter { it.isNotBlank() }
 
     override fun sibling(url: String): Url {
-        if (paths.isEmpty()) return this
-        val p = (paths - paths.last()) + url.toPaths()
-        return UrlImpl(protocol, domain, p)
+        if (segments.isEmpty()) return this
+        val p = (segments - segments.last()) + url.toPaths()
+        return UrlImpl(scheme, domain, p)
     }
 
-    override fun at(path: String): Url = UrlImpl(protocol, domain, path.toPaths())
+    override fun at(path: String): Url = UrlImpl(scheme, domain, path.toPaths())
 
-    override fun child(url: String): Url = UrlImpl(protocol, domain, paths + url.split("/").filterNot { it.isEmpty() })
+    override fun child(url: String): Url = UrlImpl(scheme, domain, segments + url.split("/").filterNot { it.isEmpty() })
 
-    override fun trail(): String = buildString {
-        append("/")
-        append(paths.joinToString(separator = "/"))
-    }
+    override val path = "/${segments.joinToString(separator = "/")}"
+    override fun trail(): Url = Url(path)
 
     override fun resolve(path: String): Url = when {
         path.startsWith("/") -> at(path)
-        path.startsWith("./") -> child(path.replace("./", ""))
-        paths.isEmpty() -> at(path)
-        else -> sibling(path)
+        path.startsWith("./") -> sibling(path.replace("./", ""))
+        path.startsWith("..") -> UrlImpl(scheme = scheme, domain = domain, segments.dropLast(1))
+        segments.isEmpty() -> at(path)
+        else -> child(path)
     }
 
-    override fun root() = buildString {
-        if (protocol.isNotBlank()) {
-            append(protocol)
+    override val root = buildString {
+        if (scheme.isNotBlank()) {
+            append(scheme)
             append("://")
         }
         if (domain.isNotBlank()) {
             append(domain)
         }
+    }
+
+    override fun matches(path: String): UrlMatch? = matches(UrlImpl(path))
+    override fun matches(url: Url): UrlMatch? {
+        val p = when {
+            url.segments.size >= segments.size -> segments
+            else -> url.segments
+        }
+        val pathMatches = mutableListOf<SegmentMatch>()
+        for (i in p.indices) {
+            val match = segments[i].matches(url.segments[i]) ?: return null
+            pathMatches.add(match)
+        }
+        return UrlMatch(trail(), url.trail(), pathMatches)
+    }
+
+    private fun String.matches(configPath: String): SegmentMatch? {
+        if (configPath == "*") return WildCardMatch(this)
+        if (configPath.startsWith(":")) {
+            val param = configPath.substringAfter(":")
+            return DynamicParamMatch(this, param, this)
+        }
+        if (configPath.startsWith("{")) {
+            val param = configPath.removePrefix("{").removeSuffix("}")
+            return DynamicParamMatch(this, param, this)
+        }
+        if (configPath == this) return ExactMatch(this)
+        return null
     }
 }

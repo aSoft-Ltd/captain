@@ -4,11 +4,15 @@
 package captain
 
 import kotlin.js.JsExport
+import kotlin.js.JsName
 
 interface Url {
-    val protocol: String
+    val scheme: String
     val domain: String
-    val paths: List<String>
+    val segments: List<String>
+
+    val root: String
+    val path: String
 
     fun at(path: String): Url
     fun child(url: String): Url
@@ -16,6 +20,10 @@ interface Url {
 
     fun resolve(path: String): Url
 
-    fun root(): String
-    fun trail(): String
+    fun trail(): Url
+
+    fun matches(path: String): UrlMatch?
+
+    @JsName("matchesUrl")
+    fun matches(url: Url): UrlMatch?
 }

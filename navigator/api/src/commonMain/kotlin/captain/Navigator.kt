@@ -10,6 +10,5 @@ interface Navigator {
     val route: Live<Url>
     fun current(): Url
     fun navigate(path: String)
-
     fun go(steps: Int)
 }

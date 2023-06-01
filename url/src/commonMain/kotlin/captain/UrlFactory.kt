@@ -5,7 +5,7 @@ import captain.internal.UrlImpl
 fun Url(path: String): Url = UrlImpl(path)
 
 fun Url(
-    protocol: String = "",
+    scheme: String = "",
     domain: String = "",
     vararg paths: String
-): Url = UrlImpl(protocol, domain, paths.toList())
+): Url = UrlImpl(scheme, domain, paths.toList())

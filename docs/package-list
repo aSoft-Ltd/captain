@@ -1,0 +1,101 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+$dokka.location:////PointingToDeclaration/samples-router-compose/[root]/index.html
+$dokka.location://AppNavigation/#/PointingToDeclaration/samples-router-compose/[root]/-app-navigation.html
+$dokka.location://Customers/#/PointingToDeclaration/samples-router-compose/[root]/-customers.html
+$dokka.location://main/#/PointingToDeclaration/samples-router-compose/[root]/main.html
+$dokka.location://people/#/PointingToDeclaration/samples-router-compose/[root]/people.html
+$dokka.location:/Person///PointingToDeclaration/samples-router-compose/[root]/-person/index.html
+$dokka.location:/Person/Person/#kotlin.String#kotlin.String/PointingToDeclaration/samples-router-compose/[root]/-person/-person.html
+$dokka.location:/Person/name/#/PointingToDeclaration/samples-router-compose/[root]/-person/name.html
+$dokka.location:/Person/power/#/PointingToDeclaration/samples-router-compose/[root]/-person/power.html
+$dokka.location:koncurrent//setTimeout/#kotlin.Any#kotlin.Int#kotlin.Array[kotlin.Any?]/PointingToDeclaration/koncurrent-executors-core/koncurrent/[wasm]set-timeout.html
+$dokka.location:koncurrent/Promise.Companion///PointingToDeclaration/koncurrent-executors-core/koncurrent/[wasm]-promise/-companion/index.html
+$dokka.location:koncurrent/Promise.Companion/all/#kotlin.Array[koncurrent.Promise[TypeParam(bounds=[kotlin.Any?])]]/PointingToDeclaration/koncurrent-executors-core/koncurrent/[wasm]-promise/-companion/all.html
+$dokka.location:koncurrent/Promise.Companion/race/#kotlin.Array[koncurrent.Promise[TypeParam(bounds=[kotlin.Any?])]]/PointingToDeclaration/koncurrent-executors-core/koncurrent/[wasm]-promise/-companion/race.html
+$dokka.location:koncurrent/Promise.Companion/reject/#kotlin.Throwable/PointingToDeclaration/koncurrent-executors-core/koncurrent/[wasm]-promise/-companion/reject.html
+$dokka.location:koncurrent/Promise.Companion/resolve/#TypeParam(bounds=[kotlin.Any?])/PointingToDeclaration/koncurrent-executors-core/koncurrent/[wasm]-promise/-companion/resolve.html
+$dokka.location:koncurrent/Promise.Companion/resolve/#koncurrent.Promise[TypeParam(bounds=[kotlin.Any?])]/PointingToDeclaration/koncurrent-executors-core/koncurrent/[wasm]-promise/-companion/resolve.html
+$dokka.location:koncurrent/Promise///PointingToDeclaration/koncurrent-executors-core/koncurrent/[wasm]-promise/index.html
+$dokka.location:koncurrent/Promise/Promise/#kotlin.Function2[kotlin.Function1[TypeParam(bounds=[kotlin.Any?]),kotlin.Unit],kotlin.Function1[kotlin.Throwable,kotlin.Unit],kotlin.Unit]/PointingToDeclaration/koncurrent-executors-core/koncurrent/[wasm]-promise/-promise.html
+$dokka.location:koncurrent/Promise/catch/#kotlin.Function1[kotlin.Throwable,TypeParam(bounds=[kotlin.Any?])]/PointingToDeclaration/koncurrent-executors-core/koncurrent/[wasm]-promise/catch.html
+$dokka.location:koncurrent/Promise/finally/#kotlin.Function0[kotlin.Unit]/PointingToDeclaration/koncurrent-executors-core/koncurrent/[wasm]-promise/finally.html
+$dokka.location:koncurrent/Promise/then/#kotlin.Function1[TypeParam(bounds=[kotlin.Any?]),TypeParam(bounds=[kotlin.Any?])]?#kotlin.Function1[kotlin.Throwable,TypeParam(bounds=[kotlin.Any?])]?/PointingToDeclaration/koncurrent-executors-core/koncurrent/[wasm]-promise/then.html
+$dokka.location:koncurrent/SetTimeoutExecutor///PointingToDeclaration/koncurrent-executors-core/koncurrent/[wasm]-set-timeout-executor/index.html
+$dokka.location:koncurrent/SetTimeoutExecutor/execute/#koncurrent.Runnable/PointingToDeclaration/koncurrent-executors-core/koncurrent/[wasm]-set-timeout-executor/execute.html
+module:captain-navigator-api
+captain
+module:captain-navigator-basic
+captain
+module:captain-navigator-browser
+captain
+module:captain-navigator-test
+captain
+module:captain-router-compose-core
+captain
+module:captain-router-compose-html
+captain
+module:captain-router-core
+captain
+module:captain-router-react-core
+captain
+module:captain-router-react-dom
+captain
+module:captain-url
+captain
+captain.internal
+module:cinematic-live-compose
+cinematic
+module:cinematic-live-core
+cinematic
+module:cinematic-live-react
+cinematic
+module:cinematic-scene-core
+cinematic
+module:functions-core
+functions
+module:kase-core
+kase
+kase.internal
+kase.progress
+module:kevlar-core
+actions
+actions.builders
+kevlar
+kevlar.builders
+module:kollections-atomic
+kollections
+module:kollections-interoperable
+kollections
+kollections.internal
+kollections.serializers
+module:kommander-core
+expect
+expect.internal
+kommander
+kommander.internal
+module:kommander-coroutines
+expect
+kommander
+module:koncurrent-executors-core
+koncurrent
+koncurrent.promise
+module:koncurrent-executors-coroutines
+koncurrent
+koncurrent.coroutines
+koncurrent.promise
+module:koncurrent-executors-mock
+koncurrent
+module:koncurrent-later-core
+koncurrent
+koncurrent.internal
+koncurrent.later
+module:koncurrent-later-coroutines
+koncurrent
+koncurrent.later
+module:koncurrent-later-test
+koncurrent
+koncurrent.later
+module:samples-router-react
+captain
+captain.routes.posts

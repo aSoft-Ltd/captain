@@ -1,5 +1,5 @@
 @file:JsExport
-@file:Suppress("NOTHING_TO_INLINE", "NON_EXPORTABLE_TYPE")
+@file:Suppress("NonVarPropertyInExternalInterface")
 
 package captain
 
@@ -7,9 +7,17 @@ import react.FC
 import react.Props
 import react.ReactNode
 
-external interface RouteProps : Props {
-    var path: String
-    var element: ReactNode
+external interface RawRouteProps : Props {
+    val path: String?
+    val element: ReactNode?
 }
 
-val Route = FC<RouteProps>("Route") {}
+external interface RouteProps : RawRouteProps {
+    override var path: String
+    override var element: ReactNode
+}
+
+private const val NAME = "Route"
+
+@JsName(NAME)
+val InternalRoute = FC<RouteProps>(NAME) {}

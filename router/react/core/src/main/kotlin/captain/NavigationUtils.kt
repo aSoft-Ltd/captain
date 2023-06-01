@@ -7,6 +7,7 @@ import react.FC
 import react.Props
 import react.createContext
 import react.useContext
+import react.useEffectOnce
 
 internal val NavigatorContext = createContext<Navigator>()
 
@@ -15,10 +16,12 @@ fun useNavigator(): Navigator {
 }
 
 fun useNavigate(): NavigateFunction = NavigateFunction(useNavigator())
+
 external interface NavigateProps : Props {
     var to: String
 }
 
 val Navigate = FC<NavigateProps> { props ->
-    useNavigator().navigate(props.to)
+    val navigate = useNavigate()
+    useEffectOnce { navigate(props.to) }
 }
