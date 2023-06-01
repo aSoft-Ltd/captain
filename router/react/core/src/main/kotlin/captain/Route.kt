@@ -12,6 +12,7 @@ import react.ReactNode
 import react.create
 import react.createElement
 
+@JsExport
 external interface RawRouteProps : Props {
     val path: String?
     val element: ReactNode?

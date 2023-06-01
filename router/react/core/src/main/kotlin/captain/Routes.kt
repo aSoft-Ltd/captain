@@ -15,6 +15,7 @@ import react.PropsWithChildren
 import react.ReactElement
 import react.ReactNode
 import react.asElementOrNull
+import react.asStringOrNull
 import react.createElement
 import react.useMemo
 
@@ -26,9 +27,7 @@ private const val NAME = "Routes"
 val InternalRoutes = FC<PropsWithChildren>(NAME) { props ->
     val parent = useRouteInfo()
     val navigator = useNavigator()
-    val options = useMemo(parent) {
-        Children.toArray(props.children).flatMap { it.toRouteConfig(parent) }
-    }
+    val options = useMemo(parent) { Children.toArray(props.children).flatMap { it.toRouteConfig(parent) } }
     Routes(navigator.route.watchAsState(), options)
 }
 
@@ -37,7 +36,7 @@ val InternalRoutes = FC<PropsWithChildren>(NAME) { props ->
 internal val RoutesDsl = FC<RoutesBuilder>(NAME) { props ->
     val parent = useRouteInfo()
     val navigator = useNavigator()
-    val options = props.options.map { Config(parent, it.route.path, it.content) }
+    val options = useMemo(props.options) { props.options.map { Config(parent, it.route.path, it.content) } }
     Routes(navigator.route.watchAsState(), options)
 }
 
@@ -50,14 +49,14 @@ inline fun ChildrenBuilder.Routes(noinline builder: RoutesBuilder.() -> Unit) {
     child(createElement(RoutesDsl, props))
 }
 
-private inline fun ChildrenBuilder.Routes(currentRoute: Url, options: List<RouteConfig<ReactNode?>>) {
+private fun ChildrenBuilder.Routes(currentRoute: Url, options: List<RouteConfig<ReactNode?>>) {
     val matches = options.matches(currentRoute)
-    val route = matches.bestMatch()?.copy(matches = matches.associate { it.route to it.match.score() }.toIMap())
-    if (route == null) {
+    val selected = matches.bestMatch()?.copy(matches = matches.associate { it.route to it.match.score() }.toIMap())
+    if (selected == null) {
         console.warn("Failed to find matching route for ${currentRoute.path} from ", options.map { it.route.path }.toTypedArray())
         return
     }
-    RouteInfoContext.Provider(route) { child(route.content) }
+    RouteInfoContext.Provider(selected) { child(selected.content) }
 }
 
 private inline fun Config(
@@ -79,6 +78,7 @@ private fun ReactNode.toRouteConfig(parent: RouteInfo<ReactNode?>?): List<RouteC
 
     if (element.type != InternalRoute) {
         console.error("Only <Route> components are allowed in <$NAME>")
+        console.error("You rendered a <${element.type}> as a direct child of <Routes>")
         return emptyList()
     }
 
@@ -91,6 +91,5 @@ private fun ReactNode.toRouteConfig(parent: RouteInfo<ReactNode?>?): List<RouteC
 
     val props = el.props.unsafeCast<RouteProps>()
 
-    return listOf(Config(parent, props.path, el))
+    return listOf(Config(parent, props.path, props.element))
 }
-
