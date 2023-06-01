@@ -16,8 +16,8 @@ val JsonPlaceHolderAppRouting = FC<Props> {
             h1 { +"Users page" }
             div { +"This is the users page" }
         }
-//        Route("*") {
-//            h1 { +"I think you are lost" }
-//        }
+        Route("*") {
+            h1 { +"I think you are lost" }
+        }
     }
 }
