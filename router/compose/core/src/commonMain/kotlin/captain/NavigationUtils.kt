@@ -1,15 +1,18 @@
+@file:Suppress("NOTHING_TO_INLINE")
+
 package captain
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.compositionLocalOf
 
+@PublishedApi
 internal val LocalNavigator = compositionLocalOf<Navigator> { BasicNavigator("/") }
 
 @Composable
-fun rememberNavigator(): Navigator = LocalNavigator.current
+inline fun rememberNavigator(): Navigator = LocalNavigator.current
 
 @Composable
-fun Navigate(to: String) = rememberNavigator().navigate(to)
+inline fun Navigate(to: String) = rememberNavigator().navigate(to)
 
 @Composable
-fun rememberNavigate(): NavigateFunction = NavigateFunction(rememberNavigator())
+inline fun rememberNavigate(): NavigateFunction = NavigateFunction(rememberNavigator())

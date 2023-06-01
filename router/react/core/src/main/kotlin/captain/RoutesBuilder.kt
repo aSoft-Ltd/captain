@@ -1,36 +1,35 @@
-@file:Suppress("NOTHING_TO_INLINE")
-
 package captain
 
+import js.core.push
 import react.ChildrenBuilder
 import react.ElementType
 import react.FC
-import react.Key
 import react.Props
 import react.ReactNode
 import react.create
 import react.createElement
 
-class RoutesBuilder : Props {
+external interface RoutesBuilder : Props {
 
-    override var key: Key? = undefined
+    var options: Array<RouteConfig<ReactNode?>>
+}
 
-    @PublishedApi
-    internal val options = mutableListOf<RouteConfig<ReactNode?>>()
+inline fun RoutesBuilder.Route(path: String, element: ReactNode) {
+    options.push(RouteConfig(Url(path), element))
+}
 
-    inline fun Route(path: String, element: ReactNode) {
-        options.add(RouteConfig(Url(path), element))
-    }
+inline fun <P : Props> RoutesBuilder.Route(path: String, element: ElementType<P>) {
+    options.push(RouteConfig(Url(path), createElement(element)))
+}
 
-    inline fun <P : Props> Route(path: String, element: ElementType<P>) {
-        options.add(RouteConfig(Url(path), createElement(element)))
-    }
+//inline fun <P : Props> RoutesBuilder.Route(path: String, element: ElementType<P>, props: P) {
+//    options.push(RouteConfig(Url(path), createElement(element, props)))
+//}
 
-    inline fun <P : Props> Route(path: String, element: ElementType<P>, props: P) {
-        options.add(RouteConfig(Url(path), createElement(element, props)))
-    }
+inline fun <P : Props> RoutesBuilder.Route(path: String, element: ElementType<P>, noinline block: P.() -> Unit) {
+    options.push(RouteConfig(Url(path), element.create(block)))
+}
 
-    inline fun Route(path: String, noinline content: ChildrenBuilder.(Props) -> Unit) {
-        options.add(RouteConfig(Url(path), FC(content).create()))
-    }
+inline fun RoutesBuilder.Route(path: String, noinline content: ChildrenBuilder.(Props) -> Unit) {
+    options.push(RouteConfig(Url(path), FC(content).create()))
 }

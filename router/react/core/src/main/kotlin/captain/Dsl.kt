@@ -5,13 +5,14 @@ package captain
 import captain.internal.Config
 import captain.internal.Routes
 import cinematic.watchAsState
+import js.core.jso
 import react.ChildrenBuilder
 import react.FC
 import react.createElement
 
 
 @PublishedApi
-internal val RoutesDsl = FC<RoutesBuilder> {props->
+internal val RoutesDsl = FC<RoutesBuilder>("Routes") { props ->
     val parent = useRouteInfo()
     val navigator = useNavigator()
     val options = props.options.map { Config(parent, it.route.path, it.content) }
@@ -19,7 +20,11 @@ internal val RoutesDsl = FC<RoutesBuilder> {props->
 }
 
 inline fun ChildrenBuilder.Routes(noinline builder: RoutesBuilder.() -> Unit) {
-    child(createElement(RoutesDsl, RoutesBuilder().apply(builder)))
+    val props = jso<RoutesBuilder> {
+        options = arrayOf()
+        builder()
+    }
+    child(createElement(RoutesDsl, props))
 }
 
 inline fun ChildrenBuilder.Router(

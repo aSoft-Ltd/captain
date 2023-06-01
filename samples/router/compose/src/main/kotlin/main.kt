@@ -7,6 +7,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.window.singleWindowApplication
 import captain.BasicNavigator
+import captain.Navigate
+import captain.Route
 import captain.Router
 import captain.Routes
 import captain.rememberNavigate
@@ -25,6 +27,7 @@ fun main() = singleWindowApplication {
                 Route("/about") { Text("About") }
                 Route("/test") { Text("Test") }
                 Route("/customers/*") { Customers() }
+                Route("/info") { Navigate("/about") }
             }
         }
     }

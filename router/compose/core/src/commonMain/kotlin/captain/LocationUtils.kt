@@ -1,6 +1,8 @@
+@file:Suppress("NOTHING_TO_INLINE")
+
 package captain
 
 import androidx.compose.runtime.Composable
 
 @Composable
-fun rememberLocation() = rememberNavigator().current()
+inline fun rememberLocation() = rememberNavigator().current()

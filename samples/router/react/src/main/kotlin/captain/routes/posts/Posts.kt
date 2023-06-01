@@ -1,6 +1,7 @@
 package captain.routes.posts
 
 import captain.A
+import captain.Route
 import captain.Routes
 import captain.useOptionalParam
 import captain.useRouteInfo
