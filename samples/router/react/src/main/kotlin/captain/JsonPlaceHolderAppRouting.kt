@@ -11,7 +11,8 @@ val JsonPlaceHolderAppRouting = FC<Props> {
     Routes {
         Route("/", h1.create { +"JsonPlaceHolder routing demo" })
         Route("/posts/*", Posts)
-        Route("/home") { Navigate { to = "/" } }
+        Route("/about") { h1 { +"Welcome to the about page" } }
+        Route("/info") { Navigate(to = "/about") }
         Route("/users") {
             h1 { +"Users page" }
             div { +"This is the users page" }
