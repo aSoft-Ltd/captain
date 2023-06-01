@@ -6,44 +6,28 @@ import captain.internal.Config
 import captain.internal.Routes
 import cinematic.watchAsState
 import react.ChildrenBuilder
-import react.ElementType
 import react.FC
-import react.Props
-import react.ReactNode
-import react.create
 import react.createElement
 
-class RoutesBuilder(@PublishedApi internal val parent: RouteInfo<ReactNode?>?) {
-    @PublishedApi
-    internal val options = mutableListOf<RouteConfig<ReactNode?>>()
 
-    inline fun Route(path: String, element: ReactNode) {
-        options.add(Config(parent, path, element))
-    }
-
-    inline fun <P : Props> Route(path: String, element: ElementType<P>) {
-        options.add(Config(parent, path, createElement(element)))
-    }
-
-    inline fun <P : Props> Route(path: String, element: ElementType<P>, props: P) {
-        options.add(Config(parent, path, createElement(element, props)))
-    }
-
-    inline fun Route(path: String, noinline content: ChildrenBuilder.(Props) -> Unit) {
-        options.add(Config(parent, path, FC(content).create()))
-    }
+@PublishedApi
+internal val RoutesDsl = FC<RoutesBuilder> {props->
+    val parent = useRouteInfo()
+    val navigator = useNavigator()
+    val options = props.options.map { Config(parent, it.route.path, it.content) }
+    Routes(navigator.route.watchAsState(), options)
 }
 
-inline fun ChildrenBuilder.Routes(noinline builder: RoutesBuilder.() -> Unit) = InternalRoutes {
-    val navigator = useNavigator()
-    val parent = useRouteInfo()
-    Routes(navigator.route.watchAsState(), RoutesBuilder(parent).apply(builder).options)
+inline fun ChildrenBuilder.Routes(noinline builder: RoutesBuilder.() -> Unit) {
+    child(createElement(RoutesDsl, RoutesBuilder().apply(builder)))
 }
 
 inline fun ChildrenBuilder.Router(
-    navigator: Navigator = BrowserNavigator(syncWithAddressBar = true),
+    navigator: Navigator? = null,
     noinline builder: ChildrenBuilder.() -> Unit
-) = InternalRouter {
-    this.navigator = navigator
-    builder()
+) {
+    InternalRouter {
+        this.navigator = navigator
+        this.builder()
+    }
 }

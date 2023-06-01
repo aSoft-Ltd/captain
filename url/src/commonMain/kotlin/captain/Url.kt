@@ -22,8 +22,8 @@ interface Url {
 
     fun trail(): Url
 
-    fun matches(path: String): UrlMatch?
+    fun matches(pattern: String): UrlMatch?
 
     @JsName("matchesUrl")
-    fun matches(url: Url): UrlMatch?
+    fun matches(pattern: Url): UrlMatch?
 }

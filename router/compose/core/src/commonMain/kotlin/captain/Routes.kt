@@ -22,7 +22,7 @@ fun Routes(builder: RoutesBuilder.() -> Unit) {
     val parent = rememberRouteInfo()
     val options = remember(parent) {
         RoutesBuilder().apply(builder).children.map { rc ->
-            val route = parent?.match?.config?.sibling(rc.route.path) ?: rc.route
+            val route = parent?.match?.pattern?.sibling(rc.route.path) ?: rc.route
             RouteConfig(route, rc.content)
         }
     }

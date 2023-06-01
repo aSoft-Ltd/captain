@@ -11,7 +11,7 @@ import kotlin.js.JsExport
 
 data class UrlMatch(
     val route: Url,
-    val config: Url,
+    val pattern: Url,
     val segments: List<SegmentMatch>
 ) {
     val params: Map<String, String> = segments.filterIsInstance<DynamicParamMatch>().associate { it.key to it.value }
@@ -22,7 +22,7 @@ data class UrlMatch(
         val gap = indent(spaces)
         appendLine("RouteMatch(")
         appendLine("$gap${gap}route = $route")
-        appendLine("$gap${gap}config = $config")
+        appendLine("$gap${gap}config = $pattern")
         appendLine("$gap${gap}params = ${params.pretty()}")
         appendLine("$gap${gap}score = ${score()}")
         append("${gap})")

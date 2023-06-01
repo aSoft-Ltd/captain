@@ -1,14 +1,12 @@
 package captain.routes.posts
 
 import captain.A
-import captain.Route
 import captain.Routes
 import captain.useOptionalParam
 import captain.useRouteInfo
 import react.FC
 import react.Fragment
 import react.Props
-import react.create
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.h2
 import react.dom.html.ReactHTML.hr
@@ -39,13 +37,9 @@ val Posts = FC<Props> {
         progress {}
         div { +"Loading" }
     } else Routes {
-        Route {
-            path = "{uid}/*"
-            element = PostCompleteView.create()
-        }
-        Route {
-            path = "/"
-            element = div.create {
+        Route("{uid}/*", PostCompleteView)
+        Route("/") {
+            div {
                 posts.forEach {
                     PostSummaryView { post = it }
                 }
@@ -91,14 +85,8 @@ val PostCompleteView = FC<PostViewProps> { props ->
         div { +"Loading" }
     }
     Routes {
-        Route {
-            path = "/"
-            element = Fragment.create()
-        }
-        Route {
-            path = "/comments"
-            element = PostCommentView.create()
-        }
+        Route("/", Fragment)
+        Route("/comments", PostCommentView)
     }
 }
 

@@ -15,7 +15,12 @@ import react.ReactNode
 @PublishedApi
 internal inline fun ChildrenBuilder.Routes(currentRoute: Url, options: List<RouteConfig<ReactNode?>>) {
     val matches = options.matches(currentRoute)
-    val route = matches.bestMatch()?.copy(matches = matches.associate { it.route to it.match.score() }.toIMap()) ?: return
+    val route = matches.bestMatch()?.copy(matches = matches.associate { it.route to it.match.score() }.toIMap())
+    if (route == null) {
+        console.warn("Failed to find matching route for ${currentRoute.path}")
+        console.warn("Configured routes are: ", options.map { it.route.path }.toTypedArray())
+        return
+    }
     RouteInfoContext.Provider(route) { child(route.content) }
 }
 
@@ -24,4 +29,4 @@ internal inline fun Config(
     parent: RouteInfo<ReactNode?>?,
     path: String,
     element: ReactNode?
-) = RouteConfig(parent?.match?.config?.sibling(path) ?: Url(path), element)
+) = RouteConfig(parent?.match?.pattern?.sibling(path) ?: Url(path), element)

@@ -12,7 +12,7 @@ class RouterMatcherTest {
         val matches = options.matches("/posts")
         expect(matches).toBeNonNull()
         val selected = matches.bestMatch()
-        expect(selected?.match?.config?.path).toBe("/posts/*")
+        expect(selected?.match?.pattern?.path).toBe("/posts/*")
     }
 
     @Test
@@ -23,6 +23,6 @@ class RouterMatcherTest {
 
         val matches = options.matches("/posts")
         val selected = matches.bestMatch()
-        expect(selected?.match?.config?.path).toBe("/posts")
+        expect(selected?.match?.pattern?.path).toBe("/posts")
     }
 }

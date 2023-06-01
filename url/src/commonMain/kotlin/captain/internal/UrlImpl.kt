@@ -81,18 +81,19 @@ internal class UrlImpl(
         }
     }
 
-    override fun matches(path: String): UrlMatch? = matches(UrlImpl(path))
-    override fun matches(url: Url): UrlMatch? {
+    override fun matches(pattern: String): UrlMatch? = matches(UrlImpl(pattern))
+    override fun matches(pattern: Url): UrlMatch? {
+        if (pattern.path == "/" && path != "/") return null
         val p = when {
-            url.segments.size >= segments.size -> segments
-            else -> url.segments
+            pattern.segments.size >= segments.size -> segments
+            else -> pattern.segments
         }
         val pathMatches = mutableListOf<SegmentMatch>()
         for (i in p.indices) {
-            val match = segments[i].matches(url.segments[i]) ?: return null
+            val match = segments[i].matches(pattern.segments[i]) ?: return null
             pathMatches.add(match)
         }
-        return UrlMatch(trail(), url.trail(), pathMatches)
+        return UrlMatch(trail(), pattern.trail(), pathMatches)
     }
 
     private fun String.matches(configPath: String): SegmentMatch? {

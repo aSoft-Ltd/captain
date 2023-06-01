@@ -20,10 +20,11 @@ fun <C> Collection<RouteConfig<C>>.matches(url: Url): List<RouteInfo<C>> {
 
 @JvmName("routeInfoBestMatch")
 fun <C> Collection<RouteInfo<C>>.bestMatch(): RouteInfo<C>? {
+    if (isEmpty()) return null
     val topScore = maxOf { it.match.score() }
     return filter {
         it.match.score() == topScore
     }.minByOrNull {
-        it.match.config.segments.size
+        it.match.pattern.segments.size
     }
 }
