@@ -60,7 +60,5 @@ fun <C> selectRoute(parent: RouteInfo<C>?, currentRoute: Url, options: List<Rout
             (parentPattern?.sibling(pattern.path) ?: pattern) to it.match.score()
         }.toIMap(),
         match = UrlMatch(currentRoute.trail(), childPattern, match.match.segments)
-    ).also {
-        println("from: ${it.evaluatedRoute}")
-    }
+    )
 }

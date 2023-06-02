@@ -20,9 +20,7 @@ private const val NAME = "Router"
 @JsName(NAME)
 val InternalRouter = FC<RouterProps>(NAME) { props ->
     val navigator = useMemo { props.navigator ?: BrowserNavigator(syncWithAddressBar = true) }
-    NavigatorContext.Provider(navigator) {
-        child(props.children)
-    }
+    NavigatorContext(navigator) { child(props.children) }
 }
 
 inline fun ChildrenBuilder.Router(

@@ -7,4 +7,4 @@ import captain.internal.RouteInfoContext
 import react.ReactNode
 import react.useContext
 
-inline fun useRouteInfo(): RouteInfo<ReactNode?>? = useContext(RouteInfoContext)
+inline fun useRouteInfo(): RouteInfo<RouteContent>? = useContext(RouteInfoContext)

@@ -8,6 +8,9 @@ import androidx.compose.runtime.compositionLocalOf
 @PublishedApi
 internal val LocalNavigator = compositionLocalOf<Navigator> { BasicNavigator("/") }
 
+@PublishedApi
+internal val LocalNavigateReference = compositionLocalOf { Url("/") }
+
 @Composable
 inline fun rememberNavigator(): Navigator = LocalNavigator.current
 
@@ -18,4 +21,4 @@ inline fun Navigate(to: String) {
 }
 
 @Composable
-inline fun rememberNavigate() = NavigateFunction(LocalNavigator.current, LocalRouteInfo.current)
+inline fun rememberNavigate() = NavigateFunction(LocalNavigator.current, LocalNavigateReference.current)

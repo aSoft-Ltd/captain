@@ -63,11 +63,11 @@ val PostSummaryView = FC<PostViewProps> { props ->
     }
 }
 
-val PostCompleteView = FC<PostViewProps> { props ->
+val PostCompleteView = FC<PostViewProps> {
     val (post, setPost) = useState<Post?>(null)
     val uid = useOptionalParam("uid").getOr("1")
     val ri = useRouteInfo()
-    ri?.printDebugString()
+    console.log("from: ", ri?.evaluatedRoute?.path)
     useEffectOnce {
         fetchAsync("https://jsonplaceholder.typicode.com/posts/$uid").then {
             it.json().unsafeCast<Post>()
