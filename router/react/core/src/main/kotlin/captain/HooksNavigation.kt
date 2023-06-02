@@ -3,6 +3,7 @@
 
 package captain
 
+import captain.internal.NavigateReferenceContext
 import captain.internal.NavigatorContext
 import react.useContext
 
@@ -13,4 +14,4 @@ inline fun useNavigator() = useContext(NavigatorContext) ?: throw RuntimeExcepti
     """.trimIndent()
 )
 
-inline fun useNavigate() = NavigateFunction(useNavigator(), useRouteInfo())
+inline fun useNavigate() = NavigateFunction(useNavigator(), useContext(NavigateReferenceContext) ?: Url("/"))

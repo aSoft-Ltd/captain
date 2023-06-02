@@ -9,10 +9,13 @@ import cinematic.watchAsState
 fun Routes(builder: RoutesBuilder.() -> Unit) {
     val navigator = rememberNavigator()
     val parent = rememberRouteInfo()
-    val options = remember { RoutesBuilder().apply(builder).options }
-    val route = selectRoute(parent, navigator.route.watchAsState(), options) ?: return
 
-    CompositionLocalProvider(LocalRouteInfo provides route) {
-        route.content(route.match.params.values.toList())
+    CompositionLocalProvider(LocalNavigateReference provides (parent?.evaluatedRoute ?: Url("/"))) {
+        val options = remember { RoutesBuilder().apply(builder).options }
+        val route = selectRoute(parent, navigator.route.watchAsState(), options) ?: return@CompositionLocalProvider
+
+        CompositionLocalProvider(LocalRouteInfo provides route) {
+            route.content(route.match.params.values.toList())
+        }
     }
 }
