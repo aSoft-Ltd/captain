@@ -65,10 +65,19 @@ internal class UrlImpl(
 
     override fun resolve(path: String): Url = when {
         path.startsWith("/") -> at(path)
-        path.startsWith("./") -> sibling(path.replace("./", ""))
-        path.startsWith("..") -> UrlImpl(scheme = scheme, domain = domain, segments.dropLast(1))
+        path.startsWith(".") -> fileSystemLikeResolve(path)
         segments.isEmpty() -> at(path)
         else -> child(path)
+    }
+
+    private fun fileSystemLikeResolve(path: String): Url {
+        var out = segments
+        for (segment in path.split("/")) when {
+            segment == "." -> {}
+            segment == ".." -> out = out - (out.lastOrNull() ?: "")
+            else -> out = out + segment
+        }
+        return UrlImpl(scheme, domain, out)
     }
 
     override val root = buildString {

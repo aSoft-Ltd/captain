@@ -11,14 +11,26 @@ class UrlResolverTest {
     }
 
     @Test
-    fun should_fail_to_slice_when_there_is_no_trail() {
+    fun should_resolve_back_like_a_file_system_route() {
         val url = Url("google.com")
         expect(url.resolve("..")).toBe(Url("google.com"))
     }
 
     @Test
-    fun should_resolve_to_a_sibling_on_a_relative_route() {
+    fun should_resolve_to_a_child_on_a_relative_route_like_in_a_file_system() {
         val url = Url("google.com/meet/user")
-        expect(url.resolve("./admin")).toBe(Url("google.com/meet/admin"))
+        expect(url.resolve("./admin")).toBe(Url("google.com/meet/user/admin"))
+    }
+
+    @Test
+    fun should_resolve_to_a_child_on_a_relative_route() {
+        val url = Url("google.com/meet/user")
+        expect(url.resolve("admin")).toBe(Url("google.com/meet/user/admin"))
+    }
+
+    @Test
+    fun should_resolve_to_sibling_route_as_a_file_system_would() {
+        val url = Url("google.com/meet/user")
+        expect(url.resolve("../admin")).toBe(Url("google.com/meet/admin"))
     }
 }
