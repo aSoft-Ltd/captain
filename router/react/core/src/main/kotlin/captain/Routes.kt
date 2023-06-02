@@ -7,17 +7,8 @@ import captain.internal.RouteInfoContext
 import cinematic.watchAsState
 import js.core.jso
 import kollections.toIMap
-import react.Children
-import react.ChildrenBuilder
-import react.FC
-import react.Fragment
-import react.PropsWithChildren
-import react.ReactElement
-import react.ReactNode
-import react.asElementOrNull
-import react.asStringOrNull
-import react.createElement
-import react.useMemo
+import react.*
+import kotlin.reflect.typeOf
 
 private const val NAME = "Routes"
 
@@ -53,7 +44,10 @@ private fun ChildrenBuilder.Routes(currentRoute: Url, options: List<RouteConfig<
     val matches = options.matches(currentRoute)
     val selected = matches.bestMatch()?.copy(matches = matches.associate { it.route to it.match.score() }.toIMap())
     if (selected == null) {
-        console.warn("Failed to find matching route for ${currentRoute.path} from ", options.map { it.route.path }.toTypedArray())
+        console.warn(
+            "Failed to find matching route for ${currentRoute.path} from ",
+            options.map { it.route.path }.toTypedArray()
+        )
         return
     }
     RouteInfoContext.Provider(selected) { child(selected.content) }
@@ -66,7 +60,7 @@ private inline fun Config(
 ) = RouteConfig(parent?.match?.pattern?.sibling(path) ?: Url(path), element)
 
 private fun ReactNode.toRouteConfig(parent: RouteInfo<ReactNode?>?): List<RouteConfig<ReactNode?>> {
-    val element = asElementOrNull() ?: return listOf()
+    var element = asElementOrNull() ?: return listOf()
     if (element.type == Fragment) {
         val elements = mutableListOf<RouteConfig<ReactNode?>>()
         val props = element.props.unsafeCast<PropsWithChildren>()
@@ -74,6 +68,13 @@ private fun ReactNode.toRouteConfig(parent: RouteInfo<ReactNode?>?): List<RouteC
             elements.addAll(it.toRouteConfig(parent))
         }
         return elements
+    }
+
+    element = element.unsafeCast<ReactElement<PropsWithChildren>>()
+
+    if (element.type != InternalRoute && js("typeof element.type") == "function") {
+        val func = element.type.unsafeCast<(Props) -> ReactNode>()
+        return func(element.props).toRouteConfig(parent)
     }
 
     if (element.type != InternalRoute) {
