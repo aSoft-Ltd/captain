@@ -8,7 +8,6 @@ import cinematic.watchAsState
 import js.core.jso
 import kollections.toIMap
 import react.*
-import kotlin.reflect.typeOf
 
 private const val NAME = "Routes"
 
@@ -18,8 +17,9 @@ private const val NAME = "Routes"
 val InternalRoutes = FC<PropsWithChildren>(NAME) { props ->
     val parent = useRouteInfo()
     val navigator = useNavigator()
-    val options = useMemo(parent) { Children.toArray(props.children).flatMap { it.toRouteConfig(parent) } }
-    Routes(navigator.route.watchAsState(), options)
+    val options = useMemo { Children.toArray(props.children).flatMap { it.toRouteConfig() } }
+    val route = selectRoute(parent, navigator.route.watchAsState(), options) ?: return@FC
+    RouteInfoContext(route) { child(route.content) }
 }
 
 // only for kotlin-react consumers. (Not for react.js consumers)
@@ -27,8 +27,9 @@ val InternalRoutes = FC<PropsWithChildren>(NAME) { props ->
 internal val RoutesDsl = FC<RoutesBuilder>(NAME) { props ->
     val parent = useRouteInfo()
     val navigator = useNavigator()
-    val options = useMemo(props.options) { props.options.map { Config(parent, it.route.path, it.content) } }
-    Routes(navigator.route.watchAsState(), options)
+    val options = useMemo(props.options) { props.options.toList() }
+    val route = selectRoute(parent, navigator.route.watchAsState(), options) ?: return@FC
+    RouteInfoContext(route) { child(route.content) }
 }
 
 // only for kotlin-react consumers. (Not for react.js consumers)
@@ -40,32 +41,41 @@ inline fun ChildrenBuilder.Routes(noinline builder: RoutesBuilder.() -> Unit) {
     child(createElement(RoutesDsl, props))
 }
 
-private fun ChildrenBuilder.Routes(currentRoute: Url, options: List<RouteConfig<ReactNode?>>) {
-    val matches = options.matches(currentRoute)
-    val selected = matches.bestMatch()?.copy(matches = matches.associate { it.match.route to it.match.score() }.toIMap())
-    if (selected == null) {
-        console.warn(
-            "Failed to find matching route for ${currentRoute.path} from ",
-            options.map { it.route.path }.toTypedArray()
-        )
+private fun ChildrenBuilder.Routes(parent: RouteInfo<*>?, currentRoute: Url, options: List<RouteConfig<ReactNode?>>) {
+    val base = parent?.match?.pattern ?: Url("/")
+    val rebasedRoute = base.rebase(currentRoute)
+    val matches = options.matches(rebasedRoute)
+
+    val match = matches.bestMatch()?.copy(
+        matches = matches.associate { it.match.route to it.match.score() }.toIMap()
+    )
+
+    if (match == null) {
+        console.warn(options.map { it.copy(base.sibling(it.route.path)) }.missingRouteMessage(currentRoute))
         return
     }
+
+    val parentPattern = parent?.match?.pattern
+    val childPattern = parentPattern?.sibling(match.match.pattern.path) ?: match.match.pattern
+    val selected = match.copy(
+        options = match.options.map { parentPattern?.sibling(it.path) ?: it },
+        matches = matches.associate {
+            val pattern = it.match.pattern
+            (parentPattern?.sibling(pattern.path) ?: pattern) to it.match.score()
+        }.toIMap(),
+        match = UrlMatch(currentRoute.trail(), childPattern, match.match.segments)
+    )
+
     RouteInfoContext.Provider(selected) { child(selected.content) }
 }
 
-private inline fun Config(
-    parent: RouteInfo<ReactNode?>?,
-    path: String,
-    element: ReactNode?
-) = RouteConfig(parent?.match?.pattern?.sibling(path) ?: Url(path), element)
-
-private fun ReactNode.toRouteConfig(parent: RouteInfo<ReactNode?>?): List<RouteConfig<ReactNode?>> {
+private fun ReactNode.toRouteConfig(): List<RouteConfig<ReactNode?>> {
     var element = asElementOrNull() ?: return listOf()
     if (element.type == Fragment) {
         val elements = mutableListOf<RouteConfig<ReactNode?>>()
         val props = element.props.unsafeCast<PropsWithChildren>()
         Children.toArray(props.children).forEach {
-            elements.addAll(it.toRouteConfig(parent))
+            elements.addAll(it.toRouteConfig())
         }
         return elements
     }
@@ -74,7 +84,7 @@ private fun ReactNode.toRouteConfig(parent: RouteInfo<ReactNode?>?): List<RouteC
 
     if (element.type != InternalRoute && js("typeof element.type") == "function") {
         val func = element.type.unsafeCast<(Props) -> ReactNode>()
-        return func(element.props).toRouteConfig(parent)
+        return func(element.props).toRouteConfig()
     }
 
     if (element.type != InternalRoute) {
@@ -92,5 +102,5 @@ private fun ReactNode.toRouteConfig(parent: RouteInfo<ReactNode?>?): List<RouteC
 
     val props = element.props.unsafeCast<RouteProps>()
 
-    return listOf(Config(parent, props.path, props.element))
+    return listOf(RouteConfig(props.path, props.element))
 }

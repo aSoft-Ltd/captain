@@ -20,7 +20,7 @@ data class UrlMatch(
 
     fun debugString(spaces: Int = 0) = buildString {
         val gap = indent(spaces)
-        appendLine("RouteMatch(")
+        appendLine("UrlMatch(")
         appendLine("$gap${gap}route = $route")
         appendLine("$gap${gap}pattern = $pattern")
         appendLine("$gap${gap}params = ${params.pretty()}")

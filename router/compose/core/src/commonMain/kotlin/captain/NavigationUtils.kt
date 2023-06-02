@@ -18,5 +18,5 @@ inline fun Navigate(to: String) = rememberNavigator().navigate(to)
 inline fun rememberNavigate(): NavigateFunction {
     val navigator = LocalNavigator.current
     val ri = LocalRouteInfo.current
-    return NavigateFunction(rememberNavigator(), ri?.route ?: navigator.current())
+    return NavigateFunction(rememberNavigator(), ri?.match?.route ?: navigator.current())
 }

@@ -11,8 +11,7 @@ import kotlin.js.JsExport
 data class RouteInfo<out C>(
     val match: UrlMatch,
     val options: List<Url>,
-    val matches: Map<Url,Int>,
-    val route: Url,
+    val matches: Map<Url, Int>,
     val content: C
 ) {
 

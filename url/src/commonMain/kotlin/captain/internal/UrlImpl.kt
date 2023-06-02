@@ -90,6 +90,20 @@ internal class UrlImpl(
         }
     }
 
+    override fun rebase(url: Url): Url {
+        val matchingSegments = mutableSetOf<String>()
+        for (s in url.segments.indices) {
+            val patternSegment = segments.getOrNull(s) ?: break
+            if (patternSegment == "*" && s == segments.indices.last) break
+            val routeSegment = url.segments.getOrNull(s) ?: break
+            if (routeSegment.matches(patternSegment) == null) break
+            matchingSegments.add(routeSegment)
+        }
+        return Url(url.scheme, url.domain, *(url.segments - matchingSegments).toTypedArray())
+    }
+
+    override fun rebase(url: String) = rebase(UrlImpl(url))
+
     override fun matches(pattern: String): UrlMatch? = matches(UrlImpl(pattern))
     override fun matches(pattern: Url): UrlMatch? {
         if (pattern.path == "/" && path != "/") return null
