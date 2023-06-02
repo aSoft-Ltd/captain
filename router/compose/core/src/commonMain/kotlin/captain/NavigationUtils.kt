@@ -15,4 +15,8 @@ inline fun rememberNavigator(): Navigator = LocalNavigator.current
 inline fun Navigate(to: String) = rememberNavigator().navigate(to)
 
 @Composable
-inline fun rememberNavigate(): NavigateFunction = NavigateFunction(rememberNavigator())
+inline fun rememberNavigate(): NavigateFunction {
+    val navigator = LocalNavigator.current
+    val ri = LocalRouteInfo.current
+    return NavigateFunction(rememberNavigator(), ri?.route ?: navigator.current())
+}
