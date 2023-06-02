@@ -12,11 +12,10 @@ internal val LocalNavigator = compositionLocalOf<Navigator> { BasicNavigator("/"
 inline fun rememberNavigator(): Navigator = LocalNavigator.current
 
 @Composable
-inline fun Navigate(to: String) = rememberNavigator().navigate(to)
+inline fun Navigate(to: String) {
+    val navigate = rememberNavigate()
+    navigate(to)
+}
 
 @Composable
-inline fun rememberNavigate(): NavigateFunction {
-    val navigator = LocalNavigator.current
-    val ri = LocalRouteInfo.current
-    return NavigateFunction(rememberNavigator(), ri?.match?.route ?: navigator.current())
-}
+inline fun rememberNavigate() = NavigateFunction(LocalNavigator.current, LocalRouteInfo.current)

@@ -50,18 +50,9 @@ Router {
 Router {
     AppNavigation()
     Routes {
-        Route {
-            path = "/"
-            element = Home.create()
-        }
-        Route {
-            path = "/settings"
-            element = Settings.create()
-        }
-        Route {
-            path = "/profile/{uid}"
-            element = Profile.create()
-        }
+        Route("/", Home)
+        Route("/settings", Settings)
+        Route("/profile/{uid}", Profile)
     }
 }
 ```

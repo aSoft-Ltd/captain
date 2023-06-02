@@ -28,6 +28,12 @@ data class UrlMatch(
         append("${gap})")
     }
 
+    val evaluatedRoute
+        get() = segments.map {
+            if (it is DynamicParamMatch) return@map it.value
+            else it.path
+        }.joinToString("/")
+
     private fun score(match: SegmentMatch) = when (match) {
         is WildCardMatch -> 1
         is DynamicParamMatch -> 2

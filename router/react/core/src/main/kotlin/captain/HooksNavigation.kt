@@ -13,8 +13,4 @@ inline fun useNavigator() = useContext(NavigatorContext) ?: throw RuntimeExcepti
     """.trimIndent()
 )
 
-fun useNavigate(): NavigateFunction {
-    val navigator = useNavigator()
-    val ri = useRouteInfo()
-    return NavigateFunction(useNavigator(), ri?.match?.route ?: navigator.current())
-}
+inline fun useNavigate() = NavigateFunction(useNavigator(), useRouteInfo())

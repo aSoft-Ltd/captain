@@ -15,7 +15,8 @@ fun <C> Collection<RouteConfig<C>>.matches(url: Url): List<RouteInfo<C>> {
     return mapNotNull { rc ->
         val route = rc.route
         val match = url.matches(route) ?: return@mapNotNull null
-        RouteInfo(match, options, iMapOf(), rc.content)
+        // The parent change
+        RouteInfo(null, match, options, iMapOf(), rc.content)
     }
 }
 
@@ -35,7 +36,7 @@ fun Collection<RouteConfig<*>>.missingRouteMessage(route: Url): String {
             joinToString(prefix = "[", separator = ",", postfix = "]") { "'${it.route.path}'" }
 }
 
-fun <C> selectRoute(parent: RouteInfo<*>?, currentRoute: Url, options: List<RouteConfig<C>>): RouteInfo<C>? {
+fun <C> selectRoute(parent: RouteInfo<C>?, currentRoute: Url, options: List<RouteConfig<C>>): RouteInfo<C>? {
     val base = parent?.match?.pattern ?: Url("/")
     val rebasedRoute = base.rebase(currentRoute)
     val matches = options.matches(rebasedRoute)
@@ -52,11 +53,14 @@ fun <C> selectRoute(parent: RouteInfo<*>?, currentRoute: Url, options: List<Rout
     val parentPattern = parent?.match?.pattern
     val childPattern = parentPattern?.sibling(match.match.pattern.path) ?: match.match.pattern
     return match.copy(
+        parent = parent,
         options = match.options.map { parentPattern?.sibling(it.path) ?: it },
         matches = matches.associate {
             val pattern = it.match.pattern
             (parentPattern?.sibling(pattern.path) ?: pattern) to it.match.score()
         }.toIMap(),
         match = UrlMatch(currentRoute.trail(), childPattern, match.match.segments)
-    )
+    ).also {
+        println("from: ${it.evaluatedRoute}")
+    }
 }

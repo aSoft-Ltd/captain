@@ -9,6 +9,7 @@ import kollections.Map
 import kotlin.js.JsExport
 
 data class RouteInfo<out C>(
+    val parent: RouteInfo<C>?,
     val match: UrlMatch,
     val options: List<Url>,
     val matches: Map<Url, Int>,
@@ -25,6 +26,7 @@ data class RouteInfo<out C>(
         appendLine(")")
     }
 
+    val evaluatedRoute: Url get() = Url(parent?.evaluatedRoute?.path ?: "/*").sibling(match.evaluatedRoute)
     fun printDebugString() = println(debugString())
 
     override fun toString() = debugString()

@@ -18,8 +18,7 @@ val InternalRoutes = FC<PropsWithChildren>(NAME) { props ->
     val parent = useRouteInfo()
     val navigator = useNavigator()
     val options = useMemo { Children.toArray(props.children).flatMap { it.toRouteConfig() } }
-    val route = selectRoute(parent, navigator.route.watchAsState(), options) ?: return@FC
-    RouteInfoContext(route) { child(route.content) }
+    SelectAndRender(parent, navigator, options)
 }
 
 // only for kotlin-react consumers. (Not for react.js consumers)
@@ -28,8 +27,7 @@ internal val RoutesDsl = FC<RoutesBuilder>(NAME) { props ->
     val parent = useRouteInfo()
     val navigator = useNavigator()
     val options = useMemo(props.options) { props.options.toList() }
-    val route = selectRoute(parent, navigator.route.watchAsState(), options) ?: return@FC
-    RouteInfoContext(route) { child(route.content) }
+    SelectAndRender(parent, navigator, options)
 }
 
 // only for kotlin-react consumers. (Not for react.js consumers)
@@ -41,32 +39,13 @@ inline fun ChildrenBuilder.Routes(noinline builder: RoutesBuilder.() -> Unit) {
     child(createElement(RoutesDsl, props))
 }
 
-private fun ChildrenBuilder.Routes(parent: RouteInfo<*>?, currentRoute: Url, options: List<RouteConfig<ReactNode?>>) {
-    val base = parent?.match?.pattern ?: Url("/")
-    val rebasedRoute = base.rebase(currentRoute)
-    val matches = options.matches(rebasedRoute)
-
-    val match = matches.bestMatch()?.copy(
-        matches = matches.associate { it.match.route to it.match.score() }.toIMap()
-    )
-
-    if (match == null) {
-        console.warn(options.map { it.copy(base.sibling(it.route.path)) }.missingRouteMessage(currentRoute))
-        return
-    }
-
-    val parentPattern = parent?.match?.pattern
-    val childPattern = parentPattern?.sibling(match.match.pattern.path) ?: match.match.pattern
-    val selected = match.copy(
-        options = match.options.map { parentPattern?.sibling(it.path) ?: it },
-        matches = matches.associate {
-            val pattern = it.match.pattern
-            (parentPattern?.sibling(pattern.path) ?: pattern) to it.match.score()
-        }.toIMap(),
-        match = UrlMatch(currentRoute.trail(), childPattern, match.match.segments)
-    )
-
-    RouteInfoContext.Provider(selected) { child(selected.content) }
+private inline fun <C : ReactNode?> ChildrenBuilder.SelectAndRender(
+    parent: RouteInfo<C>?,
+    navigator: Navigator,
+    options: List<RouteConfig<C>>
+) {
+    val route = selectRoute(parent, navigator.route.watchAsState(), options) ?: return
+    RouteInfoContext(route) { child(route.content) }
 }
 
 private fun ReactNode.toRouteConfig(): List<RouteConfig<ReactNode?>> {
