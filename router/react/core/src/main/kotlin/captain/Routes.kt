@@ -42,7 +42,7 @@ inline fun ChildrenBuilder.Routes(noinline builder: RoutesBuilder.() -> Unit) {
 
 private fun ChildrenBuilder.Routes(currentRoute: Url, options: List<RouteConfig<ReactNode?>>) {
     val matches = options.matches(currentRoute)
-    val selected = matches.bestMatch()?.copy(matches = matches.associate { it.route to it.match.score() }.toIMap())
+    val selected = matches.bestMatch()?.copy(matches = matches.associate { it.match.route to it.match.score() }.toIMap())
     if (selected == null) {
         console.warn(
             "Failed to find matching route for ${currentRoute.path} from ",
@@ -83,14 +83,14 @@ private fun ReactNode.toRouteConfig(parent: RouteInfo<ReactNode?>?): List<RouteC
         return emptyList()
     }
 
-    val el = element.unsafeCast<ReactElement<RawRouteProps>>()
+    element = element.unsafeCast<ReactElement<RawRouteProps>>()
 
-    if (el.props.path == null) {
+    if (element.props.path == null) {
         console.error("<Route> component is missing prop 'path'")
         return emptyList()
     }
 
-    val props = el.props.unsafeCast<RouteProps>()
+    val props = element.props.unsafeCast<RouteProps>()
 
     return listOf(Config(parent, props.path, props.element))
 }

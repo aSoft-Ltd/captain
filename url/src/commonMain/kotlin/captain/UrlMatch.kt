@@ -22,7 +22,7 @@ data class UrlMatch(
         val gap = indent(spaces)
         appendLine("RouteMatch(")
         appendLine("$gap${gap}route = $route")
-        appendLine("$gap${gap}config = $pattern")
+        appendLine("$gap${gap}pattern = $pattern")
         appendLine("$gap${gap}params = ${params.pretty()}")
         appendLine("$gap${gap}score = ${score()}")
         append("${gap})")
