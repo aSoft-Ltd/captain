@@ -1,3 +1,5 @@
+@file:Suppress("NOTHING_TO_INLINE")
+
 package captain
 
 import kollections.iMapOf
@@ -5,6 +7,7 @@ import kollections.toIList
 import kollections.toIMap
 import kotlin.jvm.JvmName
 
+internal inline fun <C> Collection<RouteConfig<C>>.matches(url: String) = matches(url.toUrl())
 private fun <C> Collection<RouteConfig<C>>.matches(url: Url): List<RouteInfo<C>> {
     val options = map { it.route }.toIList()
     return mapNotNull { rc ->

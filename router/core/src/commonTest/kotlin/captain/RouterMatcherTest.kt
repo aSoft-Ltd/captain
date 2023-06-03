@@ -16,7 +16,7 @@ class RouterMatcherTest {
     }
 
     @Test
-    fun should_be_able_to_disabuaguate_a_deep_wild_card() {
+    fun should_be_able_to_disambiguate_a_deep_wild_card() {
         val options = listOf("/posts/{uid}/*", "/posts").map {
             RouteConfig(Url(it), it)
         }

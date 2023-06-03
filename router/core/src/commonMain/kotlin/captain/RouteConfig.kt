@@ -16,13 +16,7 @@ class RouteConfig<out C>(
     override fun hashCode() = route.hashCode()
     override fun equals(other: Any?) = other is RouteConfig<*> && other.route == route
 
-    @JsName("rebaseUrl")
-    fun rebase(url: Url): Url {
-        TODO()
-    }
-
     fun copy(route: Url = this.route) = RouteConfig(route, content)
 
-    fun rebase(url: String) = rebase(Url(url))
     override fun toString() = route.path
 }
