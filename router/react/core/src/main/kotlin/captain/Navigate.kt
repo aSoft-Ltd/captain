@@ -5,20 +5,14 @@ package captain
 
 import react.ChildrenBuilder
 import react.FC
-import react.Props
 import react.useEffect
-
-@JsExport
-external interface NavigateProps : Props {
-    var to: String
-}
 
 private const val NAME = "Navigate"
 
 // Only for react.js consumers (Not for kotlin-react consumers)
 @JsExport
 @JsName(NAME)
-val InternalNavigate = FC<NavigateProps>(NAME) { props ->
+val InternalNavigate = FC<DestinationProps>(NAME) { props ->
     val navigate = useNavigate()
     useEffect(props.to) { navigate(props.to) }
 }

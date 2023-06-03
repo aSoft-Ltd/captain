@@ -39,8 +39,6 @@ val people = mapOf(
 @Composable
 fun Customers() = Routes {
     Route("/") {
-        val ri = rememberRouteInfo()
-        ri?.printDebugString()
         val navigate = rememberNavigate()
         LazyColumn {
             items(people) {
