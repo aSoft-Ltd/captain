@@ -67,12 +67,12 @@ internal class UrlImpl(
 
     override fun resolve(path: String): Url = when {
         path.startsWith("/") -> at(path)
-        path.startsWith(".") -> fileSystemLikeResolve(path)
+        path.startsWith(".") -> relativePathResolver(path)
         segments.isEmpty() -> at(path)
         else -> child(path)
     }
 
-    private fun fileSystemLikeResolve(path: String): Url {
+    private fun relativePathResolver(path: String): Url {
         var out = segments
         for (segment in path.split("/")) when {
             segment == "." -> {}

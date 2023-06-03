@@ -33,4 +33,10 @@ class UrlResolverTest {
         val url = Url("google.com/meet/user")
         expect(url.resolve("../admin")).toBe(Url("google.com/meet/admin"))
     }
+
+    @Test
+    fun should_resolve_to_an_absolute_path() {
+        val url = Url("google.com/meet/user")
+        expect(url.resolve("/john/doe")).toBe(Url("google.com/john/doe"))
+    }
 }

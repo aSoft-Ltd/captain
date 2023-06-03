@@ -14,6 +14,11 @@ inline fun useNavigator() = useContext(NavigatorContext) ?: throw RuntimeExcepti
     """.trimIndent()
 )
 
+inline fun useNavigateReference(): Url {
+    val navigator = useNavigator()
+    return useContext(NavigateReferenceContext) ?: navigator.current()
+}
+
 inline fun useNavigate(): NavigateFunction {
     val navigator = useNavigator()
     return NavigateFunction(useNavigator(), useContext(NavigateReferenceContext) ?: navigator.current())
