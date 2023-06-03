@@ -1,6 +1,7 @@
 package captain.internal
 
 import captain.Navigator
+import captain.RouteContent
 import captain.RouteInfo
 import captain.Url
 import react.ReactNode
@@ -10,7 +11,7 @@ import react.createContext
 internal val NavigatorContext = createContext<Navigator>()
 
 @PublishedApi
-internal val RouteInfoContext = createContext<RouteInfo<ReactNode?>>()
+internal val RouteInfoContext = createContext<RouteInfo<RouteContent>>()
 
 @PublishedApi
 internal val NavigateReferenceContext = createContext<Url>()
