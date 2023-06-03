@@ -22,9 +22,6 @@ internal fun Collection<SegmentMatch>.toScore(): Int {
     return score
 }
 
-internal fun Collection<SegmentMatch>.toEvaluatedUrl() = map {
-    if (it is DynamicParamMatch) return@map it.value
-    else it.path
-}.joinToString("/")
+internal fun Collection<SegmentMatch>.toEvaluatedUrl() = joinToString("/") { it.path }
 
 internal fun Collection<SegmentMatch>.toParams() = filterIsInstance<DynamicParamMatch>().associate { it.key to it.value }.toIMap()

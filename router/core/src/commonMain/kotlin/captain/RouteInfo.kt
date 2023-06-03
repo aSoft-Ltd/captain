@@ -26,7 +26,8 @@ data class RouteInfo<out C>(
         appendLine(")")
     }
 
-    val evaluatedRoute: Url get() = Url(parent?.evaluatedRoute?.path ?: "/*").sibling(match.evaluatedRoute)
+//    val evaluatedRoute: Url get() = parent?.evaluatedRoute?.sibling(match.evaluatedRoute) ?: Url("/").child(match.evaluatedRoute)
+    val evaluatedRoute: Url get() = match.evaluatedRoute
     fun printDebugString() = println(debugString())
 
     override fun toString() = debugString()

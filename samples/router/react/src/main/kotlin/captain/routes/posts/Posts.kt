@@ -5,6 +5,8 @@ import captain.Route
 import captain.Routes
 import captain.component1
 import captain.component2
+import captain.useNavigateReference
+import captain.useNavigator
 import captain.useOptionalParam
 import captain.useParams
 import captain.useRouteInfo
@@ -32,6 +34,7 @@ external interface Post {
 
 val Posts = FC<Props> {
     val (posts, setPosts) = useState<Array<Post>>(arrayOf())
+    val navRef = useNavigateReference()
     useEffectOnce {
         fetchAsync("https://jsonplaceholder.typicode.com/posts").then {
             it.json().unsafeCast<Array<Post>>()
@@ -39,6 +42,10 @@ val Posts = FC<Props> {
     }
     h2 {
         +"Posts"
+    }
+
+    div {
+        +"NavRef: ${navRef.path}"
     }
 
     if (posts.isEmpty()) {
@@ -72,14 +79,16 @@ val PostSummaryView = FC<PostViewProps> { props ->
 
 val PostCompleteView = FC<PostViewProps> {
     val (post, setPost) = useState<Post?>(null)
-//    val uid = useOptionalParam("uid").getOr("1")
-//    val (uid) = useParams()
-    val uid = useParams().asDynamic().uid
+    val (uid) = useParams()
+    val navRef = useNavigateReference()
+//    val uid = useParams().asDynamic().uid
     useEffectOnce {
         fetchAsync("https://jsonplaceholder.typicode.com/posts/$uid").then {
             it.json().unsafeCast<Post>()
         }.then { setPost(it) }
     }
+
+    div { +"NavRef: ${navRef.path}" }
     if (post != null) {
         h2 { +post.title }
         hr {}
@@ -109,12 +118,16 @@ external interface PostComment {
 val PostCommentView = FC<PostViewProps> { props ->
     val (comments, setComments) = useState<Array<PostComment>>(arrayOf())
     val (uid) = useParams()
+    val navRef = useNavigateReference()
 //    val uid = useOptionalParam("uid").getOr("12")
     useEffectOnce {
         fetchAsync("https://jsonplaceholder.typicode.com/posts/$uid/comments").then {
             it.json().unsafeCast<Array<PostComment>>()
         }.then { setComments(it) }
     }
+
+    div { +"NavRef: ${navRef.path}" }
+    hr {}
     Routes {
         Route("/") {
             comments.forEach { comment ->
@@ -145,8 +158,8 @@ val PostCommentView = FC<PostViewProps> { props ->
 
 val CommentReply = FC<Props> {
     val (uid, cid) = useParams()
-
+    val navRef = useNavigateReference()
     h2 {
-        +"Reply $cid for post $uid"
+        +"Reply $cid for post $uid: ref = ${navRef.path}"
     }
 }

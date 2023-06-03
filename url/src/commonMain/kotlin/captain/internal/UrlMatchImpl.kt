@@ -3,6 +3,7 @@ package captain.internal
 import captain.SegmentMatch
 import captain.Url
 import captain.UrlMatch
+import captain.toUrl
 import kase.Optional
 import kase.optionalOf
 import kollections.List
@@ -29,7 +30,7 @@ internal data class UrlMatchImpl(
         append("${gap})")
     }
 
-    override val evaluatedRoute get() = segments.toEvaluatedUrl()
+    override val evaluatedRoute get() = segments.toEvaluatedUrl().toUrl()
 
     override val score: Int by lazy { segments.toScore() }
 

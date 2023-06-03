@@ -27,7 +27,7 @@ private const val NAME = "Routes"
 val InternalRoutes = FC<PropsWithChildren>(NAME) { props ->
     val parent = useRouteInfo()
     val navigator = useNavigator()
-    NavigateReferenceContext(parent?.evaluatedRoute) {
+    NavigateReferenceContext(parent?.match?.evaluatedRoute) {
         val options = useMemo { Children.toArray(props.children).flatMap { it.toRouteConfig() } }
         SelectAndRender(parent, navigator, options)
     }
@@ -38,7 +38,7 @@ val InternalRoutes = FC<PropsWithChildren>(NAME) { props ->
 internal val RoutesDsl = FC<RoutesBuilder>(NAME) { props ->
     val parent = useRouteInfo()
     val navigator = useNavigator()
-    NavigateReferenceContext(parent?.evaluatedRoute) {
+    NavigateReferenceContext(parent?.match?.evaluatedRoute) {
         val options = useMemo(props.options) { props.options.toList() }
         SelectAndRender(parent, navigator, options)
     }

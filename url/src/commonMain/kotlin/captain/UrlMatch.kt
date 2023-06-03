@@ -19,7 +19,7 @@ interface UrlMatch {
 
     fun debugString(spaces: Int = 0): String
 
-    val evaluatedRoute: String
+    val evaluatedRoute: Url
 
     fun printDebugString() = println(debugString(0))
 }
