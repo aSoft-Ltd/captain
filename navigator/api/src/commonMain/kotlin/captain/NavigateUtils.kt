@@ -1,5 +1,7 @@
 package captain
 
+import captain.exceptions.UnsupportedNavigationArgument
+
 typealias StringOrInt = Any
 typealias NavigateFunction = (arg: StringOrInt) -> Unit
 
@@ -10,13 +12,19 @@ typealias NavigateFunction = (arg: StringOrInt) -> Unit
  *
  * @return a [NavigateFunction] [from] whence this call should base it's transition of
  */
-fun NavigateFunction(navigator: Navigator, from: Url = navigator.current()): NavigateFunction = { arg: Any ->
+fun NavigateFunction(navigator: Navigator, from: Url = navigator.current()): NavigateFunction = { arg ->
     when (arg) {
         is String -> navigator.navigate(from.resolve(arg).path)
         is Int -> navigator.go(arg)
-        else -> {
-            val message = "Unsupported argument '$arg' of type ${arg::class.simpleName} when calling navigate()"
-            throw UnsupportedOperationException(message)
-        }
+        else -> throw UnsupportedNavigationArgument(arg)
     }
 }
+
+private val VoidNavigateFunction: NavigateFunction = { arg ->
+    when (arg) {
+        is String, is Int -> println("called navigate($arg)")
+        else -> throw UnsupportedNavigationArgument(arg)
+    }
+}
+
+fun NavigateFunction(): NavigateFunction = VoidNavigateFunction
