@@ -2,11 +2,14 @@ package captain.internal
 
 import captain.DynamicParamMatch
 import captain.ExactMatch
+import captain.NewUrlMatch
 import captain.SegmentMatch
 import captain.Url
 import captain.UrlMatch
 import captain.WildCardMatch
+import kollections.toIList
 
+@PublishedApi
 internal class UrlImpl(
     override val scheme: String,
     override val domain: String,
@@ -116,7 +119,8 @@ internal class UrlImpl(
             val match = segments[i].matches(pattern.segments[i]) ?: return null
             pathMatches.add(match)
         }
-        return UrlMatch(trail(), pattern.trail(), pathMatches)
+//        return UrlMatch(trail(), pattern.trail(), pathMatches)
+        return NewUrlMatch(pathMatches.toIList())
     }
 
     private fun String.matches(configPath: String): SegmentMatch? {

@@ -7,14 +7,17 @@ import captain.internal.indent
 import captain.internal.pretty
 import kase.Optional
 import kase.optionalOf
+import kollections.Map
+import kollections.List
+import kollections.toIMap
 import kotlin.js.JsExport
 
-data class UrlMatch(
-    val route: Url,
-    val pattern: Url,
+interface UrlMatch {
     val segments: List<SegmentMatch>
-) {
-    val params: Map<String, String> = segments.filterIsInstance<DynamicParamMatch>().associate { it.key to it.value }
+    val route: Url
+    val pattern: Url
+
+    val params: Map<String, String> get() = segments.filterIsInstance<DynamicParamMatch>().associate { it.key to it.value }.toIMap()
 
     fun get(key: String): Optional<String> = optionalOf(params[key])
 
@@ -50,6 +53,4 @@ data class UrlMatch(
     }
 
     fun printDebugString() = println(debugString(0))
-
-    override fun toString() = debugString(0)
 }

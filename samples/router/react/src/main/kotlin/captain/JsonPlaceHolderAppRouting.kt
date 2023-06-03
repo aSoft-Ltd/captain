@@ -40,7 +40,6 @@ val ReactRoutes = FC<PropsWithChildren>("ReactRoutes") { props ->
             element = h1.create { +"Welcome to the about page" }
         }
 
-        div { +"Test" }
         child(props.children)
 
         InternalRoute {

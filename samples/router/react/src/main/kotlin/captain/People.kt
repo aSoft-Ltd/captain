@@ -13,7 +13,8 @@ external interface PeopleProps : Props {
 }
 
 val People = FC<PeopleProps>("People") { props ->
-    val name = useParams("name")
+//    val name = useParam("name")
+    val (name) = useParams()
     section {
         h3 {
             +props.heading

@@ -31,7 +31,7 @@ fun <C> Collection<RouteInfo<C>>.bestMatch(): RouteInfo<C>? {
     }
 }
 
-fun Collection<RouteConfig<*>>.missingRouteMessage(route: Url): String {
+private fun Collection<RouteConfig<*>>.missingRouteMessage(route: Url): String {
     return "Failed to find matching route for ${route.path} from options " +
             joinToString(prefix = "[", separator = ",", postfix = "]") { "'${it.route.path}'" }
 }
@@ -52,6 +52,8 @@ fun <C> selectRoute(parent: RouteInfo<C>?, currentRoute: Url, options: List<Rout
 
     val parentPattern = parent?.match?.pattern
     val childPattern = parentPattern?.sibling(match.match.pattern.path) ?: match.match.pattern
+
+    val pSegs = parent?.match?.segments?.dropLast(1) ?: listOf()
     return match.copy(
         parent = parent,
         options = match.options.map { parentPattern?.sibling(it.path) ?: it },
@@ -59,6 +61,14 @@ fun <C> selectRoute(parent: RouteInfo<C>?, currentRoute: Url, options: List<Rout
             val pattern = it.match.pattern
             (parentPattern?.sibling(pattern.path) ?: pattern) to it.match.score()
         }.toIMap(),
-        match = UrlMatch(currentRoute.trail(), childPattern, match.match.segments)
+        match = NewUrlMatch((pSegs + match.match.segments).toIList())
     )
 }
+
+fun printUrlMatch(segments: Collection<SegmentMatch>) = println(segments.joinToString(prefix = "/", separator = "/") {
+    when (it) {
+        is DynamicParamMatch -> "D(${it.path}[${it.key}=${it.value}])"
+        is ExactMatch -> "E(${it.path})"
+        is WildCardMatch -> "W(${it.path})"
+    }
+})
