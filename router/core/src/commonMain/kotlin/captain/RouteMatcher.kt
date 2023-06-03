@@ -45,7 +45,8 @@ fun <C> selectRoute(parent: RouteInfo<C>?, currentRoute: Url, options: List<Rout
     )
 
     if (selected == null) {
-        println(options.map { it.copy(base.sibling(it.route.path)) }.missingRouteMessage(currentRoute))
+//        println(options.map { it.copy(base.sibling(it.route.path)) }.missingRouteMessage(currentRoute))
+        println(options.missingRouteMessage(currentRoute))
         return null
     }
 
