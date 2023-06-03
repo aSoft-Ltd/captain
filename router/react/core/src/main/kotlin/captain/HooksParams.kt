@@ -28,7 +28,6 @@ fun useParam(key: String): String {
 
 fun useParams(): ParamsBag {
     val ri = useRouteInfo()
-    console.log("useParams", ri?.debugString())
     val params = ri?.match?.params ?: mapOf()
     val pb = jso<ParamsBag>()
     params.values.toIList()

@@ -5,12 +5,7 @@ import kollections.toIList
 import kollections.toIMap
 import kotlin.jvm.JvmName
 
-@JvmName("routeConfigBestMatch")
-fun <C> Collection<RouteConfig<C>>.bestMatch(url: Url) = matches(url).bestMatch()
-
-fun <C> Collection<RouteConfig<C>>.matches(url: String) = matches(Url(url))
-
-fun <C> Collection<RouteConfig<C>>.matches(url: Url): List<RouteInfo<C>> {
+private fun <C> Collection<RouteConfig<C>>.matches(url: Url): List<RouteInfo<C>> {
     val options = map { it.route }.toIList()
     return mapNotNull { rc ->
         val route = rc.route
@@ -39,29 +34,34 @@ private fun Collection<RouteConfig<*>>.missingRouteMessage(route: Url): String {
 fun <C> selectRoute(parent: RouteInfo<C>?, currentRoute: Url, options: List<RouteConfig<C>>): RouteInfo<C>? {
     val base = parent?.match?.pattern ?: Url("/")
     val rebasedRoute = base.rebase(currentRoute)
-    val matches = options.matches(rebasedRoute)
 
-    val match = matches.bestMatch()?.copy(
+    println("route: ${rebasedRoute.path}")
+    println("Options: ${options.joinToString(prefix = "[", separator = ",", postfix = "]") { it.route.path }}")
+    val matches = options.matches(rebasedRoute)
+    println("Matches: ${matches.joinToString(prefix = "[", separator = ",", postfix = "]") { it.match.pattern.path }}")
+
+    val selected = matches.bestMatch()?.copy(
         matches = matches.associate { it.match.route to it.match.score() }.toIMap()
     )
+    println("selected: ${selected?.match?.pattern?.path}")
 
-    if (match == null) {
+    if (selected == null) {
         println(options.map { it.copy(base.sibling(it.route.path)) }.missingRouteMessage(currentRoute))
         return null
     }
 
     val parentPattern = parent?.match?.pattern
-    val childPattern = parentPattern?.sibling(match.match.pattern.path) ?: match.match.pattern
+    val childPattern = parentPattern?.sibling(selected.match.pattern.path) ?: selected.match.pattern
 
     val pSegs = parent?.match?.segments?.dropLast(1) ?: listOf()
-    return match.copy(
+    return selected.copy(
         parent = parent,
-        options = match.options.map { parentPattern?.sibling(it.path) ?: it },
+        options = selected.options.map { parentPattern?.sibling(it.path) ?: it },
         matches = matches.associate {
             val pattern = it.match.pattern
             (parentPattern?.sibling(pattern.path) ?: pattern) to it.match.score()
         }.toIMap(),
-        match = NewUrlMatch((pSegs + match.match.segments).toIList())
+        match = OgUrlMatch(currentRoute, childPattern, (pSegs + selected.match.segments).toIList())
     )
 }
 
