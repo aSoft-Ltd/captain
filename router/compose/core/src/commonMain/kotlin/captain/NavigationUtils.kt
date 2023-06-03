@@ -21,4 +21,4 @@ inline fun Navigate(to: String) {
 }
 
 @Composable
-inline fun rememberNavigate() = NavigateFunction(LocalNavigator.current, LocalNavigateReference.current)
+inline fun rememberNavigate(): NavigateFunction = NavigateFunction(LocalNavigator.current, LocalNavigateReference.current)

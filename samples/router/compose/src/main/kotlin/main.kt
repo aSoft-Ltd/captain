@@ -20,7 +20,8 @@ fun main() = singleWindowApplication {
                 Route("/") { Text("Home") }
                 Route("/about") { Text("About") }
                 Route("/test") { Text("Test") }
-                Route("/customers/*") { Customers() }
+                Route("/heroes/*") { Heroes() }
+                Route("/villains/*") { Villains() }
                 Route("/info") { Navigate("/about") }
             }
         }
@@ -37,7 +38,7 @@ val people = mapOf(
 ).entries.map { Person(it.key, it.value) }
 
 @Composable
-fun Customers() = Routes {
+fun Heroes() = Routes {
     Route("/") {
         val navigate = rememberNavigate()
         LazyColumn {
@@ -49,6 +50,28 @@ fun Customers() = Routes {
         }
     }
     Route("{name}") { (name) ->
+        Column {
+            val person = people.first { it.name == name }
+            Text("Name: ${person.name}")
+            Text("Power: ${person.power}")
+        }
+    }
+}
+
+@Composable
+fun Villains() = Routes {
+    Route("/") {
+        val navigate = rememberNavigate()
+        LazyColumn {
+            items(people) {
+                Text(it.name, modifier = Modifier.clickable {
+                    navigate(it.name)
+                })
+            }
+        }
+    }
+    Route("{name}") {
+        val name by rememberParams()
         Column {
             val person = people.first { it.name == name }
             Text("Name: ${person.name}")
