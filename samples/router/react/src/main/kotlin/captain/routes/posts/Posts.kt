@@ -108,9 +108,7 @@ external interface PostComment {
 
 val PostCommentView = FC<PostViewProps> { props ->
     val (comments, setComments) = useState<Array<PostComment>>(arrayOf())
-    val params = useParams()
-    console.log(params)
-    val uid = params["uid"]
+    val (uid) = useParams()
 //    val uid = useOptionalParam("uid").getOr("12")
     useEffectOnce {
         fetchAsync("https://jsonplaceholder.typicode.com/posts/$uid/comments").then {
@@ -146,9 +144,9 @@ val PostCommentView = FC<PostViewProps> { props ->
 }
 
 val CommentReply = FC<Props> {
-    val (cid) = useParams()
+    val (uid, cid) = useParams()
 
     h2 {
-        +"Reply $cid for post"
+        +"Reply $cid for post $uid"
     }
 }

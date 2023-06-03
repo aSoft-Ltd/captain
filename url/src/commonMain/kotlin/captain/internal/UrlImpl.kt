@@ -2,8 +2,6 @@ package captain.internal
 
 import captain.DynamicParamMatch
 import captain.ExactMatch
-import captain.NewUrlMatch
-import captain.OgUrlMatch
 import captain.SegmentMatch
 import captain.Url
 import captain.UrlMatch
@@ -120,8 +118,7 @@ internal class UrlImpl(
             val match = segments[i].matches(pattern.segments[i]) ?: return null
             pathMatches.add(match)
         }
-        return OgUrlMatch(trail(), pattern.trail(), pathMatches.toIList())
-//        return NewUrlMatch(pathMatches.toIList())
+        return UrlMatch(trail(), pattern.trail(), pathMatches.toIList())
     }
 
     private fun String.matches(configPath: String): SegmentMatch? {

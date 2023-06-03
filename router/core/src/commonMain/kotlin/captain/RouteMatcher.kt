@@ -18,9 +18,9 @@ private fun <C> Collection<RouteConfig<C>>.matches(url: Url): List<RouteInfo<C>>
 @JvmName("routeInfoBestMatch")
 fun <C> Collection<RouteInfo<C>>.bestMatch(): RouteInfo<C>? {
     if (isEmpty()) return null
-    val topScore = maxOf { it.match.score() }
+    val topScore = maxOf { it.match.score }
     return filter {
-        it.match.score() == topScore
+        it.match.score == topScore
     }.minByOrNull {
         it.match.pattern.segments.size
     }
@@ -35,15 +35,11 @@ fun <C> selectRoute(parent: RouteInfo<C>?, currentRoute: Url, options: List<Rout
     val base = parent?.match?.pattern ?: Url("/")
     val rebasedRoute = base.rebase(currentRoute)
 
-    println("route: ${rebasedRoute.path}")
-    println("Options: ${options.joinToString(prefix = "[", separator = ",", postfix = "]") { it.route.path }}")
     val matches = options.matches(rebasedRoute)
-    println("Matches: ${matches.joinToString(prefix = "[", separator = ",", postfix = "]") { it.match.pattern.path }}")
 
     val selected = matches.bestMatch()?.copy(
-        matches = matches.associate { it.match.route to it.match.score() }.toIMap()
+        matches = matches.associate { it.match.route to it.match.score }.toIMap()
     )
-    println("selected: ${selected?.match?.pattern?.path}")
 
     if (selected == null) {
         println(options.map { it.copy(base.sibling(it.route.path)) }.missingRouteMessage(currentRoute))
@@ -53,22 +49,23 @@ fun <C> selectRoute(parent: RouteInfo<C>?, currentRoute: Url, options: List<Rout
     val parentPattern = parent?.match?.pattern
     val childPattern = parentPattern?.sibling(selected.match.pattern.path) ?: selected.match.pattern
 
-    val pSegs = parent?.match?.segments?.dropLast(1) ?: listOf()
+    val parentSegments = parent?.match?.segments?.dropLast(1) ?: listOf()
     return selected.copy(
         parent = parent,
         options = selected.options.map { parentPattern?.sibling(it.path) ?: it },
         matches = matches.associate {
             val pattern = it.match.pattern
-            (parentPattern?.sibling(pattern.path) ?: pattern) to it.match.score()
+            (parentPattern?.sibling(pattern.path) ?: pattern) to it.match.score
         }.toIMap(),
-        match = OgUrlMatch(currentRoute, childPattern, (pSegs + selected.match.segments).toIList())
+        match = UrlMatch(currentRoute, childPattern, parentSegments + selected.match.segments)
     )
 }
 
-fun printUrlMatch(segments: Collection<SegmentMatch>) = println(segments.joinToString(prefix = "/", separator = "/") {
+// TODO: Remove method Collection<SegmentMatch>.debugString()
+private fun Collection<SegmentMatch>.debugString() = joinToString(prefix = "/", separator = "/") {
     when (it) {
         is DynamicParamMatch -> "D(${it.path}[${it.key}=${it.value}])"
         is ExactMatch -> "E(${it.path})"
         is WildCardMatch -> "W(${it.path})"
     }
-})
+}

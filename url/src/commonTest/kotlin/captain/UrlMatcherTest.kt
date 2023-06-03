@@ -51,7 +51,7 @@ class UrlMatcherTest {
     @Test
     fun should_be_able_to_get_route_params_of_dynamic_routes_defined_with_a_colon() {
         val match = Url("/test/123").matches(Url("/test/:uid"))
-        val uid = match?.get("uid")?.getOrNull()
+        val uid = match?.param("uid")?.getOrNull()
         expect(uid).toBe("123")
     }
 
@@ -64,7 +64,7 @@ class UrlMatcherTest {
     @Test
     fun should_be_able_to_get_route_params_of_dynamic_routes_defined_with_curled_brackets() {
         val match = Url("/test/123").matches(Url("/test/{uid}"))
-        val uid = match?.get("uid")?.getOrNull()
+        val uid = match?.param("uid")?.getOrNull()
         expect(uid).toBe("123")
     }
 
