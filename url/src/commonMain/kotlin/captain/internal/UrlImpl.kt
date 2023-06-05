@@ -131,6 +131,10 @@ internal class UrlImpl(
             val param = configPath.removePrefix("{").removeSuffix("}")
             return DynamicParamMatch(this, param, this)
         }
+        if (configPath.startsWith("[")) {
+            val param = configPath.removePrefix("[").removeSuffix("]")
+            return DynamicParamMatch(this, param, this)
+        }
         if (configPath == this) return ExactMatch(this)
         return null
     }
