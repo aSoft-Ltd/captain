@@ -22,7 +22,7 @@ fun NavigateFunction(navigator: Navigator, from: Url = navigator.current()): Nav
 
 private val VoidNavigateFunction: NavigateFunction = { arg ->
     when (arg) {
-        is String, is Int -> println("called navigate($arg)")
+        is String, is Int -> println("""called navigate("$arg")""")
         else -> throw UnsupportedNavigationArgument(arg)
     }
 }
