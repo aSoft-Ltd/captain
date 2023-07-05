@@ -12,6 +12,7 @@ kotlin {
     sourceSets {
         val main by getting {
             dependencies {
+                api(project.dependencies.platform(kotlinw.bom))
                 api(projects.captainRouterCore)
                 api(projects.captainNavigatorBrowser)
                 api(projects.cinematicLiveReact)
