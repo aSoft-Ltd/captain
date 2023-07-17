@@ -41,7 +41,7 @@ includeSubs("kollections", "../kollections", "atomic", "interoperable")
 includeSubs("koncurrent-executors", "../koncurrent/executors", "core", "coroutines", "mock")
 includeSubs("koncurrent-later", "../koncurrent/later", "core", "coroutines", "test")
 includeSubs("kevlar", "../kevlar", "core")
-includeSubs("kase", "../kase", "core")
+includeSubs("kase", "../kase", "core", "optional", "possible")
 includeSubs("cinematic-live", "../cinematic/live", "core", "react", "compose")
 includeSubs("cinematic-scene", "../cinematic/scene", "core")
 
