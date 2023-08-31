@@ -31,8 +31,8 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api(projects.captainNavigatorBasic)
-                api(projects.captainRouterCore)
+                api(libs.captain.navigator.basic)
+                api(libs.captain.router.core)
                 api(libs.cinematic.live.compose)
             }
         }

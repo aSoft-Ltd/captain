@@ -11,15 +11,16 @@ import com.vanniktech.maven.publish.SonatypeHost
     alias(kotlinz.plugins.dokka)
 }
 
+val v = libs.versions.asoft.get()
+
 repositories {
-    publicRepos()
-    maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
+	publicRepos()
 }
 
-val v = asoft.versions.root.get()
-
-group = "tz.co.asoft"
-version = v
+allprojects {
+    group = "tz.co.asoft"
+    version = v
+}
 
 tasks.dokkaHtmlMultiModule {
     moduleName.set("Captain")
@@ -33,7 +34,6 @@ subprojects {
     apply(plugin = "com.vanniktech.maven.publish")
 
     val p = this
-    version = v
 
     configure<MavenPublishBaseExtension> {
         publishToMavenCentral(SonatypeHost.DEFAULT,automaticRelease = true)

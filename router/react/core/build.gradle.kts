@@ -13,9 +13,9 @@ kotlin {
         val main by getting {
             dependencies {
                 api(project.dependencies.platform(kotlinw.bom))
-                api(projects.captainRouterCore)
-                api(projects.captainNavigatorBrowser)
-                api(projects.cinematicLiveReact)
+                api(libs.captain.router.core)
+                api(libs.captain.navigator.browser)
+                api(libs.cinematic.live.react)
                 api(kotlinw.react)
             }
         }

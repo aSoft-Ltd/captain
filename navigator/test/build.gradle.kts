@@ -18,7 +18,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api(projects.captainNavigatorApi)
+                api(libs.captain.navigator.api)
                 api(libs.kommander.core)
             }
         }
