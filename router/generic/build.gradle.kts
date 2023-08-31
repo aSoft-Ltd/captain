@@ -23,7 +23,7 @@ kotlin {
             dependencies {
                 api(projects.captainNavigatorBasic)
                 api(projects.captainRouterCore)
-                api(projects.cinematicLiveCore)
+                api(libs.cinematic.live.core)
             }
         }
 

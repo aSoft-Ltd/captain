@@ -33,7 +33,7 @@ kotlin {
             dependencies {
                 api(projects.captainNavigatorBasic)
                 api(projects.captainRouterCore)
-                api(projects.cinematicLiveCompose)
+                api(libs.cinematic.live.compose)
             }
         }
 

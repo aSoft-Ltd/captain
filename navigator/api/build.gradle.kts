@@ -19,7 +19,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 api(projects.captainUrl)
-                api(projects.cinematicLiveCore)
+                api(libs.cinematic.live.core)
             }
         }
     }
