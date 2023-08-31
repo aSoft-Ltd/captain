@@ -19,7 +19,7 @@ kotlin {
 
         val commonMain by getting {
             dependencies {
-                api(projects.kaseOptional)
+                api(libs.kase.optional)
                 api(libs.kollections.interoperable)
             }
         }

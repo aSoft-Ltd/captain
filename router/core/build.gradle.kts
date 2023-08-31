@@ -19,7 +19,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 api(projects.captainNavigatorApi)
-                api(projects.kaseCore)
+                api(libs.kase.core)
             }
         }
 
