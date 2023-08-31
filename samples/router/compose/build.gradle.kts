@@ -26,7 +26,7 @@ kotlin {
         }
         val test by getting {
             dependencies {
-                implementation(projects.kommanderCore)
+                implementation(libs.kommander.core)
             }
         }
     }

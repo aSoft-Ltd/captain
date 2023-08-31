@@ -20,7 +20,7 @@ kotlin {
         }
         val jsTest by getting {
             dependencies {
-                implementation(projects.kommanderCore)
+                implementation(libs.kommander.core)
             }
         }
     }

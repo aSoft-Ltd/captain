@@ -25,7 +25,7 @@ kotlin {
 
         val commonTest by getting {
             dependencies {
-                implementation(projects.kommanderCore)
+                implementation(libs.kommander.core)
                 implementation(projects.captainNavigatorBasic)
             }
         }
