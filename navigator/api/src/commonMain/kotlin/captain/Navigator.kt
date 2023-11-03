@@ -4,6 +4,7 @@
 package captain
 
 import cinematic.Live
+import kiota.Url
 import kotlin.js.JsExport
 
 interface Navigator {

@@ -1,6 +1,7 @@
 package captain
 
 import captain.exceptions.UnsupportedNavigationArgument
+import kiota.Url
 
 typealias StringOrInt = Any
 typealias NavigateFunction = (arg: StringOrInt) -> Unit
