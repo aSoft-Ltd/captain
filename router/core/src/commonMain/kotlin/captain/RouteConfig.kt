@@ -3,7 +3,7 @@
 
 package captain
 
-import kotlin.js.JsExport
+import kotlinx.JsExport
 import kotlin.js.JsName
 
 class RouteConfig<out C>(

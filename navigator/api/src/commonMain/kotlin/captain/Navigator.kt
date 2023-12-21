@@ -5,7 +5,7 @@ package captain
 
 import cinematic.Live
 import kiota.Url
-import kotlin.js.JsExport
+import kotlinx.JsExport
 
 interface Navigator {
     val route: Live<Url>

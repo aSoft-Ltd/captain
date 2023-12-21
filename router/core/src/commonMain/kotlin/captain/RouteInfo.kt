@@ -6,7 +6,7 @@ package captain
 import captain.internal.indent
 import kollections.List
 import kollections.Map
-import kotlin.js.JsExport
+import kotlinx.JsExport
 
 data class RouteInfo<out C>(
     val parent: RouteInfo<C>?,
