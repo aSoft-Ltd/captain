@@ -18,7 +18,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api(libs.captain.navigator.api)
+                api(projects.captainNavigatorApi)
                 api(libs.kase.core)
             }
         }
@@ -26,7 +26,7 @@ kotlin {
         val commonTest by getting {
             dependencies {
                 implementation(libs.kommander.core)
-                implementation(libs.captain.navigator.basic)
+                implementation(projects.captainNavigatorBasic)
             }
         }
     }

@@ -18,7 +18,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api(libs.captain.navigator.api)
+                api(projects.captainNavigatorApi)
                 api(libs.kollections.interoperable)
             }
         }

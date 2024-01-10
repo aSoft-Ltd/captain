@@ -12,7 +12,7 @@ kotlin {
     sourceSets {
         val main by getting {
             dependencies {
-                api(libs.captain.navigator.api)
+                api(projects.captainNavigatorApi)
             }
         }
 
