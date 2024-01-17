@@ -3,8 +3,9 @@ package captain
 import cinematic.MutableLive
 import cinematic.mutableLiveOf
 import cinematic.singleWatchableLiveOf
-import kotlinx.browser.document
-import kotlinx.browser.window
+import kiota.Url
+import captain.internal.window
+import captain.internal.document
 
 class BrowserNavigator(private val syncWithAddressBar: Boolean) : Navigator {
 

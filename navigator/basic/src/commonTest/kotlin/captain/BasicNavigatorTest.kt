@@ -1,5 +1,6 @@
 package captain
 
+import kiota.Url
 import kommander.expect
 import kommander.toBe
 import kotlin.test.Test

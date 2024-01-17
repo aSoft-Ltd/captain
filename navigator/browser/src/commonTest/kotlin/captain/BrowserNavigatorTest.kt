@@ -1,8 +1,9 @@
 package captain
 
+import kiota.Url
 import kommander.expect
 import kommander.toBe
-import kotlinx.browser.window
+import captain.internal.window
 import kotlin.test.Test
 
 class BrowserNavigatorTest : AbstractNavigatorTest() {
