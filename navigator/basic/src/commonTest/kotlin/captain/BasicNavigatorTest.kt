@@ -21,7 +21,7 @@ class BasicNavigatorTest : AbstractNavigatorTest() {
     fun should_be_able_to_navigate_to_relative_destinations_with_multiple_paths() {
         navigator.navigate("customers/123/info")
         expect(navigator.route.value).toBe(Url("$initial/customers/123/info"))
-        navigator.navigate("edit")
+        navigator.navigate("../edit")
         expect(navigator.route.value).toBe(Url("$initial/customers/123/edit"))
     }
 

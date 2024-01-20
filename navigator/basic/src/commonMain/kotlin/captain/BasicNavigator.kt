@@ -4,6 +4,7 @@ import cinematic.MutableLive
 import cinematic.mutableLiveOf
 import kollections.LinearlyTraversableStack
 import kollections.traversableStackOf
+import kiota.Url
 
 class BasicNavigator(private val root: String) : Navigator {
     override val route: MutableLive<Url> = mutableLiveOf(Url(root), 0)

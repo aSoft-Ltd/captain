@@ -17,14 +17,14 @@ class BrowserNavigatorTest : AbstractNavigatorTest() {
     @Test
     fun should_be_able_to_navigate_to_relative_destinations() {
         val prev = Url(initial)
-        navigator.navigate("customers")
+        navigator.navigate("../customers")
         expect(navigator.route.value).toBe(prev.at("/customers"))
     }
 
     @Test
     fun should_be_able_to_navigate_to_relative_destinations_with_multiple_paths() {
         val prev = Url(initial)
-        navigator.navigate("customers/123/info")
+        navigator.navigate("../customers/123/info")
         expect(navigator.route.value).toBe(prev.at("/customers/123/info"))
     }
 

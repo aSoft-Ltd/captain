@@ -1,5 +1,7 @@
 package captain
 
+import kiota.Url
+
 private class GenericRouteTest<T>(
     var navigator: Navigator
 )

@@ -3,7 +3,7 @@
 
 package captain
 
-import js.core.push
+import kiota.Url
 import react.ChildrenBuilder
 import react.ElementType
 import react.FC
@@ -11,7 +11,7 @@ import react.Props
 import react.ReactNode
 import react.create
 import react.createElement
-
+import kollections.add
 @JsExport
 external interface RawRouteProps : Props {
     val path: String?
@@ -31,17 +31,17 @@ private const val NAME = "Route"
 val InternalRoute = FC<RouteProps>(NAME) {}
 
 inline fun RoutesBuilder.Route(path: String, element: ReactNode) {
-    options.push(RouteConfig(Url(path), element))
+    options.add(RouteConfig(Url(path), element))
 }
 
 inline fun <P : Props> RoutesBuilder.Route(path: String, element: ElementType<P>) {
-    options.push(RouteConfig(Url(path), createElement(element)))
+    options.add(RouteConfig(Url(path), createElement(element)))
 }
 
 inline fun <P : Props> RoutesBuilder.Route(path: String, element: ElementType<P>, noinline block: P.() -> Unit) {
-    options.push(RouteConfig(Url(path), element.create(block)))
+    options.add(RouteConfig(Url(path), element.create(block)))
 }
 
 inline fun RoutesBuilder.Route(path: String, noinline content: ChildrenBuilder.(Props) -> Unit) {
-    options.push(RouteConfig(Url(path), FC(content).create()))
+    options.add(RouteConfig(Url(path), FC(content).create()))
 }

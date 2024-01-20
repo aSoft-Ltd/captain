@@ -5,6 +5,7 @@ package captain
 
 import captain.internal.NavigateReferenceContext
 import captain.internal.NavigatorContext
+import kiota.Url
 import react.useContext
 
 inline fun useNavigator() = useContext(NavigatorContext) ?: throw RuntimeException(

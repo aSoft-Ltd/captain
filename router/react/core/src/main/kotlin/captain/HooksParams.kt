@@ -7,9 +7,18 @@ import js.core.Record
 import js.core.jso
 import kase.Optional
 import kase.optionalOf
-import kollections.toIList
 import kollections.Map
-import kollections.toIMap
+import kollections.mapOf
+import kollections.component1
+import kollections.component2
+import kollections.component3
+import kollections.component4
+import kollections.component5
+import kollections.component6
+import kollections.entries
+import kollections.iterator
+import kollections.toList
+import kollections.values
 
 external interface Params : Record<String, String> {
     var all: Map<String, String>
@@ -23,16 +32,16 @@ fun useParams(): Params {
     val ri = useRouteInfo()
     val params = ri?.match?.params ?: mapOf()
     val pb = jso<Params>()
-    params.values.toIList()
-    pb.all = params.toIMap()
-    for ((key, value) in params) pb[key] = value
+    pb.all = params
+    for ((key, value) in params.entries) pb[key] = value
     return pb
 }
 
 fun <T : Params> useParamsOf(): T = useParams().unsafeCast<T>()
 
-inline operator fun Params.component1(): String = asDynamic()["all"].unsafeCast<Map<String, String>>().values.toList().component1()
-inline operator fun Params.component2(): String = asDynamic()["all"].unsafeCast<Map<String, String>>().values.toList().component2()
-inline operator fun Params.component3(): String = asDynamic()["all"].unsafeCast<Map<String, String>>().values.toList().component3()
-inline operator fun Params.component4(): String = asDynamic()["all"].unsafeCast<Map<String, String>>().values.toList().component4()
-inline operator fun Params.component5(): String = asDynamic()["all"].unsafeCast<Map<String, String>>().values.toList().component5()
+inline operator fun Params.component1(): String = all.values.toList().component1()
+inline operator fun Params.component2(): String = all.values.toList().component2()
+inline operator fun Params.component3(): String = all.values.toList().component3()
+inline operator fun Params.component4(): String = all.values.toList().component4()
+inline operator fun Params.component5(): String = all.values.toList().component5()
+inline operator fun Params.component6(): String = all.values.toList().component6()

@@ -3,4 +3,6 @@
 
 package captain
 
+import kiota.Url
+
 inline fun useLocation(): Url = useNavigator().current()

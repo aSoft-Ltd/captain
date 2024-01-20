@@ -3,8 +3,7 @@ package captain.internal
 import captain.Navigator
 import captain.RouteContent
 import captain.RouteInfo
-import captain.Url
-import react.ReactNode
+import kiota.Url
 import react.createContext
 
 @PublishedApi

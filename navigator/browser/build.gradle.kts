@@ -35,5 +35,4 @@ rootProject.tasks.withType<KotlinNpmInstallTask>().configureEach {
 
 tasks.named("wasmJsTestTestDevelopmentExecutableCompileSync").configure {
     mustRunAfter(tasks.named("jsBrowserTest"))
-    mustRunAfter(tasks.named("jsNodeTest"))
 }

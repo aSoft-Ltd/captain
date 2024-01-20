@@ -2,19 +2,38 @@
 
 package captain
 
-import kollections.iMapOf
-import kollections.toIList
-import kollections.toIMap
+import kiota.DynamicParamMatch
+import kiota.ExactMatch
+import kiota.SegmentMatch
+import kiota.Url
+import kiota.UrlMatch
+import kiota.WildCardMatch
+import kiota.toUrl
+import kollections.Collection
+import kollections.List
+import kollections.associate
+import kollections.dropLast
+import kollections.filter
+import kollections.isEmpty
+import kollections.joinToString
+import kollections.listOf
+import kollections.map
+import kollections.mapNotNull
+import kollections.mapOf
+import kollections.maxOf
+import kollections.minByOrNull
+import kollections.plus
+import kollections.size
 import kotlin.jvm.JvmName
 
 internal inline fun <C> Collection<RouteConfig<C>>.matches(url: String) = matches(url.toUrl())
 private fun <C> Collection<RouteConfig<C>>.matches(url: Url): List<RouteInfo<C>> {
-    val options = map { it.route }.toIList()
+    val options = map { it.route }
     return mapNotNull { rc ->
         val route = rc.route
         val match = url.matches(route) ?: return@mapNotNull null
         // The parent change
-        RouteInfo(null, match, options, iMapOf(), rc.content)
+        RouteInfo(null, match, options, mapOf(), rc.content)
     }
 }
 
@@ -41,7 +60,7 @@ fun <C> selectRoute(parent: RouteInfo<C>?, currentRoute: Url, options: List<Rout
     val matches = options.matches(rebasedRoute)
 
     val selected = matches.bestMatch()?.copy(
-        matches = matches.associate { it.match.route to it.match.score }.toIMap()
+        matches = matches.associate { it.match.route to it.match.score }
     )
 
     if (selected == null) {
@@ -60,7 +79,7 @@ fun <C> selectRoute(parent: RouteInfo<C>?, currentRoute: Url, options: List<Rout
         matches = matches.associate {
             val pattern = it.match.pattern
             (parentPattern?.sibling(pattern.path) ?: pattern) to it.match.score
-        }.toIMap(),
+        },
         match = UrlMatch(currentRoute.trail(), childPattern, parentSegments + selected.match.segments)
     )
 }

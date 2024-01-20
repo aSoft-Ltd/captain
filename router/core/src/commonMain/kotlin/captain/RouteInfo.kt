@@ -3,7 +3,9 @@
 
 package captain
 
-import captain.internal.indent
+import kiota.Url
+import kiota.UrlMatch
+import kiota.internal.indent
 import kollections.List
 import kollections.Map
 import kotlinx.JsExport

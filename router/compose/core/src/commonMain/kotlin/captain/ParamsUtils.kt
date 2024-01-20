@@ -5,6 +5,9 @@ package captain
 import androidx.compose.runtime.Composable
 import kase.Optional
 import kase.optionalOf
+import kiota.UrlMatch
+import kollections.Map
+import kollections.mapOf
 
 @Composable
 inline fun rememberRouteParams(): UrlMatch = rememberRouteInfo()?.match ?: error("rememberRouteMatchParams can only be used inside a Route{} composable")

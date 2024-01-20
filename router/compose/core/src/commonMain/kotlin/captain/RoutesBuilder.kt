@@ -3,6 +3,10 @@
 package captain
 
 import androidx.compose.runtime.Composable
+import kiota.Url
+import kollections.List
+import kollections.add
+import kollections.mutableListOf
 
 class RoutesBuilder internal constructor() {
 

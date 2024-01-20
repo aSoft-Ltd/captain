@@ -18,6 +18,13 @@ import react.ReactNode
 import react.asElementOrNull
 import react.createElement
 import react.useMemo
+import kollections.List
+import kollections.addAll
+import kollections.listOf
+import kollections.mutableListOf
+import kollections.emptyList
+import kollections.flatMap
+import kollections.toList
 
 private const val NAME = "Routes"
 
@@ -39,7 +46,7 @@ internal val RoutesDsl = FC<RoutesBuilder>(NAME) { props ->
     val parent = useRouteInfo()
     val navigator = useNavigator()
     NavigateReferenceContext(parent?.match?.evaluatedRoute) {
-        val options = useMemo(props.options) { props.options.toList() }
+        val options = useMemo(props.options) { props.options }
         SelectAndRender(parent, navigator, options)
     }
 }
@@ -47,7 +54,7 @@ internal val RoutesDsl = FC<RoutesBuilder>(NAME) { props ->
 // only for kotlin-react consumers. (Not for react.js consumers)
 inline fun ChildrenBuilder.Routes(noinline builder: RoutesBuilder.() -> Unit) {
     val props = jso<RoutesBuilder> {
-        options = arrayOf()
+        options = mutableListOf()
         builder()
     }
     child(createElement(RoutesDsl, props))

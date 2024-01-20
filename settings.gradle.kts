@@ -22,7 +22,7 @@ rootProject.name = "captain"
 
 // submodules
 includeSubs("captain-navigator", "navigator", "api", "basic", "browser", "test")
-includeSubs("captain-router", "router", "core", "generic")
+includeSubs("captain-router", "router", "core") // , "generic")
 includeSubs("captain-router-react", "router/react", "core", "dom")
 includeSubs("captain-router-compose", "router/compose", "core", "html")
 

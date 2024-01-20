@@ -5,6 +5,7 @@ package captain
 
 import kotlinx.JsExport
 import kotlin.js.JsName
+import kiota.Url
 
 class RouteConfig<out C>(
     val route: Url,
