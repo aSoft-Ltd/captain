@@ -2,7 +2,7 @@ package captain.internal
 
 external interface Window {
     var onpopstate: () -> Unit
-    var location: Localtion
+    var location: Location
     val history: History
 }
 

@@ -1,5 +1,5 @@
 package captain.internal
 
-external interface Localtion {
+external interface Location {
     var href: String
 }
