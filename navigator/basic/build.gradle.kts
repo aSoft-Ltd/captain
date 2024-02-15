@@ -44,7 +44,7 @@ rootProject.tasks.withType<KotlinNpmInstallTask>().configureEach {
     args.add("--ignore-engines")
 }
 
-tasks.named("wasmJsTestTestDevelopmentExecutableCompileSync").configure {
-    mustRunAfter(tasks.named("jsBrowserTest"))
-    mustRunAfter(tasks.named("jsNodeTest"))
-}
+//tasks.named("wasmJsTestTestDevelopmentExecutableCompileSync").configure {
+//    mustRunAfter(tasks.named("jsBrowserTest"))
+//    mustRunAfter(tasks.named("jsNodeTest"))
+//}
