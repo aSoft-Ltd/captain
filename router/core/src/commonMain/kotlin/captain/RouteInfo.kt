@@ -4,7 +4,6 @@
 package captain
 
 import kiota.Url
-import kiota.UrlMatch
 import kiota.internal.indent
 import kollections.List
 import kollections.Map

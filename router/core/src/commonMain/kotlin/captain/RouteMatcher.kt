@@ -6,7 +6,6 @@ import kiota.DynamicParamMatch
 import kiota.ExactMatch
 import kiota.SegmentMatch
 import kiota.Url
-import kiota.UrlMatch
 import kiota.WildCardMatch
 import kiota.toUrl
 import kollections.Collection
