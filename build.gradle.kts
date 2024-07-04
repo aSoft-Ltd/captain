@@ -8,6 +8,7 @@ plugins {
     alias(kotlinz.plugins.compose) apply false
     alias(asoft.plugins.library) apply false
     alias(vanniktech.plugins.maven.publish) apply false
+    alias(kotlinz.plugins.root.compiler.compose) apply false
     alias(kotlinz.plugins.dokka)
 }
 
