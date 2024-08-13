@@ -37,7 +37,7 @@ val Posts = FC<Props> {
     val navRef = useNavigateReference()
     useEffectOnce {
         fetchAsync("https://jsonplaceholder.typicode.com/posts").then {
-            it.json().unsafeCast<Array<Post>>()
+            it.jsonAsync().unsafeCast<Array<Post>>()
         }.then { setPosts(it) }
     }
     h2 {
@@ -84,7 +84,7 @@ val PostCompleteView = FC<PostViewProps> {
 //    val uid = useParams().asDynamic().uid
     useEffectOnce {
         fetchAsync("https://jsonplaceholder.typicode.com/posts/$uid").then {
-            it.json().unsafeCast<Post>()
+            it.jsonAsync().unsafeCast<Post>()
         }.then { setPost(it) }
     }
 
@@ -122,7 +122,7 @@ val PostCommentView = FC<PostViewProps> { props ->
 //    val uid = useOptionalParam("uid").getOr("12")
     useEffectOnce {
         fetchAsync("https://jsonplaceholder.typicode.com/posts/$uid/comments").then {
-            it.json().unsafeCast<Array<PostComment>>()
+            it.jsonAsync().unsafeCast<Array<PostComment>>()
         }.then { setComments(it) }
     }
 

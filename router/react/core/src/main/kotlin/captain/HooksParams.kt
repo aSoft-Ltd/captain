@@ -3,12 +3,11 @@
 
 package captain
 
-import js.core.Record
-import js.core.jso
+import js.objects.Record
+import js.objects.jso
 import kase.Optional
 import kase.optionalOf
 import kollections.Map
-import kollections.mapOf
 import kollections.component1
 import kollections.component2
 import kollections.component3
@@ -17,6 +16,7 @@ import kollections.component5
 import kollections.component6
 import kollections.entries
 import kollections.iterator
+import kollections.mapOf
 import kollections.toList
 import kollections.values
 

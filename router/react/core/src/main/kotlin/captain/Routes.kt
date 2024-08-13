@@ -6,7 +6,7 @@ package captain
 import captain.internal.NavigateReferenceContext
 import captain.internal.RouteInfoContext
 import cinematic.watchAsState
-import js.core.jso
+import js.objects.jso
 import react.Children
 import react.ChildrenBuilder
 import react.FC
@@ -24,7 +24,6 @@ import kollections.listOf
 import kollections.mutableListOf
 import kollections.emptyList
 import kollections.flatMap
-import kollections.toList
 
 private const val NAME = "Routes"
 
@@ -52,12 +51,9 @@ internal val RoutesDsl = FC<RoutesBuilder>(NAME) { props ->
 }
 
 // only for kotlin-react consumers. (Not for react.js consumers)
-inline fun ChildrenBuilder.Routes(noinline builder: RoutesBuilder.() -> Unit) {
-    val props = jso<RoutesBuilder> {
-        options = mutableListOf()
-        builder()
-    }
-    child(createElement(RoutesDsl, props))
+inline fun ChildrenBuilder.Routes(noinline builder: RoutesBuilder.() -> Unit) = RoutesDsl {
+    options = mutableListOf()
+    builder()
 }
 
 private inline fun <C : RouteContent> ChildrenBuilder.SelectAndRender(
@@ -66,7 +62,7 @@ private inline fun <C : RouteContent> ChildrenBuilder.SelectAndRender(
     options: List<RouteConfig<C>>
 ) {
     val route = selectRoute(parent, navigator.route.watchAsState(), options) ?: return
-    RouteInfoContext(route) { child(route.content) }
+    RouteInfoContext(route) { +route.content }
 }
 
 private fun ReactNode.toRouteConfig(): List<RouteConfig<RouteContent>> {

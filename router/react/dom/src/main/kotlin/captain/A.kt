@@ -16,6 +16,6 @@ val A = FC<AProps>("A") { props ->
             event.preventDefault()
             navigate(props.to)
         }
-        child(props.children)
+        +props.children
     }
 }
