@@ -5,6 +5,8 @@ package captain
 import kiota.Url
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.compositionLocalOf
+import cinematic.watchAsState
+import kiota.QueryParams
 
 @PublishedApi
 internal val LocalNavigator = compositionLocalOf<Navigator> { BasicNavigator("/") }

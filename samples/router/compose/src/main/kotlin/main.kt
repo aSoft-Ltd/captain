@@ -8,6 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.window.singleWindowApplication
 import captain.*
 import cinematic.watchAsState
+import kotlin.random.Random
 
 fun main() = singleWindowApplication {
     Router("/", BasicNavigator("app://captain.com")) {
@@ -44,14 +45,17 @@ fun Heroes() = Routes {
         LazyColumn {
             items(people) {
                 Text(it.name, modifier = Modifier.clickable {
-                    navigate(it.name)
+//                    navigate(it.name)
+                    navigate(it.name + "?page=${Random.nextInt()}")
                 })
             }
         }
     }
     Route("{name}") { (name) ->
+        val page by rememberQueryParams().intOr(0)
         Column {
             val person = people.first { it.name == name }
+            Text("page: $page")
             Text("Name: ${person.name}")
             Text("Power: ${person.power}")
         }

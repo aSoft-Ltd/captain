@@ -15,7 +15,7 @@ typealias NavigateFunction = (arg: StringOrInt) -> Unit
  */
 fun NavigateFunction(navigator: Navigator, from: Url = navigator.current()): NavigateFunction = { arg ->
     when (arg) {
-        is String -> navigator.navigate(from.resolve(arg).path)
+        is String -> navigator.navigate(from.resolve(arg).trail().toString())
         is Int -> navigator.go(arg)
         else -> throw UnsupportedNavigationArgument(arg)
     }
