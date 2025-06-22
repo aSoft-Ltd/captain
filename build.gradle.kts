@@ -71,12 +71,10 @@ subprojects {
 }
 
 allprojects {
+    repositories {
+        publicRepos()
+    }
     beforeEvaluate {
-        repositories {
-            publicRepos()
-            mavenLocal()
-            maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
-        }
         group = "tz.co.asoft"
         version = "0.0.0"
     }
