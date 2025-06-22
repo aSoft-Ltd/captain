@@ -2,9 +2,9 @@ package captain
 
 import cinematic.MutableLive
 import cinematic.mutableLiveOf
+import kiota.Url
 import kollections.LinearlyTraversableStack
 import kollections.traversableStackOf
-import kiota.Url
 
 class BasicNavigator(private val root: String) : Navigator {
     override val route: MutableLive<Url> = mutableLiveOf(Url(root), 0)
@@ -17,9 +17,10 @@ class BasicNavigator(private val root: String) : Navigator {
 
     override fun current(): Url = route.value
 
-    override fun navigate(path: String) {
+    override fun navigate(path: String, record: Boolean) {
         val url = current().resolve(path)
         route.value = url
+        if (!record) return
         history.insertTrimmingTop(url)
     }
 

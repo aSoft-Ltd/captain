@@ -11,7 +11,7 @@ import cinematic.watchAsState
 import kotlin.random.Random
 
 fun main() = singleWindowApplication {
-    Router("/", BasicNavigator("app://captain.com")) {
+    Router("/", BasicNavigator("app://captain.asoft.co.tz")) {
         Column {
             val nav = rememberNavigator()
             val route = nav.route.watchAsState()

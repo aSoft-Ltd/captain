@@ -10,6 +10,14 @@ import kotlinx.JsExport
 interface Navigator {
     val route: Live<Url>
     fun current(): Url
-    fun navigate(path: String)
+
+    /**
+     * Navigate to the specified [path].
+     *
+     * @param path The path to navigate to
+     * @param record If true, the navigation will be recorded in the history stack.
+     *               If false, it will not record the navigation, prohibiting the user from going back to it.
+     */
+    fun navigate(path: String, record: Boolean = true)
     fun go(steps: Int)
 }

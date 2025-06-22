@@ -21,4 +21,12 @@ abstract class AbstractNavigatorTest {
         val root = Url(initial).root
         expect(navigator.route.value).toBe(Url("$root/customers"))
     }
+
+    @Test
+    fun should_be_able_to_encode_another_url_as_a_query_parameter() {
+        val callback = "https://example.com"
+        navigator.navigate("/customers?callback=$callback")
+        val root = Url(initial).root
+        expect(navigator.route.value).toBe(Url("$root/customers?callback=$callback"))
+    }
 }
