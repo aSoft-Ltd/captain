@@ -29,7 +29,9 @@ fun Routes(builder: RoutesBuilder.() -> Unit) {
         var current by remember { mutableStateOf<RouteInfo<RouteContent>?>(null) }
         val state = navigator.route.watchAsState()
         val route = remember(parent, state, options) {
-            selectRoute(parent, state, options)
+            selectRoute(parent, state, options)?.also {
+                it.content.state = navigator.state()
+            }
         }
         val duration = 2.seconds
         LaunchedEffect(state, route) {
@@ -39,21 +41,21 @@ fun Routes(builder: RoutesBuilder.() -> Unit) {
             delay(duration)
             previous = null
         }
-//        val route = selectRoute(parent, navigator.route.watchAsState(), options) ?: return@CompositionLocalProvider
 
         if (route != null) CompositionLocalProvider(LocalRouteInfo provides route) {
-            AnimatedVisibility(
+            if (previous != null) AnimatedVisibility(
                 visible = previous != null,
                 exit = slideOutHorizontally()
             ) {
-                previous?.content(previous?.match?.params?.values?.toList() ?: emptyList())
+                val prev = previous?.content as RouteContent
+                prev.render(prev, previous?.match?.params?.values?.toList() ?: emptyList())
             }
 
             AnimatedVisibility(
                 visible = current != null,
                 enter = slideInHorizontally()
             ) {
-                route.content(route.match.params.values.toList())
+                route.content.render(route.content, route.match.params.values.toList())
             }
         }
     }

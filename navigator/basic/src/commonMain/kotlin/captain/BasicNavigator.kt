@@ -11,18 +11,23 @@ class BasicNavigator(private val root: String) : Navigator {
 
     private val history: LinearlyTraversableStack<Url> = traversableStackOf()
 
+    private val states = mutableMapOf<Url,Any?>()
+
     init {
         history.insertTrimmingTop(current())
     }
 
     override fun current(): Url = route.value
 
-    override fun navigate(path: String, record: Boolean) {
+    override fun navigate(path: String, record: Boolean, state: Any?) {
         val url = current().resolve(path)
         route.value = url
+        states[url] = state
         if (!record) return
         history.insertTrimmingTop(url)
     }
+
+    override fun state(): Any? = states[current()]
 
     override fun go(steps: Int) {
         val url = history.go(steps) ?: return

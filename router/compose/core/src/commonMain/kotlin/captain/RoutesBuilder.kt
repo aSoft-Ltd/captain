@@ -14,6 +14,6 @@ class RoutesBuilder internal constructor() {
     internal val options = mutableListOf<RouteConfig<RouteContent>>()
 }
 
-inline fun RoutesBuilder.Route(path: String, noinline content: @Composable (params: List<String>) -> Unit) {
-    options.add(RouteConfig(Url(path), content))
+inline fun RoutesBuilder.Route(path: String, noinline content: @Composable RouteContent.(params: List<String>) -> Unit) {
+    options.add(RouteConfig(Url(path), RouteContent(render = content)))
 }

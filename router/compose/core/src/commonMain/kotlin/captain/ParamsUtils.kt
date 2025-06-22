@@ -42,3 +42,6 @@ inline fun rememberQueryParams(): QueryParams {
     val navigator = rememberNavigator()
     return navigator.route.watchAsState().params
 }
+
+@Composable
+inline fun rememberRouteState(): Any? = rememberRouteInfo()?.content?.state

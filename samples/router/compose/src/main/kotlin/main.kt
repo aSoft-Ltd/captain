@@ -6,7 +6,16 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.window.singleWindowApplication
-import captain.*
+import captain.BasicNavigator
+import captain.Navigate
+import captain.Route
+import captain.Router
+import captain.Routes
+import captain.rememberNavigate
+import captain.rememberRouteState
+import captain.rememberNavigator
+import captain.rememberParams
+import captain.rememberQueryParams
 import cinematic.watchAsState
 import kotlin.random.Random
 
@@ -19,7 +28,14 @@ fun main() = singleWindowApplication {
             AppNavigation()
             Routes {
                 Route("/") { Text("Home") }
-                Route("/about") { Text("About") }
+                Route("/about") {
+                    Column {
+                        Text("About")
+                        val p = state as? Person
+                        if (p == null) Text("No person provided")
+                        else Person(p)
+                    }
+                }
                 Route("/test") { Text("Test") }
                 Route("/heroes/*") { Heroes() }
                 Route("/villains/*") { Villains() }
@@ -56,10 +72,15 @@ fun Heroes() = Routes {
         Column {
             val person = people.first { it.name == name }
             Text("page: $page")
-            Text("Name: ${person.name}")
-            Text("Power: ${person.power}")
+            Person(person)
         }
     }
+}
+
+@Composable
+fun Person(p: Person) = Column {
+    Text("Name: ${p.name}")
+    Text("Power: ${p.power}")
 }
 
 @Composable
