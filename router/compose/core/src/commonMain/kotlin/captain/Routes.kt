@@ -43,20 +43,20 @@ fun Routes(builder: RoutesBuilder.() -> Unit) {
         }
 
         if (route != null) CompositionLocalProvider(LocalRouteInfo provides route) {
-            if (previous != null) AnimatedVisibility(
-                visible = previous != null,
-                exit = slideOutHorizontally()
-            ) {
-                val prev = previous?.content as RouteContent
-                prev.render(prev, previous?.match?.params?.values?.toList() ?: emptyList())
-            }
-
-            AnimatedVisibility(
-                visible = current != null,
-                enter = slideInHorizontally()
-            ) {
+//            if (previous != null) AnimatedVisibility(
+//                visible = previous != null,
+//                exit = slideOutHorizontally()
+//            ) {
+//                val prev = previous?.content as RouteContent
+//                prev.render(prev, previous?.match?.params?.values?.toList() ?: emptyList())
+//            }
+//
+//            AnimatedVisibility(
+//                visible = current != null,
+//                enter = slideInHorizontally()
+//            ) {
                 route.content.render(route.content, route.match.params.values.toList())
-            }
+//            }
         }
     }
 }

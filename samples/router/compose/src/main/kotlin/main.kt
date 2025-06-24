@@ -24,7 +24,7 @@ fun main() = singleWindowApplication {
         Column {
             val nav = rememberNavigator()
             val route = nav.route.watchAsState()
-            Text("$route")
+            Text("${route.scheme}")
             AppNavigation()
             Routes {
                 Route("/") { Text("Home") }

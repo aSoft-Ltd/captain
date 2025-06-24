@@ -11,7 +11,7 @@ class BrowserNavigator(private val syncWithAddressBar: Boolean) : Navigator {
 
     override val route: MutableLive<Url> = if (syncWithAddressBar) mutableLiveOf(current(), 0) else singleWatchableLiveOf(current())
 
-    private val states = mutableMapOf<Url,Any?>()
+    private val states = mutableMapOf<Url, Any?>()
 
     init {
         if (syncWithAddressBar) window.onpopstate = { navigate(current().path, record = false) }
@@ -23,6 +23,12 @@ class BrowserNavigator(private val syncWithAddressBar: Boolean) : Navigator {
         val url = current().resolve(path)
         route.value = url
         states[url] = state
+        if (record && syncWithAddressBar) pushState()
+    }
+
+    override fun navigate(path: String, record: Boolean) {
+        val url = current().resolve(path)
+        route.value = url
         if (record && syncWithAddressBar) pushState()
     }
 
