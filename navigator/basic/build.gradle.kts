@@ -1,4 +1,4 @@
-import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
+import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsEnvSpec
 import org.jetbrains.kotlin.gradle.targets.js.npm.tasks.KotlinNpmInstallTask
 
 plugins {
@@ -10,7 +10,7 @@ plugins {
 description = "A kotlin multiplatform library for representing headless collection based ui such as lists, tables and grids"
 
 kotlin {
-    jvm { library() }
+    if (Targeting.JVM) jvm { library() }
     if (Targeting.JS) js(IR) { library() }
     if (Targeting.WASM) wasmJs { library() }
     if (Targeting.WASM) wasmWasi { library() }
@@ -20,22 +20,22 @@ kotlin {
 //    val mingwTargets = if (Targeting.MINGW) mingwTargets() else listOf()
 
     sourceSets {
-        val commonMain by getting {
-            dependencies {
-                api(projects.captainNavigatorApi)
-                api(libs.kollections.stacks)
-            }
+        commonMain.dependencies {
+            api(projects.captainNavigatorApi)
+            api(libs.kollections.stacks)
         }
 
-        val commonTest by getting {
-            dependencies {
-                implementation(projects.captainNavigatorTest)
-            }
+        commonTest.dependencies {
+            implementation(projects.captainNavigatorTest)
+        }
+
+        if (Targeting.JVM) jvmTest.dependencies {
+            implementation(kotlin("test-junit5"))
         }
     }
 }
 
-rootProject.the<NodeJsRootExtension>().apply {
+rootProject.the<NodeJsEnvSpec>().apply {
     version = npm.versions.node.version.get()
     downloadBaseUrl = npm.versions.node.url.get()
 }

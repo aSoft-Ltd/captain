@@ -1,5 +1,5 @@
 import org.jetbrains.compose.compose
-import org.jetbrains.kotlin.gradle.dsl.KotlinCompile
+//import org.jetbrains.kotlin.gradle.dsl.KotlinCompile
 import org.jetbrains.kotlin.gradle.dsl.KotlinJsCompile
 
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
@@ -48,11 +48,11 @@ compose {
     }
 }
 
-tasks.withType(KotlinCompile::class).configureEach {
-    kotlinOptions {
-        val v = kotlinz.versions.kotlin.get()
-        freeCompilerArgs += listOf(
-            "-P", "plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=$v"
-        )
-    }
-}
+//tasks.withType(KotlinCompile::class).configureEach {
+//    kotlinOptions {
+//        val v = kotlinz.versions.kotlin.get()
+//        freeCompilerArgs += listOf(
+//            "-P", "plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=$v"
+//        )
+//    }
+//}

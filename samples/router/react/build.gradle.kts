@@ -7,7 +7,8 @@ description = "A sample for react router"
 
 kotlin {
     js(IR) {
-        moduleName = project.name
+        outputModuleName.set(project.name)
+//        moduleName = project.name
         browser {
             commonWebpackConfig {
                 cssSupport {
