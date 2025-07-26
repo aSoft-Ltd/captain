@@ -27,6 +27,7 @@ import kollections.size
 import kotlin.jvm.JvmName
 
 internal inline fun <C> Collection<RouteConfig<C>>.matches(url: String) = matches(url.toUrl())
+
 private fun <C> Collection<RouteConfig<C>>.matches(url: Url): List<RouteInfo<C>> {
     val options = map { it.route }
     return mapNotNull { rc ->

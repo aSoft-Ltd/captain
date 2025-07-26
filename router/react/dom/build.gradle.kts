@@ -1,5 +1,5 @@
 plugins {
-    kotlin("js")
+    kotlin("multiplatform")
     kotlin("plugin.serialization")
     id("tz.co.asoft.library")
 }
@@ -10,7 +10,7 @@ kotlin {
     js(IR) { browserLib() }
 
     sourceSets {
-        val main by getting {
+        val jsMain by getting {
             dependencies {
                 api(projects.captainNavigatorBrowser)
                 api(projects.captainRouterReactCore)

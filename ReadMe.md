@@ -14,6 +14,9 @@ and do your routing in the ui layer (which depending on your tech stack, may or 
 ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
 ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
 
+## Tutorials
+Check out this [youtube](https://youtube.com/playlist?list=PLmnmuJ9Wj0z3aeHFy8l1QO9DGPECsA307&si=_gjfGrYlbCyfiJkx) playlist for a step by step guide on how to use captain in your applications
+
 ## Router Samples
 
 ### compose
@@ -164,8 +167,6 @@ dependencies {
     implementation("tz.co.asoft:captain-navigator-basic:2.0.18")
 }
 ```
-## Documentation
-Full documentation will be published soon
 
 ## Api Reference
 

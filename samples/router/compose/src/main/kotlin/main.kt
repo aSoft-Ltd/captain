@@ -1,9 +1,16 @@
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.Button
 import androidx.compose.material.Text
+import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.window.singleWindowApplication
 import captain.BasicNavigator
@@ -12,14 +19,90 @@ import captain.Route
 import captain.Router
 import captain.Routes
 import captain.rememberNavigate
-import captain.rememberRouteState
 import captain.rememberNavigator
 import captain.rememberParams
 import captain.rememberQueryParams
 import cinematic.watchAsState
 import kotlin.random.Random
 
+data class Pet(
+    val uid: String,
+    val name: String
+) {
+    companion object {
+        val names = listOf("Dog", "Cat", "Fish", "Bird")
+        fun random() = Pet(
+            uid = Random.nextInt(10).toString(),
+            name = names.random()
+        )
+
+        fun pets(count: Int = 10) = List(count) { random() }
+    }
+}
+
 fun main() = singleWindowApplication {
+    val pages = listOf("Home", "1", "2", "3", "Pets", "Settings")
+    val pets = Pet.pets()
+    Router("/chris/anderson") {
+        Column {
+            Menu(base = "", pages)
+            val navigator = rememberNavigator()
+            var age by remember { mutableStateOf("45") }
+            var gender by remember { mutableStateOf("male") }
+
+            TextField(value = age, onValueChange = { age = it })
+            TextField(value = gender, onValueChange = { gender = it })
+
+            Button(
+                onClick = { navigator.navigate("/chris/joe?age=$age&gender=$gender") },
+            ) {
+                Text("/chris/joe?age=$age&gender=$gender")
+            }
+            Routes {
+                Route("/edibert") {
+                    Text("Welcome to Edibert's page")
+                }
+                Route("/chris") {
+                    Routes {
+                        Route("/joe") {
+                            val params = rememberQueryParams()
+                            val age by params
+                            val gender by params
+                            val search by params
+                            Text("Welcome to Joe's page")
+                            Text("age = $age")
+                            Text("gender = $gender")
+                            Text("search = $search")
+                        }
+                        Route("/edibert") {
+                            Text("Welcome to Edibert's page")
+                        }
+                        Route("/*") {
+                            Text("Welcome to Chris's page with age")
+                        }
+                    }
+                }
+                Route("*") {
+                    Text("Page not found")
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun Menu(base: String, pages: List<String>) = Row {
+    val navigate = rememberNavigate()
+    for (page in pages) Button(onClick = {
+        val destination = "$base/${page.lowercase()}"
+        navigate(destination)
+    }) {
+        Text(page)
+    }
+}
+
+
+fun oldmain() = singleWindowApplication {
     Router("/", BasicNavigator("app://captain.asoft.co.tz")) {
         Column {
             val nav = rememberNavigator()

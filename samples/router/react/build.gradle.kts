@@ -1,5 +1,5 @@
 plugins {
-    kotlin("js")
+    kotlin("multiplatform")
     id("tz.co.asoft.library")
 }
 
@@ -21,9 +21,10 @@ kotlin {
     }
 
     sourceSets {
-        val main by getting {
+        val jsMain by getting {
             dependencies {
                 implementation(projects.captainRouterReactDom)
+                implementation(projects.captainNavigatorBrowser)
             }
         }
     }
