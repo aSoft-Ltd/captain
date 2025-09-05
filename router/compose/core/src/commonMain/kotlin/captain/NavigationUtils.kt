@@ -2,14 +2,11 @@
 
 package captain
 
-import kiota.Url
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.compositionLocalOf
-import cinematic.watchAsState
-import kiota.QueryParams
+import kiota.Url
 
-@PublishedApi
-internal val LocalNavigator = compositionLocalOf<Navigator> { BasicNavigator("/") }
+val LocalNavigator = compositionLocalOf<Navigator> { BasicNavigator("/") }
 
 @PublishedApi
 internal val LocalNavigateReference = compositionLocalOf { Url("/") }
@@ -18,9 +15,9 @@ internal val LocalNavigateReference = compositionLocalOf { Url("/") }
 inline fun rememberNavigator(): Navigator = LocalNavigator.current
 
 @Composable
-inline fun Navigate(to: String) {
-    val navigate = rememberNavigate()
-    navigate(to)
+inline fun Navigate(to: String, record: Boolean = false) {
+    val navigator = LocalNavigator.current
+    navigator.navigate(to, record)
 }
 
 @Composable
