@@ -33,42 +33,17 @@ fun Routes(builder: RoutesBuilder.() -> Unit) {
         val b = remember { RoutesBuilder().apply(builder) }
         val options = b.options
         val contents = b.contents
-        var previous by remember { mutableStateOf<RouteInfo<RouteContent>?>(null) }
-        var current by remember { mutableStateOf<RouteInfo<RouteContent>?>(null) }
         val state = navigator.route.watchAsState()
         val route = remember(parent, state, options) {
             selectRoute(parent, state, options)?.also {
                 it.content.state = navigator.state()
             }
         }
-        val duration = 2.seconds
-        LaunchedEffect(state, route) {
-            if (route == null) return@LaunchedEffect
-            previous = current
-            current = route
-            delay(duration)
-            previous = null
-        }
 
         for (c in contents) c()
 
-        println("Route: $route")
-
         if (route != null) CompositionLocalProvider(LocalRouteInfo provides route) {
-//            if (previous != null) AnimatedVisibility(
-//                visible = previous != null,
-//                exit = slideOutHorizontally()
-//            ) {
-//                val prev = previous?.content as RouteContent
-//                prev.render(prev, previous?.match?.params?.values?.toList() ?: emptyList())
-//            }
-//
-//            AnimatedVisibility(
-//                visible = current != null,
-//                enter = slideInHorizontally()
-//            ) {
             route.content.render(route.content, route.match.params.values.toList())
-//            }
         }
     }
 }

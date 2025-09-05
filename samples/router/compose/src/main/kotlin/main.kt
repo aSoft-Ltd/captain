@@ -93,11 +93,14 @@ fun main() = singleWindowApplication {
                             }
 
                             Routes {
-                                Route("{uid}") { uid ->
-                                    Text("Customer details for $uid")
-                                }
                                 Route("andy") {
                                     Text("Customer Andylamax")
+                                }
+                                Route("*") {
+                                    Text("Customer list")
+                                }
+                                Route("{uid}") { uid ->
+                                    Text("Customer details for $uid")
                                 }
                             }
                         }
