@@ -2,6 +2,11 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material.Button
 import androidx.compose.material.Text
+import androidx.compose.material.TextField
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.window.singleWindowApplication
 import captain.LocalNavigator
 import captain.Navigate
@@ -35,6 +40,16 @@ fun main() = singleWindowApplication {
                     Text("/customers")
                 }
                 Button(onClick = {
+                    navigator.navigate("/customers/456")
+                }) {
+                    Text("/customers/456")
+                }
+                Button(onClick = {
+                    navigator.navigate("/customers/andy")
+                }) {
+                    Text("/customers/andy")
+                }
+                Button(onClick = {
                     navigator.navigate("/contacts")
                 }) {
                     Text("/contacts")
@@ -49,7 +64,7 @@ fun main() = singleWindowApplication {
                 Route("/auth/login") {
                     Text("/auth/login")
                 }
-                Routes {
+                Group {
                     Route("home") {
                         Text("/home")
                     }
@@ -60,12 +75,32 @@ fun main() = singleWindowApplication {
                         Navigate(to = "/home")
                     }
                 }
-                Routes {
+                Group {
                     Route("contacts") {
                         Text("/contacts")
                     }
                     Route("customers") {
-                        Text("/customers")
+                        Column {
+                            var uid by remember { mutableStateOf("012") }
+                            Row {
+                                Text("/customers/")
+                                TextField(value = uid, onValueChange = { uid = it })
+                                Button(onClick = {
+                                    navigator.navigate("/customers/$uid")
+                                }) {
+                                    Text("/customers/$uid")
+                                }
+                            }
+
+                            Routes {
+                                Route("{uid}") { uid ->
+                                    Text("Customer details for $uid")
+                                }
+                                Route("andy") {
+                                    Text("Customer Andylamax")
+                                }
+                            }
+                        }
                     }
                 }
                 Route("/auth/forgot") {

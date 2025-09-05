@@ -1,6 +1,5 @@
 package captain
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
@@ -16,6 +15,15 @@ import kollections.values
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.seconds
 
+/**
+ * This is the main routing component. It must be placed inside a [Router] and it will render the
+ * appropriate [RouteContent] based on the current URL in the [Navigator].
+ *
+ * It should be used to Render top level and nested routes of the application
+ *
+ * It should not be confused with [RoutesBuilder.Group] whose sole purpose is to group routes
+ * together without affecting the URL matching.
+ */
 @Composable
 fun Routes(builder: RoutesBuilder.() -> Unit) {
     val navigator = rememberNavigator()
@@ -42,7 +50,7 @@ fun Routes(builder: RoutesBuilder.() -> Unit) {
             previous = null
         }
 
-        for(c in contents) c()
+        for (c in contents) c()
 
         println("Route: $route")
 

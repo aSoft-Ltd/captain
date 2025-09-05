@@ -63,7 +63,7 @@ fun tutorial() = singleWindowApplication {
                     Text("Welcome to Edibert's page")
                 }
                 Route("/chris") {
-                    Routes {
+                    Group {
                         Route("/joe") {
                             val params = rememberQueryParams()
                             val age by params
