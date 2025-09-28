@@ -11,7 +11,7 @@ description = "A generic router that follows any type of navigator and can be us
 
 kotlin {
     jvm { library() }
-    if (Targeting.JS) js(IR) { library() }
+    if (Targeting.JS) js(IR) { library() } // untill https://youtrack.jetbrains.com/issue/KT-80014 gets fixed
 //    if (Targeting.WASM) wasm { library() }
     val osxTargets = if (Targeting.OSX) osxTargets() else listOf()
 //    val ndkTargets = if (Targeting.NDK) ndkTargets() else listOf()

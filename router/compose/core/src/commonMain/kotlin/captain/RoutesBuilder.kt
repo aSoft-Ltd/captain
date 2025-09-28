@@ -6,8 +6,10 @@ import androidx.compose.runtime.Composable
 import kiota.Url
 import kollections.List
 import kollections.add
+import kollections.addAll
 import kollections.mutableListOf
 
+@RoutingDsl
 class RoutesBuilder internal constructor() {
 
     @PublishedApi
@@ -22,8 +24,15 @@ class RoutesBuilder internal constructor() {
      * If you need to do nested routes, use [Routes] instead
      */
     fun Group(content: @Composable () -> Unit) = contents.add(content)
+
+    @Composable
+    fun Nested(content: @Composable RoutesBuilder.() -> Unit) {
+        val builder = RoutesBuilder().apply { content() }
+        options.addAll(builder.options)
+    }
 }
 
+@RoutingDsl
 inline fun RoutesBuilder.Route(path: String, noinline content: @Composable RouteContent.(params: List<String>) -> Unit) {
     options.add(RouteConfig(Url(path), RouteContent(render = content)))
 }

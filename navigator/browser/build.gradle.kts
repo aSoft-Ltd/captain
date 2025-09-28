@@ -1,5 +1,4 @@
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsEnvSpec
-import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
 import org.jetbrains.kotlin.gradle.targets.js.npm.tasks.KotlinNpmInstallTask
 
 plugins {
@@ -11,7 +10,7 @@ plugins {
 description = "An implementation of the captain-navigator for browser"
 
 kotlin {
-    js(IR) { browserLib(testTimeout = 10) }
+    if (Targeting.JS) js(IR) { browserLib(testTimeout = 10) } // untill https://youtrack.jetbrains.com/issue/KT-80014 gets fixed // untill https://youtrack.jetbrains.com/issue/KT-80014 gets fixed
     if (Targeting.WASM) wasmJs { browser() }
 
     sourceSets {
@@ -23,17 +22,4 @@ kotlin {
             implementation(projects.captainNavigatorTest)
         }
     }
-}
-
-rootProject.the<NodeJsEnvSpec>().apply {
-    version = npm.versions.node.version.get()
-    downloadBaseUrl = npm.versions.node.url.get()
-}
-
-rootProject.tasks.withType<KotlinNpmInstallTask>().configureEach {
-    args.add("--ignore-engines")
-}
-
-tasks.named("wasmJsTestTestDevelopmentExecutableCompileSync").configure {
-    mustRunAfter(tasks.named("jsBrowserTest"))
 }
