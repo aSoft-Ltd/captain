@@ -10,7 +10,7 @@ plugins {
 description = "An implementation of the captain-navigator for browser"
 
 kotlin {
-    if (Targeting.JS) js(IR) { browserLib(testTimeout = 10) } // untill https://youtrack.jetbrains.com/issue/KT-80014 gets fixed // untill https://youtrack.jetbrains.com/issue/KT-80014 gets fixed
+    if (Targeting.JS) js(IR) { browserLib(testTimeout = 10) } //
     if (Targeting.WASM) wasmJs { browser() }
 
     sourceSets {
