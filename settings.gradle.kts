@@ -26,4 +26,4 @@ includeSubs("captain-router-react", "router/react", "core", "dom")
 includeSubs("captain-router-compose", "router/compose", "core", "html")
 
 // samples
-includeSubs("samples-router", "samples/router", "react", "compose")
+includeSubs("samples-router", "samples/router",  "compose") // ,"react") untill https://youtrack.jetbrains.com/issue/KT-80014 gets fixed

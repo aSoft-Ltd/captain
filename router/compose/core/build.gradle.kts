@@ -9,7 +9,7 @@ description = "A compose router that follows any type of navigator"
 kotlin {
 
     if (Targeting.JVM) jvm { library() }
-    if (Targeting.JS) js(IR) { library() }
+    if (Targeting.JS) js(IR) { library() } // untill https://youtrack.jetbrains.com/issue/KT-80014 gets fixed
     if (Targeting.WASM) wasmJs { library() }
 
     val osxTargets = if (Targeting.OSX) iosTargets() else listOf()

@@ -7,17 +7,15 @@ plugins {
 description = "A react router that follows any type of navigator"
 
 kotlin {
-    js(IR) { browserLib() }
+    if (Targeting.JS) js(IR) { browserLib() }
 
     sourceSets {
-        val jsMain by getting {
-            dependencies {
-                api(project.dependencies.platform(kotlinw.bom))
-                api(projects.captainRouterCore)
-                api(projects.captainNavigatorBrowser)
-                api(libs.cinematic.live.react)
-                api(kotlinw.react)
-            }
+        if (Targeting.JS) jsMain.dependencies {
+            api(project.dependencies.platform(kotlinw.bom))
+            api(projects.captainRouterCore)
+            api(projects.captainNavigatorBrowser)
+            api(libs.cinematic.live.react)
+            api(kotlinw.react)
         }
     }
 }
