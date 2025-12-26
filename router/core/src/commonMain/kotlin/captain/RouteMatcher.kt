@@ -9,21 +9,6 @@ import kiota.Url
 import kiota.UrlMatch
 import kiota.WildCardMatch
 import kiota.toUrl
-import kollections.Collection
-import kollections.List
-import kollections.associate
-import kollections.dropLast
-import kollections.filter
-import kollections.isEmpty
-import kollections.joinToString
-import kollections.listOf
-import kollections.map
-import kollections.mapNotNull
-import kollections.mapOf
-import kollections.maxOf
-import kollections.minByOrNull
-import kollections.plus
-import kollections.size
 import kotlin.jvm.JvmName
 
 internal inline fun <C> Collection<RouteConfig<C>>.matches(url: String) = matches(url.toUrl())

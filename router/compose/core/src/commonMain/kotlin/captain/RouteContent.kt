@@ -1,7 +1,6 @@
 package captain
 
 import androidx.compose.runtime.Composable
-import kollections.List
 
 class RouteContent(
     var state: Any? = null,

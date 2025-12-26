@@ -5,9 +5,6 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
 import cinematic.watchAsState
 import kiota.Url
-import kollections.iterator
-import kollections.toList
-import kollections.values
 
 /**
  * This is the main routing component. It must be placed inside a [Router] and it will render the

@@ -1,10 +1,10 @@
 package captain
 
+import captain.stack.LinearlyTraversableStack
+import captain.stack.traversableStackOf
 import cinematic.MutableLive
 import cinematic.mutableLiveOf
 import kiota.Url
-import kollections.LinearlyTraversableStack
-import kollections.traversableStackOf
 
 class BasicNavigator(private val root: String) : Navigator {
     override val route: MutableLive<Url> = mutableLiveOf(Url(root), 0)
