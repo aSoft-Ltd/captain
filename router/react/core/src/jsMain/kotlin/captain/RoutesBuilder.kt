@@ -1,6 +1,5 @@
 package captain
 
-import kollections.MutableList
 import react.Props
 import react.ReactNode
 

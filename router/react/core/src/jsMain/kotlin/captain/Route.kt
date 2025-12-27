@@ -11,7 +11,6 @@ import react.Props
 import react.ReactNode
 import react.create
 import react.createElement
-import kollections.add
 @JsExport
 external interface RawRouteProps : Props {
     val path: String?
