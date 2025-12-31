@@ -1,9 +1,7 @@
 package captain
 
 import kommander.expect
-import kollections.listOf
 import kiota.Url
-import kollections.map
 import kotlin.test.Test
 
 class RouterMatcherTest {

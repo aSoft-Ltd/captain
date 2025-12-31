@@ -6,7 +6,6 @@ package captain
 import captain.internal.NavigateReferenceContext
 import captain.internal.RouteInfoContext
 import cinematic.watchAsState
-import js.objects.jso
 import react.Children
 import react.ChildrenBuilder
 import react.FC
@@ -16,14 +15,7 @@ import react.PropsWithChildren
 import react.ReactElement
 import react.ReactNode
 import react.asElementOrNull
-import react.createElement
 import react.useMemo
-import kollections.List
-import kollections.addAll
-import kollections.listOf
-import kollections.mutableListOf
-import kollections.emptyList
-import kollections.flatMap
 
 private const val NAME = "Routes"
 
