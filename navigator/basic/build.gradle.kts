@@ -22,7 +22,6 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(projects.captainNavigatorApi)
-            api(libs.kollections.stacks)
         }
 
         commonTest.dependencies {

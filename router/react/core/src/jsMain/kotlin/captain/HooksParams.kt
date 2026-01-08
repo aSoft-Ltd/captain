@@ -7,18 +7,6 @@ import js.objects.Record
 import js.objects.jso
 import kase.Optional
 import kase.optionalOf
-import kollections.Map
-import kollections.component1
-import kollections.component2
-import kollections.component3
-import kollections.component4
-import kollections.component5
-import kollections.component6
-import kollections.entries
-import kollections.iterator
-import kollections.mapOf
-import kollections.toList
-import kollections.values
 
 external interface Params : Record<String, String> {
     var all: Map<String, String>
@@ -38,10 +26,3 @@ fun useParams(): Params {
 }
 
 fun <T : Params> useParamsOf(): T = useParams().unsafeCast<T>()
-
-inline operator fun Params.component1(): String = all.values.toList().component1()
-inline operator fun Params.component2(): String = all.values.toList().component2()
-inline operator fun Params.component3(): String = all.values.toList().component3()
-inline operator fun Params.component4(): String = all.values.toList().component4()
-inline operator fun Params.component5(): String = all.values.toList().component5()
-inline operator fun Params.component6(): String = all.values.toList().component6()
