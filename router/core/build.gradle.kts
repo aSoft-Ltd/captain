@@ -27,7 +27,7 @@ kotlin {
             implementation(projects.captainNavigatorBasic)
         }
 
-        if (Targeting.JVM) jvmMain.dependencies {
+        if (Targeting.JVM) jvmTest.dependencies {
             implementation(kotlin("test-junit5"))
         }
     }
