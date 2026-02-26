@@ -14,7 +14,7 @@ import captain.Route
 import captain.Router
 import captain.Routes
 
-fun main() = singleWindowApplication {
+fun mainold() = singleWindowApplication {
     Router("/customers/andy") {
         val navigator = LocalNavigator.current
         Column {

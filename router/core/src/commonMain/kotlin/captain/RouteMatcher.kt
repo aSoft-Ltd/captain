@@ -66,7 +66,8 @@ fun <C> selectRoute(parent: RouteInfo<C>?, currentRoute: Url, options: List<Rout
             val pattern = it.match.pattern
             (parentPattern?.sibling(pattern.path) ?: pattern) to it.match.score
         },
-        match = UrlMatch(currentRoute.trail(), childPattern, parentSegments + selected.match.segments)
+//        match = UrlMatch(currentRoute.trail(), childPattern, parentSegments + selected.match.segments)
+        match = UrlMatch(currentRoute.trail(), childPattern, (parent?.match?.segments ?: listOf()) + selected.match.segments)
     )
 }
 

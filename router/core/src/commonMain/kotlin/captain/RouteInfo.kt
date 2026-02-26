@@ -22,6 +22,7 @@ data class RouteInfo<out C>(
         appendLine("RouteInfo(")
         appendLine("${gap}options = $options")
         appendLine("${gap}matches = $matches")
+        appendLine("${gap}parent = ${parent?.match?.pattern}")
         appendLine("${gap}match = ${match.debugString(spaces)}")
         appendLine(")")
     }
