@@ -1,12 +1,8 @@
 package captain
 
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.onClick
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.key
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Modifier
 import cinematic.watchAsState
 import kiota.Url
 
@@ -39,9 +35,7 @@ fun Routes(builder: RoutesBuilder.() -> Unit) {
         for (c in contents) c()
 
         if (route != null) CompositionLocalProvider(LocalRouteInfo provides route) {
-            key(route) {
-                route.content.render(route.content, route.match.params.values.toList())
-            }
+            route.content.render(route.content, route.match.params.values.toList())
         }
     }
 }

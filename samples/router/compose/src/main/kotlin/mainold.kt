@@ -3,6 +3,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -13,6 +15,9 @@ import captain.Route
 import captain.Router
 import captain.Routes
 import cinematic.watchAsState
+import kotlinx.coroutines.delay
+import kotlin.time.Duration
+import kotlin.time.Duration.Companion.seconds
 
 
 /**
@@ -58,22 +63,24 @@ fun main() = singleWindowApplication {
                                             Text("Curriculums list")
                                         }
 
-                                        Route("{curriculum}/*") {
-                                            Routes {
-                                                Route("/") { (campus, curriculum) ->
-                                                    Text("Campus: ${campus}, Curriculum: $curriculum")
-                                                }
+                                        Route("{curriculum}/*") { (campus,curriculum) ->
+                                            Loader(duration = curriculum.toInt().seconds) {
+                                                Routes {
+                                                    Route("/") { (campus, curriculum) ->
+                                                        Text("Campus: ${campus}, Curriculum: $curriculum")
+                                                    }
 
-                                                Route("/levels/*") {
-                                                    Routes {
-                                                        Route("/") { (campus,curriculum)->
-                                                            Text("Campus: ${campus}, Curriculum: ${curriculum}, Levels list")
-                                                        }
+                                                    Route("/levels/*") {
+                                                        Routes {
+                                                            Route("/") { (campus, curriculum) ->
+                                                                Text("Campus: ${campus}, Curriculum: ${curriculum}, Levels list")
+                                                            }
 
-                                                        Route("{level}/*") {
-                                                            Routes {
-                                                                Route("/") { (campus, curriculum, level) ->
-                                                                    Text("Campus: $campus, Curriculum: $curriculum, Level: $level")
+                                                            Route("{level}/*") {
+                                                                Routes {
+                                                                    Route("/") { (campus, curriculum, level) ->
+                                                                        Text("Campus: $campus, Curriculum: $curriculum, Level: $level")
+                                                                    }
                                                                 }
                                                             }
                                                         }
@@ -93,5 +100,20 @@ fun main() = singleWindowApplication {
                 }
             }
         }
+    }
+}
+
+@Composable
+internal fun Loader(duration: Duration = 3.seconds, content: @Composable () -> Unit) = Column {
+    var loading by remember { mutableStateOf(true) }
+    LaunchedEffect(duration) {
+        loading = true
+        delay(duration)
+        loading = false
+    }
+    if (loading) {
+        Text("Loading...")
+    } else {
+        content()
     }
 }
