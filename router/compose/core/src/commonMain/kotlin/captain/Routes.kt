@@ -20,13 +20,12 @@ import kiota.Url
 fun Routes(builder: RoutesBuilder.() -> Unit) {
     val navigator = rememberNavigator()
     val parent = rememberRouteInfo()
+    val state = navigator.route.watchAsState()
 
     CompositionLocalProvider(LocalNavigateReference provides (parent?.match?.evaluatedRoute ?: Url("/"))) {
         val b = remember { RoutesBuilder().apply(builder) }
-//        val b = RoutesBuilder().apply { builder() }
         val options = remember(builder) { b.options }
         val contents = remember(builder) { b.contents }
-        val state = navigator.route.watchAsState()
         val route = remember(parent, state, options) {
             selectRoute(parent, state, options)?.also {
                 it.content.state = navigator.state()
