@@ -3,7 +3,6 @@ package captain
 import kiota.Url
 import kommander.expect
 import kotlin.test.Test
-import kotlin.test.fail
 
 abstract class AbstractNavigatorTest {
 
@@ -40,13 +39,29 @@ abstract class AbstractNavigatorTest {
 
     @Test
     fun should_be_able_preserve_query_parameters_when_navigating() {
-        println("Navigating with callback")
         navigator.navigate("/customers?callback=https://example.com")
-        println("Navigated with callback")
-        println("After navigation (navigation.current() = ${navigator.current()})")
-        println("After navigation (route.value = ${navigator.route.value})")
         val root = Url(initial).root
-        navigator.navigate("/people", NavigateOptions(preserve = Preserve.Query))
+        navigator.navigate("/people", NavigateOptions(preserve = Preserve.QueryOnly))
         expect(navigator.route.value).toBe(Url("$root/people?callback=https://example.com"))
+    }
+
+    @Test
+    fun should_be_able_to_preserve_state() {
+        navigator.navigate("/person", NavigateOptions(state = 123))
+        expect(navigator.state()).toBe(123)
+        navigator.navigate("/company")
+        expect(navigator.state()).toBe(null)
+        navigator.navigate("/person")
+        expect(navigator.state()).toBe(123)
+    }
+
+    @Test
+    fun should_be_able_to_stop_preserving_state() {
+        navigator.navigate("/person", NavigateOptions(state = 123))
+        expect(navigator.state()).toBe(123)
+        navigator.navigate("/company")
+        expect(navigator.state()).toBe(null)
+        navigator.navigate("/person", NavigateOptions(preserve = Preserve.None))
+        expect(navigator.state()).toBe(null)
     }
 }

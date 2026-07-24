@@ -12,5 +12,5 @@ class NavigateOptions(
     /**
      * Choose things to preserve when navigating
      */
-    val preserve: Preserve = Preserve.None
+    val preserve: Preserve = Preserve.Both
 )

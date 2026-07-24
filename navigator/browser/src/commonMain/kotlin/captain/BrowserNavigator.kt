@@ -20,10 +20,13 @@ class BrowserNavigator(private val syncWithAddressBar: Boolean) : Navigator {
     override fun current() = Url(window.location.href)
 
     override fun navigate(path: String, options: NavigateOptions) {
-        val url = route.value.resolve(path, options.preserve == Preserve.Query || options.preserve == Preserve.Both)
+        val url = route.value.resolve(path, options.preserve == Preserve.QueryOnly || options.preserve == Preserve.Both)
         route.value = url
-        if (options.preserve != Preserve.None || options.preserve != Preserve.Both) {
-            states[url] = options.state
+        val state = options.state
+        if (state != null) {
+            states[url] = state
+        } else if (options.preserve == Preserve.None || options.preserve == Preserve.QueryOnly) {
+            states.remove(url)
         }
         if (options.record && syncWithAddressBar) pushState()
     }
@@ -32,7 +35,7 @@ class BrowserNavigator(private val syncWithAddressBar: Boolean) : Navigator {
         window.history.pushState(null, document.title, route.value.path)
     }
 
-    override fun state(): Any? = states[current()]
+    override fun state(): Any? = states[route.value]
 
     override fun go(steps: Int) = window.history.go(steps)
 
