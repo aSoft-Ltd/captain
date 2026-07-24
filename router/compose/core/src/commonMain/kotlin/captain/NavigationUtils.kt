@@ -3,6 +3,7 @@
 package captain
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.compositionLocalOf
 import kiota.Url
 
@@ -17,7 +18,9 @@ inline fun rememberNavigator(): Navigator = LocalNavigator.current
 @Composable
 inline fun Navigate(to: String, record: Boolean = false) {
     val navigator = LocalNavigator.current
-    navigator.navigate(to, record)
+    LaunchedEffect(to, record) {
+        navigator.navigate(to, record)
+    }
 }
 
 @Composable

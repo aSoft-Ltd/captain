@@ -25,7 +25,7 @@ import kotlin.time.Duration.Companion.seconds
  */
 
 val navigator = BasicNavigator("/")
-fun main() = singleWindowApplication {
+fun mainold() = singleWindowApplication {
     Column {
         Text(
             text = navigator.route.watchAsState().toString()

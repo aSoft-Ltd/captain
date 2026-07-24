@@ -3,6 +3,7 @@ package captain
 import kiota.Url
 import kommander.expect
 import kotlin.test.Test
+import kotlin.test.fail
 
 abstract class AbstractNavigatorTest {
 
@@ -28,5 +29,24 @@ abstract class AbstractNavigatorTest {
         navigator.navigate("/customers?callback=$callback")
         val root = Url(initial).root
         expect(navigator.route.value).toBe(Url("$root/customers?callback=$callback"))
+    }
+
+    @Test
+    fun should_be_able_to_navigate_with_query_parameters() {
+        navigator.navigate("/customers?callback=https://example.com")
+        val root = Url(initial).root
+        expect(navigator.route.value).toBe(Url("$root/customers?callback=https://example.com"))
+    }
+
+    @Test
+    fun should_be_able_preserve_query_parameters_when_navigating() {
+        println("Navigating with callback")
+        navigator.navigate("/customers?callback=https://example.com")
+        println("Navigated with callback")
+        println("After navigation (navigation.current() = ${navigator.current()})")
+        println("After navigation (route.value = ${navigator.route.value})")
+        val root = Url(initial).root
+        navigator.navigate("/people", NavigateOptions(preserve = Preserve.Query))
+        expect(navigator.route.value).toBe(Url("$root/people?callback=https://example.com"))
     }
 }

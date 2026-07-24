@@ -21,9 +21,18 @@ interface Navigator {
      *               If false, it will not record the navigation, prohibiting the user from going back to it.
      */
     @JsName("navigateWithState")
-    fun navigate(path: String, record: Boolean = true, state: Any?)
+    fun navigate(path: String, record: Boolean, state: Any?) = navigate(path, NavigateOptions(record, state))
 
-    fun navigate(path: String, record: Boolean = true)
+    @JsName("navigateAndRecord")
+    fun navigate(path: String, record: Boolean) = navigate(path, NavigateOptions(record))
+
+    @JsName("navigateAndPreserve")
+    fun navigate(path: String, preserve: Preserve) = navigate(path, NavigateOptions(preserve = preserve))
+
+    @JsName("navigateAndPreserveAndRecord")
+    fun navigate(path: String, preserve: Preserve, record: Boolean) = navigate(path, NavigateOptions(preserve = preserve, record = record))
+
+    fun navigate(path: String, options: NavigateOptions = NavigateOptions())
 
     fun go(steps: Int)
 }

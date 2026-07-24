@@ -14,7 +14,7 @@ import captain.Route
 import captain.Router
 import captain.Routes
 
-fun mainold() = singleWindowApplication {
+fun main() = singleWindowApplication {
     Router("/customers/andy") {
         val navigator = LocalNavigator.current
         Column {
@@ -41,7 +41,7 @@ fun mainold() = singleWindowApplication {
                                 Route("contacts") {
                                     Text("/contacts")
                                 }
-                                Route("customers") {
+                                Route("customers/*") {
                                     Column {
                                         var uid by remember { mutableStateOf("012") }
                                         Row {
@@ -55,13 +55,16 @@ fun mainold() = singleWindowApplication {
                                         }
 
                                         Routes {
+                                            Route("/") {
+                                                Text("Customers index")
+                                            }
                                             Route("andy") {
                                                 Text("Customer Andylamax")
                                             }
                                             Route("*") {
                                                 Text("Customer list")
                                             }
-                                            Route("{uid}") { uid ->
+                                            Route("{uid}") { (uid) ->
                                                 Text("Customer details for $uid")
                                             }
                                         }

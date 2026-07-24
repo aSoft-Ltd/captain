@@ -26,4 +26,15 @@ class RouterMatcherTest {
         val selected = matches.bestMatch()
         expect(selected?.match?.pattern?.path).toBe("/posts")
     }
+
+    @Test
+    fun should_be_able_to_match_dynamic_parameters() {
+        val options = listOf("/posts/{uid}/*", "/posts").map {
+            RouteConfig(Url(it), it)
+        }
+
+        val matches = options.matches("/posts/345")
+        val selected = matches.bestMatch()
+        expect(selected?.match?.pattern?.path).toBe("/posts/{uid}/*")
+    }
 }

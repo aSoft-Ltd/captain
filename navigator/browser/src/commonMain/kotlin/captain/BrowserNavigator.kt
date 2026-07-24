@@ -14,22 +14,18 @@ class BrowserNavigator(private val syncWithAddressBar: Boolean) : Navigator {
     private val states = mutableMapOf<Url, Any?>()
 
     init {
-        if (syncWithAddressBar) window.onpopstate = { navigate(current().path, record = false) }
+        if (syncWithAddressBar) window.onpopstate = { navigate(current().toString(), record = false) }
     }
 
     override fun current() = Url(window.location.href)
 
-    override fun navigate(path: String, record: Boolean, state: Any?) {
-        val url = current().resolve(path)
+    override fun navigate(path: String, options: NavigateOptions) {
+        val url = route.value.resolve(path, options.preserve == Preserve.Query || options.preserve == Preserve.Both)
         route.value = url
-        states[url] = state
-        if (record && syncWithAddressBar) pushState()
-    }
-
-    override fun navigate(path: String, record: Boolean) {
-        val url = current().resolve(path)
-        route.value = url
-        if (record && syncWithAddressBar) pushState()
+        if (options.preserve != Preserve.None || options.preserve != Preserve.Both) {
+            states[url] = options.state
+        }
+        if (options.record && syncWithAddressBar) pushState()
     }
 
     private fun pushState() {

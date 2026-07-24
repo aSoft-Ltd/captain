@@ -19,18 +19,13 @@ class BasicNavigator(private val root: String) : Navigator {
 
     override fun current(): Url = route.value
 
-    override fun navigate(path: String, record: Boolean, state: Any?) {
-        val url = current().resolve(path)
+    override fun navigate(path: String, options: NavigateOptions) {
+        val url = current().resolve(path, options.preserve == Preserve.Query || options.preserve == Preserve.Both)
         route.value = url
-        states[url] = state
-        if (!record) return
-        history.insertTrimmingTop(url)
-    }
-
-    override fun navigate(path: String, record: Boolean) {
-        val url = current().resolve(path)
-        route.value = url
-        if (!record) return
+        if (options.preserve != Preserve.None || options.preserve != Preserve.Both) {
+            states[url] = options.state
+        }
+        if (!options.record) return
         history.insertTrimmingTop(url)
     }
 
